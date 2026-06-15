@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wallarm · Identity & Access — prototype (A/B)</title>
+<title>Wallarm · Identity & Access — prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,14 +14,9 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
 --w-orange-600:#FF441C;--slate-900:#0F172B;--slate-700:#334155;--slate-500:#62748E;--slate-400:#94A3B8;--slate-300:#CAD5E2;--slate-200:#E2E8F0;--slate-100:#F1F5F9;--slate-50:#F8FAFC;--green-600:#00A63E;--red-600:#E7000B;--blue-600:#155DFC;--radius-8:8px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .topbar{max-width:1080px;margin:0 auto 12px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.brand{font-size:14px;color:var(--slate-700)}
-.brand b{font-weight:600;color:var(--slate-900)}
-.vtoggle{display:flex;border:1px solid var(--slate-300);border-radius:var(--radius-8);overflow:hidden}
-.vbtn{font-family:inherit;font-size:13px;font-weight:500;padding:8px 16px;border:none;background:#fff;color:var(--slate-500);cursor:pointer}
-.vbtn.on{background:var(--slate-900);color:#fff}
-.vnote{max-width:1080px;margin:0 auto 14px;font-size:13px;color:var(--slate-500);line-height:1.5;display:flex;gap:8px;align-items:flex-start}
-.vnote i{color:var(--w-orange-600);font-size:15px;margin-top:1px}
-.vnote b{font-weight:500;color:var(--slate-700)}
+.brand{font-size:14px;color:var(--slate-700)}.brand b{font-weight:600;color:var(--slate-900)}
+.model{font-size:12px;color:var(--slate-500);background:#fff;border:1px solid var(--slate-200);border-radius:9999px;padding:5px 12px}
+.model b{font-weight:500;color:var(--slate-700)}
 .wapp{color:var(--slate-900);position:relative;display:flex;min-height:600px;max-width:1080px;margin:0 auto;border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .mono{font-family:'Geist Mono',ui-monospace,monospace}
 .wapp .subnav{width:224px;flex:none;border-right:1px solid var(--slate-200);padding:16px 12px;background:#fff}
@@ -45,19 +40,20 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
 .wapp th{font-size:12px;font-weight:500;color:var(--slate-500);text-align:left;padding:8px;text-transform:uppercase;letter-spacing:.03em}
 .wapp td{padding:13px 8px;border-top:1px solid var(--slate-200);font-size:14px;vertical-align:top}
 .wapp tr[data-go]{cursor:pointer}.wapp tr[data-go]:hover td{background:var(--slate-50)}
-.tag{font-family:'Geist Mono',ui-monospace,monospace;background:var(--slate-100);color:var(--slate-700);padding:2px 6px;border-radius:4px;font-size:12px;display:inline-block;margin:2px 3px 2px 0;cursor:pointer}
+.tag{font-family:'Geist Mono',ui-monospace,monospace;background:var(--slate-100);color:var(--slate-700);padding:2px 6px;border-radius:4px;font-size:12px;display:inline-block;margin:2px 3px 2px 0}
 .verb{display:inline-block;background:var(--slate-100);color:var(--slate-700);font-size:13px;padding:3px 9px;border-radius:6px;margin:2px 4px 2px 0}
 .pill{display:inline-flex;align-items:center;gap:5px;background:var(--slate-100);color:var(--slate-700);font-size:12px;padding:3px 9px;border-radius:9999px}
 .wapp .toolbar{display:flex;align-items:center;gap:10px;margin-bottom:4px}
 .wapp .search{flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:8px 11px;color:var(--slate-400);font-size:14px}
 .wapp .sel{display:flex;align-items:center;gap:6px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:8px 11px;font-size:14px;color:var(--slate-700)}
 .wapp .foot{font-size:13px;color:var(--slate-500);margin-top:14px}
-.wapp .stat{background:var(--slate-50);border-radius:var(--radius-8);padding:10px 12px;flex:1}
 .wapp .info{display:flex;gap:9px;background:#F0F7FF;border:1px solid #BFD9F7;border-radius:var(--radius-8);padding:11px 13px;font-size:13px;color:#0C447C;line-height:1.5}
 .wapp .crow{display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
 .wapp .overlay{position:absolute;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
 .wapp .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:hidden}
 .chip{display:inline-flex;align-items:center;gap:6px;background:var(--slate-100);color:var(--slate-700);padding:4px 8px;border-radius:6px;font-size:13px;margin:2px}
+.opt{display:flex;align-items:flex-start;justify-content:space-between;padding:9px 12px;cursor:pointer}
+.opt:hover{background:var(--slate-50)}
 .revoke{font-family:inherit;font-size:12px;font-weight:500;color:var(--red-600);background:none;border:none;padding:2px 0;cursor:pointer;margin-top:4px}
 .wapp .quickball{position:absolute;right:18px;bottom:18px;width:46px;height:46px;border-radius:9999px;background:var(--w-orange-600);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:40;box-shadow:0 4px 14px rgba(255,68,28,.4);border:none}
 .wapp .qmenu{position:absolute;right:18px;bottom:74px;background:#fff;border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:6px;display:none;z-index:40;box-shadow:0 8px 24px rgba(0,0,0,.14);min-width:196px}
@@ -68,19 +64,14 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
 </style>
 </head>
 <body>
-<h2 class="sr-only">Two-variant interactive prototype of the Wallarm identity and access experience with a version switcher.</h2>
+<h2 class="sr-only">Interactive prototype of the Wallarm identity and access experience: role required, group optional.</h2>
 
 <div class="topbar">
   <div class="brand"><b>Wallarm</b> · Identity &amp; Access — prototype</div>
-  <div class="vtoggle">
-    <button class="vbtn on" data-ver="a">A · Direct roles</button>
-    <button class="vbtn" data-ver="b">B · Group-driven</button>
-  </div>
+  <div class="model">Model: <b>role required</b>, group optional</div>
 </div>
-<div class="vnote" id="vnote"></div>
 
-<!-- ============================ VERSION A — DIRECT ROLES ============================ -->
-<div class="wapp" data-ver="a" data-home="users">
+<div class="wapp" data-home="users">
   <div class="subnav">
     <div class="subhdr">Identity &amp; Access</div>
     <div class="navitem" data-nav="users" data-go="users">Users</div>
@@ -93,14 +84,14 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
       <div class="crumb">Identity &amp; Access <i>›</i> Users</div>
       <div class="phead"><div><h1>Users</h1><div class="sub">People with access to Acme Corp · prod.</div></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
       <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="sel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div></div>
-      <table><colgroup><col style="width:36%"><col style="width:20%"><col style="width:11%"><col style="width:19%"><col style="width:14%"></colgroup>
-        <thead><tr><th>User</th><th>Type</th><th>Groups</th><th>Status</th><th>Last active</th></tr></thead>
+      <table><colgroup><col style="width:34%"><col style="width:18%"><col style="width:24%"><col style="width:14%"><col style="width:10%"></colgroup>
+        <thead><tr><th>User</th><th>Type</th><th>Access</th><th>Status</th><th>Active</th></tr></thead>
         <tbody>
-          <tr data-go="user-access"><td><span style="color:var(--blue-600)">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td>2</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d ago</td></tr>
-          <tr><td><span style="color:var(--blue-600)">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td>1</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d ago</td></tr>
-          <tr><td><span style="color:var(--blue-600)">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td>1</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke">Revoke invite</button></div></td><td>—</td></tr>
-          <tr><td><span class="mono" style="color:var(--blue-600);font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td>0</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h ago</td></tr>
-          <tr data-invited style="display:none"><td><span style="color:var(--blue-600)">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td>1</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke">Revoke invite</button></div></td><td>—</td></tr>
+          <tr data-go="user-access"><td><span style="color:var(--blue-600)">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">dataplane-admin, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr>
+          <tr><td><span style="color:var(--blue-600)">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d</td></tr>
+          <tr><td><span class="mono" style="color:var(--blue-600);font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td style="color:var(--slate-700);font-size:13px">ci-deploy <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h</td></tr>
+          <tr><td><span style="color:var(--blue-600)">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke">Revoke invite</button></div></td><td>—</td></tr>
+          <tr data-invited style="display:none"><td><span style="color:var(--blue-600)">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke">Revoke invite</button></div></td><td>—</td></tr>
         </tbody></table>
       <div class="foot">Showing 4 of 12 users</div>
     </div>
@@ -109,20 +100,14 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
       <div class="crumb"><a data-go="users">Identity &amp; Access</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
       <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill"><i class="ti ti-user" style="font-size:13px"></i>User</span></div><button class="btnX" data-action="deactivate">Deactivate</button></div>
       <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Membership</span><span class="tab">Tokens (1)</span></div>
-      <div class="sub" style="margin:0 0 14px">Everything Maria can do, resolved from her roles and groups. Read-only — change it in <a data-go="user-membership" style="color:var(--blue-600);cursor:pointer">Membership</a>.</div>
-      <div style="display:flex;gap:10px;margin-bottom:16px">
-        <div class="stat"><div style="font-size:12px;color:var(--slate-500)">Services</div><div style="font-size:20px;font-weight:600">4</div></div>
-        <div class="stat"><div style="font-size:12px;color:var(--slate-500)">Permissions</div><div style="font-size:20px;font-weight:600">6</div></div>
-        <div class="stat"><div style="font-size:12px;color:var(--slate-500)">From roles</div><div style="font-size:20px;font-weight:600">2</div></div>
-        <div class="stat"><div style="font-size:12px;color:var(--slate-500)">From groups</div><div style="font-size:20px;font-weight:600">2</div></div>
-      </div>
+      <div class="sub" style="margin:0 0 14px">Everything Maria can do, resolved from her role and group. Read-only — change it in <a data-go="user-membership" style="color:var(--blue-600);cursor:pointer">Membership</a>.</div>
       <table><colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
         <thead><tr><th>Service</th><th>Can</th><th>Via</th></tr></thead>
         <tbody>
-          <tr><td style="font-weight:500">Rules</td><td><span class="tag">rules:read</span><span class="tag">rules:write</span><span class="tag">rules:deploy</span></td><td><span class="tag" data-go="role-detail">dataplane-admin</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
-          <tr><td style="font-weight:500">Attacks</td><td><span class="tag">attacks:read</span></td><td><span class="tag">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">via SOC tier 1</div></td></tr>
-          <tr><td style="font-weight:500">Incidents</td><td><span class="tag">incidents:read</span></td><td><span class="tag">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">via SOC tier 1</div></td></tr>
-          <tr><td style="font-weight:500">Sensitive data</td><td><span class="tag">sensitive-data:read</span></td><td><span class="tag">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">via SOC tier 1</div></td></tr>
+          <tr><td style="font-weight:500">Rules</td><td><span class="tag">rules:read</span><span class="tag">rules:write</span><span class="tag">rules:deploy</span></td><td><span style="color:var(--blue-600);cursor:pointer" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
+          <tr><td style="font-weight:500">Integrations</td><td><span class="tag">integrations:read</span><span class="tag">integrations:write</span></td><td><span style="color:var(--blue-600);cursor:pointer" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
+          <tr><td style="font-weight:500">Attacks</td><td><span class="tag">attacks:read</span></td><td><span class="tag" data-go="role-detail">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
+          <tr><td style="font-weight:500">Incidents</td><td><span class="tag">incidents:read</span></td><td><span class="tag" data-go="role-detail">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
         </tbody></table>
     </div>
 
@@ -130,33 +115,48 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
       <div class="crumb"><a data-go="users">Identity &amp; Access</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
       <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill"><i class="ti ti-user" style="font-size:13px"></i>User</span></div><button class="btnX" data-action="deactivate">Deactivate</button></div>
       <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Membership</span><span class="tab">Tokens (1)</span></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin:6px 0 10px"><div style="font-size:15px;font-weight:600">Roles (2)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign roles</button></div>
+      <div class="info" style="margin:0 0 16px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Access comes from <b style="font-weight:500">direct roles</b> and <b style="font-weight:500">groups</b> (each group carries its own roles). At least one role is always required; groups are optional.</div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Direct roles (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
       <table><tbody>
-        <tr data-go="role-detail"><td style="border-top:none;padding-top:6px"><span class="mono" style="color:var(--blue-600);font-size:13px">dataplane-admin</span></td><td style="border-top:none;text-align:right;color:var(--slate-500);font-size:13px">direct</td></tr>
-        <tr><td><span class="mono" style="color:var(--blue-600);font-size:13px">soc-analyst</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">direct</td></tr>
+        <tr data-go="role-detail"><td style="border-top:none;padding-top:6px"><span class="mono" style="color:var(--blue-600);font-size:13px">soc-analyst</span></td><td style="border-top:none;text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr>
       </tbody></table>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Groups (2)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
-      <table><tbody>
-        <tr data-go="groups"><td style="border-top:none;padding-top:6px"><span style="color:var(--blue-600)">SOC tier 1</span></td><td style="border-top:none;text-align:right;color:var(--slate-500);font-size:13px">14 members</td></tr>
-        <tr data-go="groups"><td><span style="color:var(--blue-600)">Security engineering</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">8 members</td></tr>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Groups (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
+      <table><colgroup><col style="width:36%"><col style="width:42%"><col style="width:22%"></colgroup><tbody>
+        <tr><td data-go="group-detail" style="color:var(--blue-600);cursor:pointer">Platform engineering</td><td><span style="font-size:13px;color:var(--slate-500)">grants</span> <span class="tag">dataplane-admin</span></td><td style="text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr>
       </tbody></table>
     </div>
 
     <div class="screen" data-screen="groups">
       <div class="crumb">Identity &amp; Access <i>›</i> Groups</div>
-      <div class="phead"><div><h1>Groups</h1><div class="sub">Bundle users together and attach roles once.</div></div><button class="btnP"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add group</button></div>
-      <table><colgroup><col style="width:34%"><col style="width:16%"><col style="width:34%"><col style="width:16%"></colgroup>
-        <thead><tr><th>Group</th><th>Members</th><th>Attached roles</th><th>Created</th></tr></thead>
+      <div class="phead"><div><h1>Groups</h1><div class="sub">Optional. Bundle people and attach roles once — useful at scale.</div></div><button class="btnP"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add group</button></div>
+      <table><colgroup><col style="width:32%"><col style="width:16%"><col style="width:36%"><col style="width:16%"></colgroup>
+        <thead><tr><th>Group</th><th>Members</th><th>Grants roles</th><th>Created</th></tr></thead>
         <tbody>
-          <tr><td><span style="color:var(--blue-600)">SOC tier 1</span></td><td>14</td><td><span class="tag">soc-analyst</span></td><td>12 Mar 2026</td></tr>
-          <tr><td><span style="color:var(--blue-600)">Security engineering</span></td><td>8</td><td><span class="tag">dataplane-admin</span><span class="tag">incident-responder</span></td><td>03 Feb 2026</td></tr>
+          <tr data-go="group-detail"><td><span style="color:var(--blue-600)">Platform engineering</span></td><td>4</td><td><span class="tag">dataplane-admin</span></td><td>11 Jan 2026</td></tr>
+          <tr data-go="group-detail"><td><span style="color:var(--blue-600)">SOC tier 1</span></td><td>14</td><td><span class="tag">soc-analyst</span></td><td>12 Mar 2026</td></tr>
+          <tr data-go="group-detail"><td><span style="color:var(--blue-600)">Compliance</span></td><td>7</td><td><span class="tag">read-only-auditor</span></td><td>21 Jan 2026</td></tr>
         </tbody></table>
-      <div class="foot">Showing 2 of 6 groups</div>
+      <div class="foot">Showing 3 of 6 groups</div>
+    </div>
+
+    <div class="screen" data-screen="group-detail">
+      <div class="crumb"><a data-go="groups">Identity &amp; Access</a> <i>›</i> <a data-go="groups">Groups</a> <i>›</i> Platform engineering</div>
+      <div class="phead"><div><h1>Platform engineering</h1><div class="sub">4 members · grants 1 role</div></div><button class="btnX">Delete</button></div>
+      <div class="info" style="margin-bottom:18px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Everyone in this group automatically gets the roles below — that's the point of a group.</div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles granted (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
+      <table><tbody>
+        <tr data-go="role-detail"><td style="border-top:none;padding-top:6px"><span class="mono" style="color:var(--blue-600);font-size:13px">dataplane-admin</span></td><td style="border-top:none;color:var(--slate-500);font-size:13px">manage rules &amp; integrations, read API discovery</td></tr>
+      </tbody></table>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Members (4)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
+      <table><tbody>
+        <tr data-go="user-access"><td style="border-top:none;padding-top:6px"><span style="color:var(--blue-600)">Maria Hernandez</span></td><td style="border-top:none;text-align:right;color:var(--slate-500);font-size:13px">8d ago</td></tr>
+        <tr><td><span style="color:var(--blue-600)">Wen Li</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">3d ago</td></tr>
+      </tbody></table>
     </div>
 
     <div class="screen" data-screen="roles">
       <div class="crumb">Identity &amp; Access <i>›</i> Roles</div>
-      <div class="phead"><div><h1>Roles</h1><div class="sub">Reusable permission sets you attach to users and groups.</div></div><button class="btnP"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add role</button></div>
+      <div class="phead"><div><h1>Roles</h1><div class="sub">Reusable permission sets. Assigned to people directly or via groups.</div></div><button class="btnP"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add role</button></div>
       <table><colgroup><col style="width:40%"><col style="width:26%"><col style="width:17%"><col style="width:17%"></colgroup>
         <thead><tr><th>Role</th><th>Attached to</th><th>Created</th><th>Updated</th></tr></thead>
         <tbody>
@@ -182,20 +182,29 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
   <div class="overlay">
     <div class="dialog">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)">
-        <div><div style="font-size:17px;font-weight:600">Invite users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Assign a role now — they'll appear as Invited until they accept.</div></div>
+        <div><div style="font-size:17px;font-weight:600">Invite users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Grant access by group or role — at least one is required.</div></div>
         <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" data-action="closeInvite" aria-label="Close"></i>
       </div>
       <div style="padding:16px 20px">
         <div style="font-size:14px;font-weight:600;margin-bottom:7px">Email addresses</div>
-        <div style="border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:7px;display:flex;flex-wrap:wrap;align-items:center;margin-bottom:16px"><span class="chip">priya.shah@acme.com <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span></div>
-        <div style="font-size:14px;font-weight:600;margin-bottom:7px">Assign roles</div>
-        <div style="margin-bottom:16px"><span class="tag" style="cursor:default">soc-analyst</span><button class="btnD" style="border-style:dashed;font-size:13px;padding:4px 10px"><i class="ti ti-plus" style="font-size:13px"></i> Assign</button></div>
-        <div style="font-size:14px;font-weight:600;margin-bottom:7px">Add to groups <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
-        <div><span class="chip">SOC tier 1 <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span></div>
+        <div style="border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:7px;display:flex;flex-wrap:wrap;align-items:center;margin-bottom:18px"><span class="chip">priya.shah@acme.com <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span></div>
+        <div style="font-size:14px;font-weight:600;margin-bottom:3px">Access <span style="color:var(--red-600)">·</span> <span style="font-weight:400;color:var(--slate-400)">required</span></div>
+        <div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Pick a group (roles included) or a role directly.</div>
+        <div class="acc-chips" style="display:flex;flex-wrap:wrap;margin-bottom:8px"></div>
+        <div class="acc-list" style="border:1px solid var(--slate-300);border-radius:var(--radius-8);overflow:hidden">
+          <div style="display:flex;align-items:center;gap:7px;padding:8px 11px;border-bottom:1px solid var(--slate-200);color:var(--slate-400);font-size:14px"><i class="ti ti-search" style="font-size:15px"></i>Search groups or roles…</div>
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:8px 12px 4px">Groups · roles included</div>
+          <div class="opt" data-add data-kind="group" data-label="SOC tier 1" data-role="soc-analyst" data-perms="attacks:read,incidents:read,sensitive-data:read"><div><div style="font-size:14px;display:flex;align-items:center;gap:6px"><i class="ti ti-users-group" style="font-size:14px;color:var(--slate-500)"></i>SOC tier 1</div><div style="font-size:12px;color:var(--slate-400);margin-top:2px">grants soc-analyst</div></div><span style="font-size:12px;color:var(--blue-600);align-self:center">Add</span></div>
+          <div class="opt" data-add data-kind="group" data-label="Platform engineering" data-role="dataplane-admin" data-perms="rules:read,rules:write,rules:deploy,integrations:read,integrations:write"><div><div style="font-size:14px;display:flex;align-items:center;gap:6px"><i class="ti ti-users-group" style="font-size:14px;color:var(--slate-500)"></i>Platform engineering</div><div style="font-size:12px;color:var(--slate-400);margin-top:2px">grants dataplane-admin</div></div><span style="font-size:12px;color:var(--blue-600);align-self:center">Add</span></div>
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:10px 12px 4px;border-top:1px solid var(--slate-200)">Roles · assign directly</div>
+          <div class="opt" data-add data-kind="role" data-label="read-only-auditor" data-perms="attacks:read,rules:read,api-discovery:read"><div style="font-size:14px"><span class="mono" style="font-size:13px">read-only-auditor</span></div><span style="font-size:12px;color:var(--blue-600);align-self:center">Add</span></div>
+          <div class="opt" data-add data-kind="role" data-label="dataplane-admin" data-perms="rules:read,rules:write,rules:deploy,integrations:read,integrations:write"><div style="font-size:14px"><span class="mono" style="font-size:13px">dataplane-admin</span></div><span style="font-size:12px;color:var(--blue-600);align-self:center">Add</span></div>
+        </div>
+        <div class="acc-preview" style="display:none;background:var(--slate-50);border-radius:var(--radius-8);padding:11px 13px;margin-top:14px;font-size:13px"><div style="font-size:12px;color:var(--slate-500);margin-bottom:5px">Priya will be able to</div><div class="acc-preview-tags"></div></div>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50)">
         <button class="btnD" data-action="closeInvite">Cancel</button>
-        <button class="btnP" data-action="send">Send invite</button>
+        <button class="btnP" data-action="send" disabled style="opacity:.5;cursor:not-allowed">Send invite</button>
       </div>
     </div>
   </div>
@@ -203,151 +212,12 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
   <button class="quickball" aria-label="Jump to screen"><i class="ti ti-layout-grid" style="font-size:20px"></i></button>
   <div class="qmenu">
     <div class="qh">Jump to screen</div>
-    <div data-go="users">Users list</div><div data-go="user-access">User · Access</div><div data-go="user-membership">User · Membership</div><div data-go="groups">Groups</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div>
-  </div>
-</div>
-
-<!-- ============================ VERSION B — GROUP-DRIVEN ============================ -->
-<div class="wapp" data-ver="b" data-home="users" style="display:none">
-  <div class="subnav">
-    <div class="subhdr">Identity &amp; Access</div>
-    <div class="navitem" data-nav="users" data-go="users">Users</div>
-    <div class="navitem" data-nav="groups" data-go="groups">Groups</div>
-    <div class="navitem" data-nav="roles" data-go="roles">Roles</div>
-  </div>
-  <div class="canvas">
-
-    <div class="screen" data-screen="users">
-      <div class="crumb">Identity &amp; Access <i>›</i> Users</div>
-      <div class="phead"><div><h1>Users</h1><div class="sub">Access is granted through group membership.</div></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
-      <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="sel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div></div>
-      <table><colgroup><col style="width:34%"><col style="width:18%"><col style="width:20%"><col style="width:16%"><col style="width:12%"></colgroup>
-        <thead><tr><th>User</th><th>Type</th><th>Groups</th><th>Status</th><th>Last active</th></tr></thead>
-        <tbody>
-          <tr data-go="user-access"><td><span style="color:var(--blue-600)">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">Platform eng, SOC tier 1</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d ago</td></tr>
-          <tr><td><span style="color:var(--blue-600)">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">SOC tier 1</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d ago</td></tr>
-          <tr><td><span style="color:var(--blue-600)">Tom Becker</span><div style="font-size:12px;color:var(--slate-400)">tom.becker@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td><span style="color:var(--red-600);font-size:13px"><i class="ti ti-alert-triangle" style="font-size:13px;vertical-align:-2px"></i> No groups · no access</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>40d ago</td></tr>
-          <tr><td><span style="color:var(--blue-600)">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">SOC tier 1</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke">Revoke invite</button></div></td><td>—</td></tr>
-          <tr data-invited style="display:none"><td><span style="color:var(--blue-600)">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">SOC tier 1</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke">Revoke invite</button></div></td><td>—</td></tr>
-        </tbody></table>
-      <div class="foot">Showing 4 of 12 users</div>
-    </div>
-
-    <div class="screen" data-screen="user-access">
-      <div class="crumb"><a data-go="users">Identity &amp; Access</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-      <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill"><i class="ti ti-user" style="font-size:13px"></i>User</span></div><button class="btnX" data-action="deactivate">Deactivate</button></div>
-      <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-groups">Groups (2)</span><span class="tab">Tokens (1)</span></div>
-      <div class="info" style="margin-bottom:16px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Maria's access comes <b style="font-weight:500">entirely from her groups</b>. To change what she can do, change her group membership — there are no per-person roles in this model.</div></div>
-      <table><colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
-        <thead><tr><th>Service</th><th>Can</th><th>Via group</th></tr></thead>
-        <tbody>
-          <tr><td style="font-weight:500">Rules</td><td><span class="tag">rules:read</span><span class="tag">rules:write</span><span class="tag">rules:deploy</span></td><td><span style="color:var(--blue-600);cursor:pointer" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">role: dataplane-admin</div></td></tr>
-          <tr><td style="font-weight:500">Attacks</td><td><span class="tag">attacks:read</span></td><td><span style="color:var(--blue-600);cursor:pointer" data-go="group-detail">SOC tier 1</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">role: soc-analyst</div></td></tr>
-          <tr><td style="font-weight:500">Incidents</td><td><span class="tag">incidents:read</span></td><td><span style="color:var(--blue-600);cursor:pointer" data-go="group-detail">SOC tier 1</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">role: soc-analyst</div></td></tr>
-        </tbody></table>
-    </div>
-
-    <div class="screen" data-screen="user-groups">
-      <div class="crumb"><a data-go="users">Identity &amp; Access</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-      <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill"><i class="ti ti-user" style="font-size:13px"></i>User</span></div><button class="btnX" data-action="deactivate">Deactivate</button></div>
-      <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Groups (2)</span><span class="tab">Tokens (1)</span></div>
-      <div class="sub" style="margin:2px 0 12px">Membership is the only lever — each group grants its roles automatically.</div>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:10px"><button class="btnP"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to groups</button></div>
-      <table><colgroup><col style="width:34%"><col style="width:44%"><col style="width:22%"></colgroup>
-        <thead><tr><th>Group</th><th>Grants role</th><th></th></tr></thead>
-        <tbody>
-          <tr><td data-go="group-detail" style="color:var(--blue-600);cursor:pointer">Platform engineering</td><td><span class="tag">dataplane-admin</span></td><td style="text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr>
-          <tr><td data-go="group-detail" style="color:var(--blue-600);cursor:pointer">SOC tier 1</td><td><span class="tag">soc-analyst</span></td><td style="text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr>
-        </tbody></table>
-    </div>
-
-    <div class="screen" data-screen="groups">
-      <div class="crumb">Identity &amp; Access <i>›</i> Groups</div>
-      <div class="phead"><div><h1>Groups</h1><div class="sub">The unit of access. Attach roles here; members inherit them.</div></div><button class="btnP"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add group</button></div>
-      <table><colgroup><col style="width:32%"><col style="width:16%"><col style="width:36%"><col style="width:16%"></colgroup>
-        <thead><tr><th>Group</th><th>Members</th><th>Grants roles</th><th>Created</th></tr></thead>
-        <tbody>
-          <tr data-go="group-detail"><td><span style="color:var(--blue-600)">Platform engineering</span></td><td>4</td><td><span class="tag">dataplane-admin</span></td><td>11 Jan 2026</td></tr>
-          <tr data-go="group-detail"><td><span style="color:var(--blue-600)">SOC tier 1</span></td><td>14</td><td><span class="tag">soc-analyst</span></td><td>12 Mar 2026</td></tr>
-          <tr data-go="group-detail"><td><span style="color:var(--blue-600)">Compliance</span></td><td>7</td><td><span class="tag">read-only-auditor</span></td><td>21 Jan 2026</td></tr>
-        </tbody></table>
-      <div class="foot">Showing 3 of 6 groups</div>
-    </div>
-
-    <div class="screen" data-screen="group-detail">
-      <div class="crumb"><a data-go="groups">Identity &amp; Access</a> <i>›</i> <a data-go="groups">Groups</a> <i>›</i> Platform engineering</div>
-      <div class="phead"><div><h1>Platform engineering</h1><div class="sub">4 members · grants 1 role</div></div><button class="btnX">Delete</button></div>
-      <div class="info" style="margin-bottom:18px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Everyone in this group automatically gets the roles below. This is where access is defined.</div></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles granted (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
-      <table><tbody>
-        <tr data-go="role-detail"><td style="border-top:none;padding-top:6px"><span class="mono" style="color:var(--blue-600);font-size:13px">dataplane-admin</span></td><td style="border-top:none;color:var(--slate-500);font-size:13px">manage rules &amp; integrations, read API discovery</td></tr>
-      </tbody></table>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Members (4)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
-      <table><tbody>
-        <tr data-go="user-access"><td style="border-top:none;padding-top:6px"><span style="color:var(--blue-600)">Maria Hernandez</span></td><td style="border-top:none;text-align:right;color:var(--slate-500);font-size:13px">8d ago</td></tr>
-        <tr><td><span style="color:var(--blue-600)">Wen Li</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">3d ago</td></tr>
-      </tbody></table>
-    </div>
-
-    <div class="screen" data-screen="roles">
-      <div class="crumb">Identity &amp; Access <i>›</i> Roles</div>
-      <div class="phead"><div><h1>Roles</h1><div class="sub">Permission sets. Attached to groups, never to people directly.</div></div><button class="btnP"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add role</button></div>
-      <table><colgroup><col style="width:40%"><col style="width:26%"><col style="width:17%"><col style="width:17%"></colgroup>
-        <thead><tr><th>Role</th><th>Used by</th><th>Created</th><th>Updated</th></tr></thead>
-        <tbody>
-          <tr data-go="role-detail"><td><span class="mono" style="color:var(--blue-600);font-size:13px">dataplane-admin</span></td><td style="color:var(--slate-700)">2 groups</td><td>11 Jan 2026</td><td>2d ago</td></tr>
-          <tr><td><span class="mono" style="color:var(--blue-600);font-size:13px">soc-analyst</span></td><td style="color:var(--slate-700)">2 groups</td><td>11 Jan 2026</td><td>9d ago</td></tr>
-        </tbody></table>
-      <div class="foot">Showing 2 of 7 roles</div>
-    </div>
-
-    <div class="screen" data-screen="role-detail">
-      <div class="crumb"><a data-go="roles">Identity &amp; Access</a> <i>›</i> <a data-go="roles">Roles</a> <i>›</i> dataplane-admin</div>
-      <div class="phead"><div><h1 class="mono" style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Used by <span style="color:var(--blue-600);cursor:pointer" data-go="group-detail">2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
-      <div class="info" style="margin-bottom:18px"><i class="ti ti-users-group" style="font-size:16px;color:#155DFC"></i><div>This role is granted <b style="font-weight:500">only through groups</b> — it can't be assigned to a person directly.</div></div>
-      <div style="font-size:16px;font-weight:600;margin-bottom:12px">Permissions</div>
-      <div style="border:1px solid var(--slate-200);border-radius:var(--radius-8)">
-        <div class="crow"><div><div style="font-size:14px;font-weight:500;margin-bottom:5px">Rules</div><div><span class="verb">Read</span><span class="verb">Write</span><span class="verb">Deploy</span></div></div><div style="font-size:13px;color:var(--slate-500)">on the whole organization</div></div>
-        <div class="crow" style="border-top:1px solid var(--slate-200)"><div><div style="font-size:14px;font-weight:500;margin-bottom:5px">Integrations</div><div><span class="verb">Read</span><span class="verb">Write</span></div></div><div style="font-size:13px;color:var(--blue-600)">on 3 integrations →</div></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="overlay">
-    <div class="dialog">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)">
-        <div><div style="font-size:17px;font-weight:600">Invite users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add them to groups — roles come from the group.</div></div>
-        <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" data-action="closeInvite" aria-label="Close"></i>
-      </div>
-      <div style="padding:16px 20px">
-        <div style="font-size:14px;font-weight:600;margin-bottom:7px">Email addresses</div>
-        <div style="border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:7px;display:flex;flex-wrap:wrap;align-items:center;margin-bottom:16px"><span class="chip">priya.shah@acme.com <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span></div>
-        <div style="font-size:14px;font-weight:600;margin-bottom:3px">Add to groups <span style="font-weight:400;color:var(--red-600)">· required</span></div>
-        <div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">No group means no access.</div>
-        <div style="margin-bottom:14px"><span class="chip">SOC tier 1 <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span><button class="btnD" style="border-style:dashed;font-size:13px;padding:4px 10px"><i class="ti ti-plus" style="font-size:13px"></i> Add group</button></div>
-        <div style="background:var(--slate-50);border-radius:var(--radius-8);padding:11px 13px;font-size:13px;color:var(--slate-700)"><div style="font-size:12px;color:var(--slate-500);margin-bottom:5px">This will grant</div><span class="tag" style="cursor:default">attacks:read</span><span class="tag" style="cursor:default">incidents:read</span><span class="tag" style="cursor:default">sensitive-data:read</span></div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50)">
-        <button class="btnD" data-action="closeInvite">Cancel</button>
-        <button class="btnP" data-action="send">Send invite</button>
-      </div>
-    </div>
-  </div>
-  <div class="toast"><i class="ti ti-circle-check" style="font-size:16px;color:var(--green-600)"></i><span>Done</span></div>
-  <button class="quickball" aria-label="Jump to screen"><i class="ti ti-layout-grid" style="font-size:20px"></i></button>
-  <div class="qmenu">
-    <div class="qh">Jump to screen</div>
-    <div data-go="users">Users list</div><div data-go="user-access">User · Access</div><div data-go="user-groups">User · Groups</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div>
+    <div data-go="users">Users list</div><div data-go="user-access">User · Access</div><div data-go="user-membership">User · Membership</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div>
   </div>
 </div>
 
 <script>
-var NOTES={
-  a:'<i class="ti ti-bolt"></i><div><b>Version A — Direct roles.</b> Assign roles to people directly; groups are an optional convenience. Effective access = direct roles + group roles. A user can exist with just a role and no group. (AWS / GitHub / most SaaS model.)</div>',
-  b:'<i class="ti ti-users-group"></i><div><b>Version B — Group-driven.</b> The group is the unit of access; roles attach to groups, never to people. Adding to a group auto-grants its roles. No group = no access. (Okta / Entra / Google Workspace model.)</div>'
-};
-var P={users:'users','user-access':'users','user-membership':'users','user-groups':'users',groups:'groups','group-detail':'groups',roles:'roles','role-detail':'roles'};
+var P={users:'users','user-access':'users','user-membership':'users',groups:'groups','group-detail':'groups',roles:'roles','role-detail':'roles'};
 function initApp(root){
   function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';}
   function show(id){
@@ -358,28 +228,41 @@ function initApp(root){
     closeMenu();
   }
   function toast(m){var t=root.querySelector('.toast');t.querySelector('span').textContent=m;t.style.display='flex';clearTimeout(t._t);t._t=setTimeout(function(){t.style.display='none';},2600);}
+  function recomputeAccess(){
+    var chips=root.querySelectorAll('.acc-chip');var perms=new Set();
+    chips.forEach(function(c){(c.dataset.perms||'').split(',').filter(Boolean).forEach(function(p){perms.add(p);});});
+    var prev=root.querySelector('.acc-preview-tags');
+    if(prev)prev.innerHTML=Array.from(perms).map(function(p){return '<span class="tag">'+p+'</span>';}).join('');
+    var box=root.querySelector('.acc-preview');if(box)box.style.display=chips.length?'block':'none';
+    var send=root.querySelector('[data-action="send"]');
+    if(send){var off=chips.length===0;send.disabled=off;send.style.opacity=off?'.5':'1';send.style.cursor=off?'not-allowed':'pointer';}
+  }
+  function clearAccess(){root.querySelectorAll('.acc-chip').forEach(function(c){c.remove();});recomputeAccess();}
   root.querySelectorAll('[data-go]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();show(el.dataset.go);});});
+  root.querySelectorAll('.opt[data-add]').forEach(function(o){o.addEventListener('click',function(e){e.stopPropagation();
+    var label=o.dataset.label;
+    if(root.querySelector('.acc-chip[data-label="'+label+'"]'))return;
+    var chip=document.createElement('span');chip.className='chip acc-chip';chip.dataset.perms=o.dataset.perms||'';chip.dataset.label=label;
+    var sub=o.dataset.kind==='group'?' · '+o.dataset.role:'';
+    chip.innerHTML='<span>'+label+(sub?'<span style="color:#94A3B8">'+sub+'</span>':'')+'</span> <i class="ti ti-x chip-x" style="font-size:12px;color:#94A3B8;cursor:pointer"></i>';
+    root.querySelector('.acc-chips').appendChild(chip);
+    chip.querySelector('.chip-x').addEventListener('click',function(ev){ev.stopPropagation();chip.remove();recomputeAccess();});
+    recomputeAccess();
+  });});
   root.querySelectorAll('[data-action]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var a=el.dataset.action;
     if(a==='invite')root.querySelector('.overlay').style.display='flex';
-    else if(a==='closeInvite')root.querySelector('.overlay').style.display='none';
-    else if(a==='send'){root.querySelector('.overlay').style.display='none';var r=root.querySelector('[data-invited]');if(r)r.style.display='table-row';show('users');toast('Invite sent');}
+    else if(a==='closeInvite'){root.querySelector('.overlay').style.display='none';clearAccess();}
+    else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';clearAccess();var r=root.querySelector('[data-invited]');if(r)r.style.display='table-row';show('users');toast('Invite sent');}
     else if(a==='deactivate')toast('User deactivated');
     else if(a==='revoke'){var tr=el.closest('tr');if(tr)tr.style.display='none';toast('Invite revoked');}
   });});
   var qb=root.querySelector('.quickball');
   qb.addEventListener('click',function(e){e.stopPropagation();var m=root.querySelector('.qmenu');m.style.display=m.style.display==='block'?'none':'block';});
-  root._show=show;
   show(root.dataset.home||'users');
+  recomputeAccess();
 }
 document.querySelectorAll('.wapp').forEach(initApp);
 document.addEventListener('click',function(){document.querySelectorAll('.qmenu').forEach(function(m){m.style.display='none';});});
-function switchVer(v){
-  document.querySelectorAll('.wapp').forEach(function(a){a.style.display=a.dataset.ver===v?'flex':'none';});
-  document.querySelectorAll('.vbtn').forEach(function(b){b.classList.toggle('on',b.dataset.ver===v);});
-  document.getElementById('vnote').innerHTML=NOTES[v];
-}
-document.querySelectorAll('.vbtn').forEach(function(b){b.addEventListener('click',function(){switchVer(b.dataset.ver);});});
-switchVer('a');
 </script>
 </body>
 </html>

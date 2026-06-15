@@ -3,23 +3,28 @@
 Interactive, clickable prototype of the Wallarm console **Identity & Access (RBAC)** experience.
 Static single-file build (`index.html`) — deployable on Vercel with zero configuration.
 
-## What's inside
+## Model
 
-A self-contained HTML/CSS/JS prototype with a **version switcher** at the top comparing two
-access-management models:
+**Role required, group optional.** Every user must have at least one role; that role can come
+**directly** or **through a group** (a group carries roles and grants them automatically). Groups
+are an optional scaling tool — useful for large tenants, skippable for small ones (1–2 admins).
+Effective access is the **union** of direct roles and group roles (allow-only — no Deny, no
+precedence, no effect column).
 
-- **A · Direct roles** — roles are assigned to people directly; groups are optional. A user can
-  exist with just a role. (AWS IAM / GitHub / most SaaS model.)
-- **B · Group-driven** — the group is the unit of access; roles attach to groups, never to
-  people. Adding a user to a group auto-grants its roles. No group = no access.
-  (Okta / Entra / Google Workspace model.)
+## Invite flow
 
-Both versions are **allow-only / output-first** (no Deny, no precedence, no effect column) and
-include the new-user **Invite** flow plus **Revoke invite** / **Deactivate** (no hard delete of users).
+A single required **Access** field answers one question — "what access?" — with two ways to
+answer: pick a **group** (roles included, shown first as the recommended path) or assign a **role**
+directly. `Send` stays disabled until at least one is chosen, enforcing the role requirement. A live
+preview shows the resulting permissions. New users can be **invited**, and an invite can be
+**revoked**; existing users can be **deactivated** (no hard delete of people).
 
-Screens: Users list · User → Access · User → Membership/Groups · Groups · Group detail (B) ·
-Roles · Role detail. Navigate via the sidebar, clickable rows, tabs, or the floating **QuickBall**
-(bottom-right).
+## Screens
+
+Output-first throughout: Users list · User → Access (what they can do + where it comes from) ·
+User → Membership (direct roles + groups) · Groups · Group detail · Roles · Role detail
+(human-readable capabilities). Navigate via the sidebar, clickable rows, tabs, or the floating
+**QuickBall** (bottom-right).
 
 ## Design system
 
@@ -30,8 +35,6 @@ React components are not imported (that would require the private package).
 
 ## Run locally
 
-Any static server works, e.g.:
-
 ```bash
 python3 -m http.server 4178
 # open http://localhost:4178
@@ -39,5 +42,5 @@ python3 -m http.server 4178
 
 ## Deploy on Vercel
 
-Import this repo in Vercel. No framework, no build step — Vercel serves `index.html` as a static
-site automatically. (Build & Output settings can be left empty / "Other".)
+Import this repo in Vercel. Framework preset **Other**, no build command, no output dir — Vercel
+serves `index.html` as a static site automatically.
