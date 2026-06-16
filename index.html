@@ -61,7 +61,9 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .pill{display:inline-flex;align-items:center;gap:5px;background:var(--slate-100);color:var(--slate-700);font-size:12px;padding:3px 9px;border-radius:9999px}
 .toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .search{flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:8px 11px;color:var(--slate-400);font-size:14px}
-.sel{display:flex;align-items:center;gap:6px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:8px 11px;font-size:14px;color:var(--slate-700)}
+.sel{display:flex;align-items:center;gap:6px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:8px 11px;font-size:14px;color:var(--slate-700);cursor:pointer}
+.selmenu{position:absolute;right:0;top:42px;background:#fff;border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:6px;display:none;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.14);min-width:150px}
+.selmenu div{font-size:13px;padding:7px 10px;border-radius:6px;cursor:pointer;color:var(--slate-700)}.selmenu div:hover{background:var(--slate-50)}
 .foot{font-size:13px;color:var(--slate-500);margin-top:14px}
 .info{display:flex;gap:9px;background:#F0F7FF;border:1px solid #BFD9F7;border-radius:var(--radius-8);padding:11px 13px;font-size:13px;color:#0C447C;line-height:1.5}
 .crow{display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
@@ -117,14 +119,13 @@ tr[data-go]:hover td{background:var(--slate-50)}
       <div class="pnavitem inert"><i class="ti ti-adjustments"></i>General</div>
       <div class="pnavitem inert"><i class="ti ti-receipt"></i>Subscriptions</div>
       <div class="pnavitem inert"><i class="ti ti-apps"></i>Applications</div>
-      <div class="pnavsec">Users</div>
-      <div class="pnavitem" data-nav="allusers" data-go="users"><i class="ti ti-users"></i>All users</div>
-      <div class="pnavitem" data-nav="pending" data-go="pending"><i class="ti ti-clock"></i>Pending invites</div>
-      <div class="pnavitem" data-nav="roles" data-go="roles"><i class="ti ti-key"></i>Roles</div>
       <div class="pnavsec">Access management</div>
+      <div class="pnavitem" data-nav="allusers" data-go="users"><i class="ti ti-users"></i>Users</div>
+      <div class="pnavitem" data-nav="roles" data-go="roles"><i class="ti ti-key"></i>Roles</div>
       <div class="pnavitem" data-nav="groups" data-go="groups"><i class="ti ti-users-group"></i>Groups</div>
-      <div class="pnavitem inert"><i class="ti ti-code"></i>API tokens</div>
+      <div class="pnavsec">Audit &amp; tokens</div>
       <div class="pnavitem inert"><i class="ti ti-history"></i>Activity log</div>
+      <div class="pnavitem inert"><i class="ti ti-code"></i>API tokens</div>
       <div class="pnavsec">Admin zone</div>
       <div class="pnavitem inert"><i class="ti ti-building-cog"></i>Customer settings</div>
       <div class="pnavitem inert"><i class="ti ti-server-cog"></i>System configuration</div>
@@ -135,7 +136,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
       <div class="screen" data-screen="users">
         <div class="crumb">Settings <i>›</i> Users <i>›</i> All users</div>
         <div class="phead"><div><h1>Users</h1><div class="sub">People with access to Acme Corp · prod.</div></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
-        <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="sel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div></div>
+        <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="selwrap" style="position:relative"><div class="sel" id="statusSel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="statusMenu"><div data-filter="all">All statuses</div><div data-filter="active">Active</div><div data-filter="invited">Invited</div></div></div></div>
         <table><colgroup><col style="width:34%"><col style="width:18%"><col style="width:24%"><col style="width:14%"><col style="width:10%"></colgroup>
           <thead><tr><th>User</th><th>Type</th><th>Access</th><th>Status</th><th>Active</th></tr></thead>
           <tbody>
@@ -222,7 +223,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
       <button class="quickball" aria-label="Jump to screen"><i class="ti ti-layout-grid" style="font-size:20px"></i></button>
       <div class="qmenu">
         <div class="qh">Jump to screen</div>
-        <div data-go="users">All users</div><div data-go="pending">Pending invites</div><div data-go="user-access">User · Access</div><div data-go="user-membership">User · Membership</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div>
+        <div data-go="users">Users</div><div data-go="user-access">User · Access</div><div data-go="user-membership">User · Membership</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div>
       </div>
     </section>
   </main>
@@ -263,11 +264,11 @@ tr[data-go]:hover td{background:var(--slate-50)}
 <div class="toast"><i class="ti ti-circle-check" style="font-size:16px;color:var(--green-600)"></i><span>Done</span></div>
 
 <script>
-var P={users:'allusers','user-access':'allusers','user-membership':'allusers',pending:'pending',roles:'roles','role-detail':'roles',groups:'groups','group-detail':'groups'};
+var P={users:'allusers','user-access':'allusers','user-membership':'allusers',roles:'roles','role-detail':'roles',groups:'groups','group-detail':'groups'};
 var GROUPS=[{l:'SOC tier 1',r:'soc-analyst'},{l:'SOC tier 2',r:'soc-analyst, incident-responder'},{l:'Platform engineering',r:'dataplane-admin'},{l:'Compliance',r:'read-only-auditor'},{l:'AI platform',r:'ai-governance'}];
 var ROLES=['soc-analyst','dataplane-admin','incident-responder','read-only-auditor','ai-governance','ci-deploy'];
 var root=document,FILTER='all',priyaSent=false;
-function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';}
+function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';var sm=root.querySelector('#statusMenu');if(sm)sm.style.display='none';}
 function applyUserFilter(f){
   FILTER=f;var n=0;
   root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){
@@ -281,12 +282,11 @@ function applyUserFilter(f){
   var foot=root.querySelector('[data-screen="users"] .foot');if(foot)foot.textContent='Showing '+n+(f==='invited'?' invited':' of 12 users');
 }
 function show(id){
-  var screenId=(id==='pending')?'users':id;
   root.querySelectorAll('.screen').forEach(function(s){s.style.display='none';});
-  var el=root.querySelector('[data-screen="'+screenId+'"]');if(el)el.style.display='block';
+  var el=root.querySelector('[data-screen="'+id+'"]');if(el)el.style.display='block';
   var p=P[id]||'allusers';
   root.querySelectorAll('.pnavitem[data-nav]').forEach(function(n){n.classList.toggle('on',n.dataset.nav===p);});
-  if(id==='users')applyUserFilter('all');else if(id==='pending')applyUserFilter('invited');
+  if(id==='users')applyUserFilter('all');
   root.querySelector('.content').scrollTop=0;closeMenu();
 }
 function toast(m){var t=root.querySelector('.toast');t.querySelector('span').textContent=m;t.style.display='flex';clearTimeout(t._t);t._t=setTimeout(function(){t.style.display='none';},2600);}
@@ -313,11 +313,14 @@ root.querySelectorAll('[data-go]').forEach(function(el){el.addEventListener('cli
 root.querySelectorAll('[data-action]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var a=el.dataset.action;
   if(a==='invite'){root.querySelector('.overlay').style.display='flex';resetInvite();}
   else if(a==='closeInvite'){root.querySelector('.overlay').style.display='none';resetInvite();}
-  else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';resetInvite();priyaSent=true;show('pending');toast('Invite sent');}
+  else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';resetInvite();priyaSent=true;show('users');applyUserFilter('invited');toast('Invite sent');}
   else if(a==='deactivate')toast('User deactivated');
   else if(a==='revoke'){var tr=el.closest('tr');if(tr)tr.setAttribute('data-revoked','1');applyUserFilter(FILTER);toast('Invite revoked');}
 });});
 root.querySelector('.quickball').addEventListener('click',function(e){e.stopPropagation();var m=root.querySelector('.qmenu');m.style.display=m.style.display==='block'?'none':'block';});
+var statusSel=root.querySelector('#statusSel'),statusMenu=root.querySelector('#statusMenu');
+statusSel.addEventListener('click',function(e){e.stopPropagation();statusMenu.style.display=statusMenu.style.display==='block'?'none':'block';});
+statusMenu.querySelectorAll('[data-filter]').forEach(function(it){it.addEventListener('click',function(e){e.stopPropagation();applyUserFilter(it.dataset.filter);statusMenu.style.display='none';});});
 document.addEventListener('mousedown',function(e){if(fieldWrap&&!fieldWrap.contains(e.target))accPop.style.display='none';});
 document.addEventListener('click',function(){closeMenu();});
 show('users');resetInvite();
