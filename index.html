@@ -282,7 +282,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="phead"><div><h1>Platform engineering</h1><div class="sub">4 members · grants 1 role</div></div><button class="btnX">Delete</button></div>
         <div class="info" style="margin-bottom:18px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Everyone in this group automatically gets the roles below — that's the point of a group.</div></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles granted (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
-        <table><colgroup><col style="width:30%"><col style="width:70%"></colgroup><tbody><tr data-go="role-detail"><td><span class="mono" style="font-size:13px">dataplane-admin</span></td><td style="color:var(--slate-500);font-size:13px">manage rules &amp; integrations, read API discovery</td></tr></tbody></table>
+        <table><colgroup><col style="width:30%"><col style="width:70%"></colgroup><tbody><tr data-go="role-detail"><td><span class="mono" style="font-size:13px">dataplane-admin</span></td><td style="color:var(--slate-500);font-size:13px">edit rules, view Security Edge nodes</td></tr></tbody></table>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Members (4)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
         <table><colgroup><col style="width:70%"><col style="width:30%"></colgroup><tbody><tr data-go="user-access"><td><span style="font-weight:500">Maria Hernandez</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">8d ago</td></tr><tr><td><span style="font-weight:500">Wen Li</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">3d ago</td></tr></tbody></table>
       </div>
@@ -302,12 +302,16 @@ tr[data-go]:hover td{background:var(--slate-50)}
       <div class="screen" data-screen="role-detail">
         <div class="crumb"><a data-go="roles">Settings</a> <i>›</i> <a data-go="roles">Roles</a> <i>›</i> dataplane-admin</div>
         <div class="phead"><div><h1 class="mono" style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span class="xlink" style="color:var(--slate-700)">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
-        <div class="info" style="margin-bottom:18px">This role can <b style="font-weight:500">manage rules and integrations</b>, and <b style="font-weight:500">read API discovery</b> — across the whole organization.</div>
+        <div class="info" style="margin-bottom:18px">This role can <b style="font-weight:500">edit rules</b> and <b style="font-weight:500">view Security Edge nodes</b>.</div>
         <div style="font-size:16px;font-weight:600;margin-bottom:12px">Permissions</div>
-        <div style="border:1px solid var(--slate-200);border-radius:var(--radius-8)">
-          <div class="crow"><div><div style="font-size:14px;font-weight:500;margin-bottom:5px">Rules</div><div><span class="verb">Read</span><span class="verb">Write</span><span class="verb">Deploy</span></div></div><div style="font-size:13px;color:var(--slate-500)">on the whole organization</div></div>
-          <div class="crow" style="border-top:1px solid var(--slate-200)"><div><div style="font-size:14px;font-weight:500;margin-bottom:5px">Integrations</div><div><span class="verb">Read</span><span class="verb">Write</span></div></div><div style="font-size:13px;color:var(--slate-500)">on 3 integrations</div></div>
-        </div>
+        <table><colgroup><col style="width:60%"><col style="width:40%"></colgroup>
+          <thead><tr><th>Area</th><th>Access</th></tr></thead>
+          <tbody>
+            <tr class="grp"><td colspan="2">API Security · Edge</td></tr>
+            <tr><td style="padding-left:26px">Rules</td><td><span class="canlvl edit">Edit</span></td></tr>
+            <tr class="grp"><td colspan="2">Security Edge</td></tr>
+            <tr><td style="padding-left:26px">Nodes</td><td><span class="canlvl view">View</span></td></tr>
+          </tbody></table>
       </div>
 
       <div class="screen" data-screen="role-create">
