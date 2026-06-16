@@ -15,23 +15,19 @@ body{margin:0;font-family:'Geist',ui-sans-serif,system-ui,sans-serif;color:var(-
 .mono{font-family:'Geist Mono',ui-monospace,monospace}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .shell{display:grid;grid-template-areas:"hdr hdr" "rail main";grid-template-columns:56px 1fr;grid-template-rows:52px 1fr;height:100vh}
-/* header */
 .hdr{grid-area:hdr;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--slate-200);padding:0 16px;background:#fff}
 .logo{width:28px;height:28px;border-radius:7px;background:var(--w-orange-600);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;flex:none}
 .hsearch{flex:1;max-width:440px;display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:7px 11px;color:var(--slate-400);font-size:13px}
 .hright{margin-left:auto;display:flex;align-items:center;gap:6px}
 .tenant{display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:6px 10px;font-size:13px;color:var(--slate-700);cursor:pointer}
-.hicon{width:34px;height:34px;border-radius:var(--radius-8);display:flex;align-items:center;justify-content:center;color:var(--slate-500);cursor:pointer}
-.hicon:hover{background:var(--slate-50)}
+.hicon{width:34px;height:34px;border-radius:var(--radius-8);display:flex;align-items:center;justify-content:center;color:var(--slate-500);cursor:pointer}.hicon:hover{background:var(--slate-50)}
 .avatar{width:30px;height:30px;border-radius:9999px;background:var(--slate-100);color:var(--slate-700);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer}
-/* rail */
 .rail{grid-area:rail;border-right:1px solid var(--slate-200);background:var(--slate-50);display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px}
 .railbtn{position:relative;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--slate-500);cursor:pointer}
 .railbtn:hover{background:#fff;color:var(--slate-700)}
 .railbtn.on{background:#FFF3F0;color:var(--w-orange-600)}
 .railbtn.on::before{content:"";position:absolute;left:-10px;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;background:var(--w-orange-600)}
 .railsp{flex:1}
-/* main = product nav + content */
 .main{grid-area:main;display:flex;min-height:0}
 .pnav{width:248px;flex:none;border-right:1px solid var(--slate-200);padding:14px 10px;overflow:auto}
 .pnav h2{font-size:15px;font-weight:600;margin:4px 10px 12px}
@@ -39,11 +35,8 @@ body{margin:0;font-family:'Geist',ui-sans-serif,system-ui,sans-serif;color:var(-
 .pnavitem{display:flex;align-items:center;gap:9px;height:34px;padding:6px 10px;border-radius:var(--radius-8);font-size:13.5px;color:var(--slate-700);cursor:pointer;margin-bottom:1px}
 .pnavitem:hover{background:var(--slate-50)}
 .pnavitem.on{background:var(--slate-100);color:var(--slate-900);font-weight:500}
-.pnavitem.inert{color:var(--slate-400);cursor:default}
-.pnavitem.inert:hover{background:transparent}
-.pnavitem i{font-size:16px;color:var(--slate-400)}
-.pnavitem.on i{color:var(--slate-700)}
-/* content */
+.pnavitem.inert{color:var(--slate-400);cursor:default}.pnavitem.inert:hover{background:transparent}
+.pnavitem i{font-size:16px;color:var(--slate-400)}.pnavitem.on i{color:var(--slate-700)}
 .content{flex:1;position:relative;overflow:auto;padding:24px 28px;min-width:0}
 .screen{display:none}
 .crumb{font-size:13px;color:var(--slate-500);margin-bottom:13px}.crumb a{color:var(--blue-600);cursor:pointer}.crumb i{color:var(--slate-300);font-style:normal}
@@ -54,14 +47,19 @@ h1{font-size:30px;font-weight:600;margin:0;line-height:1.1}
 button,.btn{font-family:inherit;font-size:14px;font-weight:500;padding:8px 14px;border-radius:var(--radius-8);cursor:pointer}
 .tabs{display:flex;gap:22px;border-bottom:1px solid var(--slate-200);margin-bottom:16px;font-size:14px}
 .tab{padding-bottom:11px;color:var(--slate-500);cursor:pointer}.tab.on{color:var(--slate-900);font-weight:500;border-bottom:2px solid var(--slate-900);margin-bottom:-1px}
-table{width:100%;border-collapse:collapse;table-layout:fixed}
-th{font-size:12px;font-weight:500;color:var(--slate-500);text-align:left;padding:8px;text-transform:uppercase;letter-spacing:.03em}
-td{padding:13px 8px;border-top:1px solid var(--slate-200);font-size:14px;vertical-align:top}
-tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
+/* DS Table */
+table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff}
+thead th{background:var(--slate-50);font-size:12px;font-weight:500;color:var(--slate-500);text-align:left;padding:10px 14px;border-bottom:1px solid var(--slate-200);border-right:1px solid var(--slate-200);white-space:nowrap}
+thead th:last-child{border-right:none}
+td{padding:12px 14px;border-top:1px solid var(--slate-200);font-size:14px;color:var(--slate-900);vertical-align:top}
+tbody tr:first-child td{border-top:none}
+tr[data-go]{cursor:pointer}
+tr[data-go]:hover td{background:var(--slate-50)}
+.xlink{cursor:pointer}.xlink:hover{text-decoration:underline}
 .tag{font-family:'Geist Mono',ui-monospace,monospace;background:var(--slate-100);color:var(--slate-700);padding:2px 6px;border-radius:4px;font-size:12px;display:inline-block;margin:2px 3px 2px 0}
 .verb{display:inline-block;background:var(--slate-100);color:var(--slate-700);font-size:13px;padding:3px 9px;border-radius:6px;margin:2px 4px 2px 0}
 .pill{display:inline-flex;align-items:center;gap:5px;background:var(--slate-100);color:var(--slate-700);font-size:12px;padding:3px 9px;border-radius:9999px}
-.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .search{flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:8px 11px;color:var(--slate-400);font-size:14px}
 .sel{display:flex;align-items:center;gap:6px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:8px 11px;font-size:14px;color:var(--slate-700)}
 .foot{font-size:13px;color:var(--slate-500);margin-top:14px}
@@ -78,7 +76,6 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
 .acc-q{font-family:inherit;font-size:14px;border:none;outline:none;flex:1;background:transparent;color:var(--slate-900)}.acc-q::placeholder{color:var(--slate-400)}
 .opt{display:flex;align-items:center;justify-content:space-between;padding:8px 11px;cursor:pointer}.opt:hover{background:var(--slate-50)}
 .gh{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:8px 11px 3px}
-.revoke{font-family:inherit;font-size:12px;font-weight:500;color:var(--red-600);background:none;border:none;padding:2px 0;cursor:pointer;margin-top:4px}
 .quickball{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:9999px;background:var(--w-orange-600);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:90;box-shadow:0 4px 14px rgba(255,68,28,.4);border:none}
 .qmenu{position:fixed;right:22px;bottom:78px;background:#fff;border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:6px;display:none;z-index:90;box-shadow:0 8px 24px rgba(0,0,0,.14);min-width:196px}
 .qmenu div{font-size:13px;padding:8px 11px;border-radius:6px;cursor:pointer;color:var(--slate-700)}.qmenu div:hover{background:var(--slate-50)}
@@ -87,7 +84,7 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
 </style>
 </head>
 <body>
-<h2 class="sr-only">Wallarm console prototype: AppShell with header, product rail, Settings navigation, and the Identity & Access screens.</h2>
+<h2 class="sr-only">Wallarm console prototype: AppShell with Identity & Access screens using design-system tables.</h2>
 <div class="shell">
 
   <header class="hdr">
@@ -142,9 +139,9 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
         <table><colgroup><col style="width:34%"><col style="width:18%"><col style="width:24%"><col style="width:14%"><col style="width:10%"></colgroup>
           <thead><tr><th>User</th><th>Type</th><th>Access</th><th>Status</th><th>Active</th></tr></thead>
           <tbody>
-            <tr data-go="user-access"><td><span style="color:var(--blue-600)">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">Platform engineering, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr>
-            <tr><td><span style="color:var(--blue-600)">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d</td></tr>
-            <tr><td><span class="mono" style="color:var(--blue-600);font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td style="color:var(--slate-700);font-size:13px">ci-deploy <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h</td></tr>
+            <tr data-go="user-access"><td><span style="font-weight:500">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">Platform engineering, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr>
+            <tr><td><span style="font-weight:500">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d</td></tr>
+            <tr><td><span class="mono" style="font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td style="color:var(--slate-700);font-size:13px">ci-deploy <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h</td></tr>
           </tbody></table>
         <div class="foot">Showing 3 of 12 users</div>
       </div>
@@ -155,8 +152,8 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
         <table><colgroup><col style="width:40%"><col style="width:28%"><col style="width:18%"><col style="width:14%"></colgroup>
           <thead><tr><th>User</th><th>Access</th><th>Invited</th><th></th></tr></thead>
           <tbody>
-            <tr><td><span style="color:var(--blue-600)">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="tag">soc-analyst</span></td><td style="color:var(--slate-500);font-size:13px">2d ago</td><td style="text-align:right"><button class="btnD" data-action="revoke" style="font-size:12px;padding:5px 10px;color:var(--red-600);border-color:#F0997B">Revoke</button></td></tr>
-            <tr data-invited style="display:none"><td><span style="color:var(--blue-600)">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="tag">soc-analyst</span></td><td style="color:var(--slate-500);font-size:13px">just now</td><td style="text-align:right"><button class="btnD" data-action="revoke" style="font-size:12px;padding:5px 10px;color:var(--red-600);border-color:#F0997B">Revoke</button></td></tr>
+            <tr><td><span style="font-weight:500">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="tag">soc-analyst</span></td><td style="color:var(--slate-500);font-size:13px">2d ago</td><td style="text-align:right"><button class="btnD" data-action="revoke" style="font-size:12px;padding:5px 10px;color:var(--red-600);border-color:#F0997B">Revoke</button></td></tr>
+            <tr data-invited style="display:none"><td><span style="font-weight:500">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="tag">soc-analyst</span></td><td style="color:var(--slate-500);font-size:13px">just now</td><td style="text-align:right"><button class="btnD" data-action="revoke" style="font-size:12px;padding:5px 10px;color:var(--red-600);border-color:#F0997B">Revoke</button></td></tr>
           </tbody></table>
         <div class="foot">Showing 1 pending invite</div>
       </div>
@@ -169,9 +166,9 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
         <table><colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
           <thead><tr><th>Service</th><th>Can</th><th>Via</th></tr></thead>
           <tbody>
-            <tr><td style="font-weight:500">Rules</td><td><span class="tag">rules:read</span><span class="tag">rules:write</span><span class="tag">rules:deploy</span></td><td><span style="color:var(--blue-600);cursor:pointer" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
-            <tr><td style="font-weight:500">Attacks</td><td><span class="tag">attacks:read</span></td><td><span class="tag" data-go="role-detail">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
-            <tr><td style="font-weight:500">Incidents</td><td><span class="tag">incidents:read</span></td><td><span class="tag" data-go="role-detail">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
+            <tr><td style="font-weight:500">Rules</td><td><span class="tag">rules:read</span><span class="tag">rules:write</span><span class="tag">rules:deploy</span></td><td><span class="xlink" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
+            <tr><td style="font-weight:500">Attacks</td><td><span class="tag">attacks:read</span></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
+            <tr><td style="font-weight:500">Incidents</td><td><span class="tag">incidents:read</span></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
           </tbody></table>
       </div>
 
@@ -181,9 +178,9 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
         <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Membership</span><span class="tab">Tokens (1)</span></div>
         <div class="info" style="margin:0 0 16px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Access comes from <b style="font-weight:500">direct roles</b> and <b style="font-weight:500">groups</b>. At least one role is always required; groups are optional.</div></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Direct roles (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
-        <table><tbody><tr data-go="role-detail"><td style="border-top:none;padding-top:6px"><span class="mono" style="color:var(--blue-600);font-size:13px">soc-analyst</span></td><td style="border-top:none;text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr></tbody></table>
+        <table><colgroup><col style="width:78%"><col style="width:22%"></colgroup><tbody><tr data-go="role-detail"><td><span class="mono" style="font-size:13px">soc-analyst</span></td><td style="text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr></tbody></table>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Groups (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
-        <table><colgroup><col style="width:36%"><col style="width:42%"><col style="width:22%"></colgroup><tbody><tr><td data-go="group-detail" style="color:var(--blue-600);cursor:pointer">Platform engineering</td><td><span style="font-size:13px;color:var(--slate-500)">grants</span> <span class="tag">dataplane-admin</span></td><td style="text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr></tbody></table>
+        <table><colgroup><col style="width:36%"><col style="width:42%"><col style="width:22%"></colgroup><tbody><tr><td><span class="xlink" data-go="group-detail">Platform engineering</span></td><td><span style="font-size:13px;color:var(--slate-500)">grants</span> <span class="tag">dataplane-admin</span></td><td style="text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr></tbody></table>
       </div>
 
       <div class="screen" data-screen="groups">
@@ -192,9 +189,9 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
         <table><colgroup><col style="width:32%"><col style="width:16%"><col style="width:36%"><col style="width:16%"></colgroup>
           <thead><tr><th>Group</th><th>Members</th><th>Grants roles</th><th>Created</th></tr></thead>
           <tbody>
-            <tr data-go="group-detail"><td><span style="color:var(--blue-600)">Platform engineering</span></td><td>4</td><td><span class="tag">dataplane-admin</span></td><td>11 Jan 2026</td></tr>
-            <tr data-go="group-detail"><td><span style="color:var(--blue-600)">SOC tier 1</span></td><td>14</td><td><span class="tag">soc-analyst</span></td><td>12 Mar 2026</td></tr>
-            <tr data-go="group-detail"><td><span style="color:var(--blue-600)">Compliance</span></td><td>7</td><td><span class="tag">read-only-auditor</span></td><td>21 Jan 2026</td></tr>
+            <tr data-go="group-detail"><td><span style="font-weight:500">Platform engineering</span></td><td>4</td><td><span class="tag">dataplane-admin</span></td><td>11 Jan 2026</td></tr>
+            <tr data-go="group-detail"><td><span style="font-weight:500">SOC tier 1</span></td><td>14</td><td><span class="tag">soc-analyst</span></td><td>12 Mar 2026</td></tr>
+            <tr data-go="group-detail"><td><span style="font-weight:500">Compliance</span></td><td>7</td><td><span class="tag">read-only-auditor</span></td><td>21 Jan 2026</td></tr>
           </tbody></table>
         <div class="foot">Showing 3 of 6 groups</div>
       </div>
@@ -204,9 +201,9 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
         <div class="phead"><div><h1>Platform engineering</h1><div class="sub">4 members · grants 1 role</div></div><button class="btnX">Delete</button></div>
         <div class="info" style="margin-bottom:18px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Everyone in this group automatically gets the roles below — that's the point of a group.</div></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles granted (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
-        <table><tbody><tr data-go="role-detail"><td style="border-top:none;padding-top:6px"><span class="mono" style="color:var(--blue-600);font-size:13px">dataplane-admin</span></td><td style="border-top:none;color:var(--slate-500);font-size:13px">manage rules &amp; integrations, read API discovery</td></tr></tbody></table>
+        <table><colgroup><col style="width:30%"><col style="width:70%"></colgroup><tbody><tr data-go="role-detail"><td><span class="mono" style="font-size:13px">dataplane-admin</span></td><td style="color:var(--slate-500);font-size:13px">manage rules &amp; integrations, read API discovery</td></tr></tbody></table>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Members (4)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
-        <table><tbody><tr data-go="user-access"><td style="border-top:none;padding-top:6px"><span style="color:var(--blue-600)">Maria Hernandez</span></td><td style="border-top:none;text-align:right;color:var(--slate-500);font-size:13px">8d ago</td></tr><tr><td><span style="color:var(--blue-600)">Wen Li</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">3d ago</td></tr></tbody></table>
+        <table><colgroup><col style="width:70%"><col style="width:30%"></colgroup><tbody><tr data-go="user-access"><td><span style="font-weight:500">Maria Hernandez</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">8d ago</td></tr><tr><td><span style="font-weight:500">Wen Li</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">3d ago</td></tr></tbody></table>
       </div>
 
       <div class="screen" data-screen="roles">
@@ -215,20 +212,20 @@ tr[data-go]{cursor:pointer}tr[data-go]:hover td{background:var(--slate-50)}
         <table><colgroup><col style="width:40%"><col style="width:26%"><col style="width:17%"><col style="width:17%"></colgroup>
           <thead><tr><th>Role</th><th>Attached to</th><th>Created</th><th>Updated</th></tr></thead>
           <tbody>
-            <tr data-go="role-detail"><td><span class="mono" style="color:var(--blue-600);font-size:13px">dataplane-admin</span></td><td style="color:var(--slate-700)">4 users · 2 groups</td><td>11 Jan 2026</td><td>2d ago</td></tr>
-            <tr><td><span class="mono" style="color:var(--blue-600);font-size:13px">soc-analyst</span></td><td style="color:var(--slate-700)">22 users · 2 groups</td><td>11 Jan 2026</td><td>9d ago</td></tr>
+            <tr data-go="role-detail"><td><span class="mono" style="font-size:13px">dataplane-admin</span></td><td style="color:var(--slate-700)">4 users · 2 groups</td><td>11 Jan 2026</td><td>2d ago</td></tr>
+            <tr><td><span class="mono" style="font-size:13px">soc-analyst</span></td><td style="color:var(--slate-700)">22 users · 2 groups</td><td>11 Jan 2026</td><td>9d ago</td></tr>
           </tbody></table>
         <div class="foot">Showing 2 of 7 roles</div>
       </div>
 
       <div class="screen" data-screen="role-detail">
         <div class="crumb"><a data-go="roles">Settings</a> <i>›</i> <a data-go="roles">Roles</a> <i>›</i> dataplane-admin</div>
-        <div class="phead"><div><h1 class="mono" style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span style="color:var(--blue-600);cursor:pointer">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
+        <div class="phead"><div><h1 class="mono" style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span class="xlink" style="color:var(--slate-700)">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
         <div class="info" style="margin-bottom:18px">This role can <b style="font-weight:500">manage rules and integrations</b>, and <b style="font-weight:500">read API discovery</b> — across the whole organization.</div>
         <div style="font-size:16px;font-weight:600;margin-bottom:12px">Permissions</div>
         <div style="border:1px solid var(--slate-200);border-radius:var(--radius-8)">
           <div class="crow"><div><div style="font-size:14px;font-weight:500;margin-bottom:5px">Rules</div><div><span class="verb">Read</span><span class="verb">Write</span><span class="verb">Deploy</span></div></div><div style="font-size:13px;color:var(--slate-500)">on the whole organization</div></div>
-          <div class="crow" style="border-top:1px solid var(--slate-200)"><div><div style="font-size:14px;font-weight:500;margin-bottom:5px">Integrations</div><div><span class="verb">Read</span><span class="verb">Write</span></div></div><div style="font-size:13px;color:var(--blue-600)">on 3 integrations →</div></div>
+          <div class="crow" style="border-top:1px solid var(--slate-200)"><div><div style="font-size:14px;font-weight:500;margin-bottom:5px">Integrations</div><div><span class="verb">Read</span><span class="verb">Write</span></div></div><div style="font-size:13px;color:var(--slate-500)">on 3 integrations</div></div>
         </div>
       </div>
 
