@@ -67,6 +67,19 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .foot{font-size:13px;color:var(--slate-500);margin-top:14px}
 .info{display:flex;gap:9px;background:#F0F7FF;border:1px solid #BFD9F7;border-radius:var(--radius-8);padding:11px 13px;font-size:13px;color:#0C447C;line-height:1.5}
 .crow{display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
+.fgroup{margin-bottom:18px;max-width:560px}
+.flabel{font-size:14px;font-weight:600;margin-bottom:6px}
+.fhint{font-size:12px;color:var(--slate-400);margin-bottom:8px}
+.finput,.fsel,.ftext{width:100%;font-family:inherit;font-size:14px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;color:var(--slate-900);background:#fff;outline:none}
+.finput:focus,.fsel:focus,.ftext:focus{border-color:var(--slate-400)}
+.ftext{min-height:62px;resize:vertical;line-height:1.5}
+.fsel{cursor:pointer}
+.idprev{background:var(--slate-50);border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:10px 12px;max-width:560px;margin-top:-8px;margin-bottom:18px;font-size:13px;color:var(--slate-500)}
+.permrow{border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:12px 14px;margin-bottom:8px;max-width:680px}
+.lvl,.scopeopt{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--slate-300);border-radius:9999px;padding:5px 11px;font-size:13px;color:var(--slate-700);cursor:pointer;margin:2px 6px 2px 0}
+.lvl.on,.scopeopt.on{background:#FFF6F3;border-color:var(--w-orange-600);color:#9A2A12}
+.formfoot{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--slate-200);padding-top:16px;margin-top:20px;max-width:680px}
+.pickpop{position:absolute;left:0;right:0;top:46px;background:#fff;border:1px solid var(--slate-300);border-radius:var(--radius-8);box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:180px;overflow:auto;z-index:20;display:none}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:hidden}
 .dbody{padding:16px 20px;min-height:312px}
@@ -176,7 +189,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 
       <div class="screen" data-screen="groups">
         <div class="crumb">Settings <i>›</i> Access management <i>›</i> Groups</div>
-        <div class="phead"><div><h1>Groups</h1><div class="sub">Optional. Bundle people and attach roles once — useful at scale.</div></div><button class="btnP"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add group</button></div>
+        <div class="phead"><div><h1>Groups</h1><div class="sub">Optional. Bundle people and attach roles once — useful at scale.</div></div><button class="btnP" data-go="group-create"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add group</button></div>
         <table><colgroup><col style="width:32%"><col style="width:16%"><col style="width:36%"><col style="width:16%"></colgroup>
           <thead><tr><th>Group</th><th>Members</th><th>Grants roles</th><th>Created</th></tr></thead>
           <tbody>
@@ -199,7 +212,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 
       <div class="screen" data-screen="roles">
         <div class="crumb">Settings <i>›</i> Users <i>›</i> Roles</div>
-        <div class="phead"><div><h1>Roles</h1><div class="sub">Reusable permission sets. Assigned to people directly or via groups.</div></div><button class="btnP"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add role</button></div>
+        <div class="phead"><div><h1>Roles</h1><div class="sub">Reusable permission sets. Assigned to people directly or via groups.</div></div><button class="btnP" data-go="role-create"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add role</button></div>
         <table><colgroup><col style="width:40%"><col style="width:26%"><col style="width:17%"><col style="width:17%"></colgroup>
           <thead><tr><th>Role</th><th>Attached to</th><th>Created</th><th>Updated</th></tr></thead>
           <tbody>
@@ -220,10 +233,44 @@ tr[data-go]:hover td{background:var(--slate-50)}
         </div>
       </div>
 
+      <div class="screen" data-screen="role-create">
+        <div class="crumb"><a data-go="roles">Settings</a> <i>›</i> <a data-go="roles">Roles</a> <i>›</i> New role</div>
+        <h1 style="margin-bottom:18px">Create role</h1>
+        <div class="fgroup"><div class="flabel">Name</div><input class="finput" id="roleName" placeholder="e.g. Platform engineer" autocomplete="off"></div>
+        <div class="idprev" id="roleIdPrev" style="display:none">Identifier <span class="mono" id="roleSlug" style="background:#F1F5F9;color:#334155;padding:2px 6px;border-radius:4px;font-size:12px"></span> <span style="color:var(--slate-400)">· auto · fixed after create</span><div class="mono" id="roleArn" style="font-size:12px;color:var(--slate-400);margin-top:5px"></div></div>
+        <div class="fgroup"><div class="flabel">Description <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div><textarea class="ftext" placeholder="What this role is for"></textarea></div>
+        <div style="max-width:680px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:16px;font-weight:600">Permissions</div><span style="font-size:12px;color:var(--slate-400)">Allow-only · choose what this role can do</span></div>
+          <div id="permList"></div>
+          <button class="btnD" id="addPerm"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add permission</button>
+        </div>
+        <div class="formfoot"><button class="btnD" data-go="roles">Cancel</button><button class="btnP" id="createRole">Create role</button></div>
+      </div>
+
+      <div class="screen" data-screen="group-create">
+        <div class="crumb"><a data-go="groups">Settings</a> <i>›</i> <a data-go="groups">Groups</a> <i>›</i> New group</div>
+        <h1 style="margin-bottom:18px">Create group</h1>
+        <div class="fgroup"><div class="flabel">Name</div><input class="finput" id="groupName" placeholder="e.g. Platform engineering" autocomplete="off"></div>
+        <div class="idprev" id="groupIdPrev" style="display:none">Identifier <span class="mono" id="groupSlug" style="background:#F1F5F9;color:#334155;padding:2px 6px;border-radius:4px;font-size:12px"></span> <span style="color:var(--slate-400)">· auto · fixed after create</span><div class="mono" id="groupArn" style="font-size:12px;color:var(--slate-400);margin-top:5px"></div></div>
+        <div class="fgroup"><div class="flabel">Description <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div><textarea class="ftext" placeholder="What this group is for"></textarea></div>
+        <div class="fgroup" style="max-width:680px">
+          <div class="flabel">Roles granted</div>
+          <div class="fhint">Everyone in this group gets these roles automatically.</div>
+          <div id="grChips" style="display:flex;flex-wrap:wrap;margin-bottom:6px"></div>
+          <div style="position:relative"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="grQ" placeholder="Search roles…" autocomplete="off"></div><div class="pickpop" id="grPop"></div></div>
+        </div>
+        <div class="fgroup" style="max-width:680px">
+          <div class="flabel">Members <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
+          <div id="gmChips" style="display:flex;flex-wrap:wrap;margin-bottom:6px"></div>
+          <div style="position:relative"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="gmQ" placeholder="Search users…" autocomplete="off"></div><div class="pickpop" id="gmPop"></div></div>
+        </div>
+        <div class="formfoot"><button class="btnD" data-go="groups">Cancel</button><button class="btnP" id="createGroup">Create group</button></div>
+      </div>
+
       <button class="quickball" aria-label="Jump to screen"><i class="ti ti-layout-grid" style="font-size:20px"></i></button>
       <div class="qmenu">
         <div class="qh">Jump to screen</div>
-        <div data-go="users">Users</div><div data-go="user-access">User · Access</div><div data-go="user-membership">User · Membership</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div>
+        <div data-go="users">Users</div><div data-go="user-access">User · Access</div><div data-go="user-membership">User · Membership</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div><div data-go="role-create">Create role</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div><div data-go="group-create">Create group</div>
       </div>
     </section>
   </main>
@@ -264,7 +311,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 <div class="toast"><i class="ti ti-circle-check" style="font-size:16px;color:var(--green-600)"></i><span>Done</span></div>
 
 <script>
-var P={users:'allusers','user-access':'allusers','user-membership':'allusers',roles:'roles','role-detail':'roles',groups:'groups','group-detail':'groups'};
+var P={users:'allusers','user-access':'allusers','user-membership':'allusers',roles:'roles','role-detail':'roles','role-create':'roles',groups:'groups','group-detail':'groups','group-create':'groups'};
 var GROUPS=[{l:'SOC tier 1',r:'soc-analyst'},{l:'SOC tier 2',r:'soc-analyst, incident-responder'},{l:'Platform engineering',r:'dataplane-admin'},{l:'Compliance',r:'read-only-auditor'},{l:'AI platform',r:'ai-governance'}];
 var ROLES=['soc-analyst','dataplane-admin','incident-responder','read-only-auditor','ai-governance','ci-deploy'];
 var root=document,FILTER='all',priyaSent=false;
@@ -323,6 +370,51 @@ statusSel.addEventListener('click',function(e){e.stopPropagation();statusMenu.st
 statusMenu.querySelectorAll('[data-filter]').forEach(function(it){it.addEventListener('click',function(e){e.stopPropagation();applyUserFilter(it.dataset.filter);statusMenu.style.display='none';});});
 document.addEventListener('mousedown',function(e){if(fieldWrap&&!fieldWrap.contains(e.target))accPop.style.display='none';});
 document.addEventListener('click',function(){closeMenu();});
+
+/* ---- create forms ---- */
+var USERS=['Maria Hernandez','Alex Zahn','Wen Li','Tom Becker','Priya Nadkarni','Daniel Owusu','Sofia Rossi'];
+function slugify(s){return s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,49);}
+function syncCreate(input,prev,slugEl,arnEl,btn,ns){
+  var ok=input.value.trim().length>=2,sl=slugify(input.value);
+  prev.style.display=ok?'block':'none';
+  if(ok){slugEl.textContent=sl;arnEl.textContent='arn:wlrm:iam::acme:'+ns+'/'+sl;}
+  btn.disabled=!ok;btn.style.opacity=ok?'1':'.5';btn.style.cursor=ok?'pointer':'not-allowed';
+}
+function wirePicker(qEl,popEl,chipsEl,items,mono){
+  var chosen={};
+  function chips(){chipsEl.innerHTML=Object.keys(chosen).map(function(k){return '<span class="chip">'+(mono?'<span class="mono">'+k+'</span>':k)+' <i class="ti ti-x" data-rm="'+k+'" style="font-size:12px;color:#94A3B8;cursor:pointer"></i></span>';}).join('');chipsEl.querySelectorAll('[data-rm]').forEach(function(x){x.addEventListener('click',function(){delete chosen[x.dataset.rm];chips();});});}
+  function pop(){var s=(qEl.value||'').toLowerCase(),l=items.filter(function(i){return i.toLowerCase().indexOf(s)>-1&&!chosen[i];});popEl.innerHTML=l.length?l.map(function(i){return '<div class="opt" data-v="'+i+'"><div style="font-size:13px" class="'+(mono?'mono':'')+'">'+i+'</div><span style="font-size:12px;color:#155DFC">Add</span></div>';}).join(''):'<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>';popEl.querySelectorAll('.opt').forEach(function(el){el.addEventListener('mousedown',function(e){e.preventDefault();chosen[el.dataset.v]=1;qEl.value='';chips();pop();qEl.focus();});});}
+  qEl.addEventListener('focus',function(){popEl.style.display='block';pop();});
+  qEl.addEventListener('input',function(){popEl.style.display='block';pop();});
+  document.addEventListener('mousedown',function(e){if(!popEl.parentNode.contains(e.target))popEl.style.display='none';});
+  return {reset:function(){chosen={};chips();qEl.value='';}};
+}
+/* role create */
+var roleName=root.querySelector('#roleName'),permList=root.querySelector('#permList'),createRole=root.querySelector('#createRole');
+function roleSync(){syncCreate(roleName,root.querySelector('#roleIdPrev'),root.querySelector('#roleSlug'),root.querySelector('#roleArn'),createRole,'role');}
+function addPermRow(){
+  var row=document.createElement('div');row.className='permrow';
+  var svc='<select class="fsel" style="max-width:240px"><option>Choose a service</option><option>Rules</option><option>Attacks</option><option>Incidents</option><option>Integrations</option><option>API discovery</option><option>Sensitive data</option><option>Policies</option><option>AI protection</option><option>IAM</option><option>Billing</option></select>';
+  var lvls=['List','Read','Write','Manage'].map(function(l){return '<span class="lvl">'+l+'</span>';}).join('');
+  row.innerHTML='<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px">'+svc+'<button class="btnD rmperm" style="font-size:12px;padding:6px 9px;margin-left:auto" aria-label="Remove"><i class="ti ti-trash" style="font-size:14px"></i></button></div><div style="font-size:12px;color:#62748E;margin-bottom:6px">Access</div><div>'+lvls+'</div><div style="font-size:12px;color:#62748E;margin:12px 0 6px">Resources</div><div><span class="scopeopt on">Whole organization</span><span class="scopeopt">Specific resources</span></div>';
+  permList.appendChild(row);
+  row.querySelectorAll('.lvl').forEach(function(p){p.addEventListener('click',function(){p.classList.toggle('on');});});
+  var sc=row.querySelectorAll('.scopeopt');sc.forEach(function(p){p.addEventListener('click',function(){sc.forEach(function(x){x.classList.remove('on');});p.classList.add('on');});});
+  row.querySelector('.rmperm').addEventListener('click',function(){row.remove();});
+}
+roleName.addEventListener('input',roleSync);
+root.querySelector('#addPerm').addEventListener('click',addPermRow);
+createRole.addEventListener('click',function(){if(createRole.disabled)return;toast('Role created');roleName.value='';permList.innerHTML='';roleSync();show('roles');});
+roleSync();
+/* group create */
+var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#createGroup');
+function groupSync(){syncCreate(groupName,root.querySelector('#groupIdPrev'),root.querySelector('#groupSlug'),root.querySelector('#groupArn'),createGroup,'group');}
+var grPick=wirePicker(root.querySelector('#grQ'),root.querySelector('#grPop'),root.querySelector('#grChips'),ROLES,true);
+var gmPick=wirePicker(root.querySelector('#gmQ'),root.querySelector('#gmPop'),root.querySelector('#gmChips'),USERS,false);
+groupName.addEventListener('input',groupSync);
+createGroup.addEventListener('click',function(){if(createGroup.disabled)return;toast('Group created');groupName.value='';grPick.reset();gmPick.reset();groupSync();show('groups');});
+groupSync();
+
 show('users');resetInvite();
 </script>
 </body>
