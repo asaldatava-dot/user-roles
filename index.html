@@ -139,23 +139,13 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <table><colgroup><col style="width:34%"><col style="width:18%"><col style="width:24%"><col style="width:14%"><col style="width:10%"></colgroup>
           <thead><tr><th>User</th><th>Type</th><th>Access</th><th>Status</th><th>Active</th></tr></thead>
           <tbody>
-            <tr data-go="user-access"><td><span style="font-weight:500">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">Platform engineering, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr>
-            <tr><td><span style="font-weight:500">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d</td></tr>
-            <tr><td><span class="mono" style="font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td style="color:var(--slate-700);font-size:13px">ci-deploy <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h</td></tr>
+            <tr data-go="user-access" data-status="active"><td><span style="font-weight:500">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">Platform engineering, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr>
+            <tr data-status="active"><td><span style="font-weight:500">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d</td></tr>
+            <tr data-status="active"><td><span class="mono" style="font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td style="color:var(--slate-700);font-size:13px">ci-deploy <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h</td></tr>
+            <tr data-status="invited"><td><span style="font-weight:500">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke" style="font-family:inherit;font-size:12px;font-weight:500;color:var(--red-600);background:none;border:none;padding:2px 0;cursor:pointer;margin-top:4px">Revoke invite</button></div></td><td>—</td></tr>
+            <tr data-status="invited" class="pending-new" style="display:none"><td><span style="font-weight:500">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke" style="font-family:inherit;font-size:12px;font-weight:500;color:var(--red-600);background:none;border:none;padding:2px 0;cursor:pointer;margin-top:4px">Revoke invite</button></div></td><td>—</td></tr>
           </tbody></table>
-        <div class="foot">Showing 3 of 12 users</div>
-      </div>
-
-      <div class="screen" data-screen="pending">
-        <div class="crumb">Settings <i>›</i> Users <i>›</i> Pending invites</div>
-        <div class="phead"><div><h1>Pending invites</h1><div class="sub">People invited who haven't accepted yet.</div></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
-        <table><colgroup><col style="width:40%"><col style="width:28%"><col style="width:18%"><col style="width:14%"></colgroup>
-          <thead><tr><th>User</th><th>Access</th><th>Invited</th><th></th></tr></thead>
-          <tbody>
-            <tr><td><span style="font-weight:500">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="tag">soc-analyst</span></td><td style="color:var(--slate-500);font-size:13px">2d ago</td><td style="text-align:right"><button class="btnD" data-action="revoke" style="font-size:12px;padding:5px 10px;color:var(--red-600);border-color:#F0997B">Revoke</button></td></tr>
-            <tr data-invited style="display:none"><td><span style="font-weight:500">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="tag">soc-analyst</span></td><td style="color:var(--slate-500);font-size:13px">just now</td><td style="text-align:right"><button class="btnD" data-action="revoke" style="font-size:12px;padding:5px 10px;color:var(--red-600);border-color:#F0997B">Revoke</button></td></tr>
-          </tbody></table>
-        <div class="foot">Showing 1 pending invite</div>
+        <div class="foot">Showing 4 of 12 users</div>
       </div>
 
       <div class="screen" data-screen="user-access">
@@ -276,13 +266,27 @@ tr[data-go]:hover td{background:var(--slate-50)}
 var P={users:'allusers','user-access':'allusers','user-membership':'allusers',pending:'pending',roles:'roles','role-detail':'roles',groups:'groups','group-detail':'groups'};
 var GROUPS=[{l:'SOC tier 1',r:'soc-analyst'},{l:'SOC tier 2',r:'soc-analyst, incident-responder'},{l:'Platform engineering',r:'dataplane-admin'},{l:'Compliance',r:'read-only-auditor'},{l:'AI platform',r:'ai-governance'}];
 var ROLES=['soc-analyst','dataplane-admin','incident-responder','read-only-auditor','ai-governance','ci-deploy'];
-var root=document;
+var root=document,FILTER='all',priyaSent=false;
 function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';}
+function applyUserFilter(f){
+  FILTER=f;var n=0;
+  root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){
+    var vis=true;
+    if(tr.getAttribute('data-revoked'))vis=false;
+    else if(tr.classList.contains('pending-new')&&!priyaSent)vis=false;
+    else if(f!=='all'&&tr.dataset.status!==f)vis=false;
+    tr.style.display=vis?'':'none';if(vis)n++;
+  });
+  var sel=root.querySelector('[data-screen="users"] .sel');if(sel)sel.childNodes[0].nodeValue=(f==='invited'?'Invited ':'All statuses ');
+  var foot=root.querySelector('[data-screen="users"] .foot');if(foot)foot.textContent='Showing '+n+(f==='invited'?' invited':' of 12 users');
+}
 function show(id){
+  var screenId=(id==='pending')?'users':id;
   root.querySelectorAll('.screen').forEach(function(s){s.style.display='none';});
-  var el=root.querySelector('[data-screen="'+id+'"]');if(el)el.style.display='block';
+  var el=root.querySelector('[data-screen="'+screenId+'"]');if(el)el.style.display='block';
   var p=P[id]||'allusers';
   root.querySelectorAll('.pnavitem[data-nav]').forEach(function(n){n.classList.toggle('on',n.dataset.nav===p);});
+  if(id==='users')applyUserFilter('all');else if(id==='pending')applyUserFilter('invited');
   root.querySelector('.content').scrollTop=0;closeMenu();
 }
 function toast(m){var t=root.querySelector('.toast');t.querySelector('span').textContent=m;t.style.display='flex';clearTimeout(t._t);t._t=setTimeout(function(){t.style.display='none';},2600);}
@@ -309,9 +313,9 @@ root.querySelectorAll('[data-go]').forEach(function(el){el.addEventListener('cli
 root.querySelectorAll('[data-action]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var a=el.dataset.action;
   if(a==='invite'){root.querySelector('.overlay').style.display='flex';resetInvite();}
   else if(a==='closeInvite'){root.querySelector('.overlay').style.display='none';resetInvite();}
-  else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';resetInvite();root.querySelectorAll('[data-invited]').forEach(function(r){r.style.display='table-row';});show('pending');toast('Invite sent');}
+  else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';resetInvite();priyaSent=true;show('pending');toast('Invite sent');}
   else if(a==='deactivate')toast('User deactivated');
-  else if(a==='revoke'){var tr=el.closest('tr');if(tr)tr.style.display='none';toast('Invite revoked');}
+  else if(a==='revoke'){var tr=el.closest('tr');if(tr)tr.setAttribute('data-revoked','1');applyUserFilter(FILTER);toast('Invite revoked');}
 });});
 root.querySelector('.quickball').addEventListener('click',function(e){e.stopPropagation();var m=root.querySelector('.qmenu');m.style.display=m.style.display==='block'?'none':'block';});
 document.addEventListener('mousedown',function(e){if(fieldWrap&&!fieldWrap.contains(e.target))accPop.style.display='none';});
