@@ -81,7 +81,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .formfoot{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--slate-200);padding-top:16px;margin-top:20px;max-width:680px}
 .pickpop{position:absolute;left:0;right:0;top:46px;background:#fff;border:1px solid var(--slate-300);border-radius:var(--radius-8);box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:180px;overflow:auto;z-index:20;display:none}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
-.dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:hidden}
+.dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:var(--slate-100);color:var(--slate-700);padding:4px 8px;border-radius:6px;font-size:13px;margin:2px}
 .card{display:flex;align-items:flex-start;gap:11px;border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:12px 14px;margin-bottom:8px;cursor:pointer}
@@ -278,7 +278,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 
 <div class="overlay">
   <div class="dialog">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200);background:#fff;border-radius:8px 8px 0 0">
       <div><div style="font-size:17px;font-weight:600">Invite users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Grant access by role or group — at least one is required.</div></div>
       <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" data-action="closeInvite" aria-label="Close"></i>
     </div>
@@ -302,7 +302,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
         </div>
       </div>
     </div>
-    <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50)">
+    <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px">
       <button class="btnD" data-action="closeInvite">Cancel</button>
       <button class="btnP" data-action="send">Send invite</button>
     </div>
