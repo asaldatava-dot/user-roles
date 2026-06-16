@@ -92,6 +92,18 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .bulkbar .cnt{font-size:13px;font-weight:500;color:#9A2A12}
 .confirm-overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:140}
 .confirm-dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:420px;padding:20px 22px}
+.svcrow{border-top:1px solid var(--slate-200)}.svcrow:first-child{border-top:none}
+.svchead{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;gap:10px}
+.svcpanel{padding:0 14px 12px 14px;background:#FAFBFC;border-top:1px solid var(--slate-200)}
+.seg{display:inline-flex;border:1px solid var(--slate-300);border-radius:8px;overflow:hidden}
+.seg span{font-size:12px;padding:5px 11px;color:var(--slate-500);border-right:1px solid var(--slate-200);cursor:pointer}
+.seg span:last-child{border-right:none}
+.seg span.on{background:#FFF6F3;color:#9A2A12;font-weight:500}
+.custlink{font-size:12px;color:var(--blue-600);cursor:pointer;margin-left:12px;white-space:nowrap}
+.glabel{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);margin:10px 0 3px}
+.act{display:flex;align-items:center;gap:8px;padding:3px 0}
+.cbx{display:inline-flex;width:16px;height:16px;border:1.5px solid var(--slate-300);border-radius:4px;align-items:center;justify-content:center;flex:none;cursor:pointer}
+.cbx.on{background:var(--w-orange-600);border-color:var(--w-orange-600);color:#fff}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
@@ -252,10 +264,14 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="fgroup"><div class="flabel">Name</div><input class="finput" id="roleName" placeholder="e.g. Platform engineer" autocomplete="off"></div>
         <div class="idprev" id="roleIdPrev" style="display:none">Identifier <span class="mono" id="roleSlug" style="background:#F1F5F9;color:#334155;padding:2px 6px;border-radius:4px;font-size:12px"></span> <span style="color:var(--slate-400)">· auto · fixed after create</span><div class="mono" id="roleArn" style="font-size:12px;color:var(--slate-400);margin-top:5px"></div></div>
         <div class="fgroup"><div class="flabel">Description <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div><textarea class="ftext" placeholder="What this role is for"></textarea></div>
-        <div style="max-width:680px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:16px;font-weight:600">Permissions</div><span style="font-size:12px;color:var(--slate-400)">Allow-only · choose what this role can do</span></div>
-          <div id="permList"></div>
-          <button class="btnD" id="addPerm"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add permission</button>
+        <div style="max-width:760px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:16px;font-weight:600">Permissions</div><span style="font-size:12px;color:var(--slate-400)">Allow-only · pick a level per service</span></div>
+          <div class="toolbar">
+            <div style="flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:8px;padding:8px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="svcSearch" placeholder="Find a service…" autocomplete="off"></div>
+            <div class="selwrap" style="position:relative"><div class="sel" id="setAllSel">Set all to <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="setAllMenu"><div data-l="No access">No access</div><div data-l="View">View</div><div data-l="Edit">Edit</div><div data-l="Admin">Admin</div></div></div>
+          </div>
+          <div id="svcList" style="border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff"></div>
+          <div class="foot" id="permSummary"></div>
         </div>
         <div class="formfoot"><button class="btnD" data-go="roles">Cancel</button><button class="btnP" id="createRole">Create role</button></div>
       </div>
@@ -336,7 +352,7 @@ var P={users:'allusers','user-access':'allusers','user-membership':'allusers',ro
 var GROUPS=[{l:'SOC tier 1',r:'soc-analyst'},{l:'SOC tier 2',r:'soc-analyst, incident-responder'},{l:'Platform engineering',r:'dataplane-admin'},{l:'Compliance',r:'read-only-auditor'},{l:'AI platform',r:'ai-governance'}];
 var ROLES=['soc-analyst','dataplane-admin','incident-responder','read-only-auditor','ai-governance','ci-deploy'];
 var root=document,FILTER='all',priyaSent=false;
-function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';var sm=root.querySelector('#statusMenu');if(sm)sm.style.display='none';}
+function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';var sm=root.querySelector('#statusMenu');if(sm)sm.style.display='none';var sa=root.querySelector('#setAllMenu');if(sa)sa.style.display='none';}
 function applyUserFilter(f){
   FILTER=f;var n=0;
   root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){
@@ -414,22 +430,44 @@ function wirePicker(qEl,popEl,chipsEl,items,mono){
   return {reset:function(){chosen={};chips();qEl.value='';}};
 }
 /* role create */
-var roleName=root.querySelector('#roleName'),permList=root.querySelector('#permList'),createRole=root.querySelector('#createRole');
+var roleName=root.querySelector('#roleName'),createRole=root.querySelector('#createRole');
 function roleSync(){syncCreate(roleName,root.querySelector('#roleIdPrev'),root.querySelector('#roleSlug'),root.querySelector('#roleArn'),createRole,'role');}
-function addPermRow(){
-  var row=document.createElement('div');row.className='permrow';
-  var svc='<select class="fsel" style="max-width:240px"><option>Choose a service</option><option>Rules</option><option>Attacks</option><option>Incidents</option><option>Integrations</option><option>API discovery</option><option>Sensitive data</option><option>Policies</option><option>AI protection</option><option>IAM</option><option>Billing</option></select>';
-  var lvls=['List','Read','Write','Manage'].map(function(l){return '<span class="lvl">'+l+'</span>';}).join('');
-  row.innerHTML='<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px">'+svc+'<button class="btnD rmperm" style="font-size:12px;padding:6px 9px;margin-left:auto" aria-label="Remove"><i class="ti ti-trash" style="font-size:14px"></i></button></div><div style="font-size:12px;color:#62748E;margin-bottom:6px">Access</div><div>'+lvls+'</div><div style="font-size:12px;color:#62748E;margin:12px 0 6px">Resources</div><div><span class="scopeopt on">Whole organization</span><span class="scopeopt">Specific resources</span></div>';
-  permList.appendChild(row);
-  row.querySelectorAll('.lvl').forEach(function(p){p.addEventListener('click',function(){p.classList.toggle('on');});});
-  var sc=row.querySelectorAll('.scopeopt');sc.forEach(function(p){p.addEventListener('click',function(){sc.forEach(function(x){x.classList.remove('on');});p.classList.add('on');});});
-  row.querySelector('.rmperm').addEventListener('click',function(){row.remove();});
-}
 roleName.addEventListener('input',roleSync);
-root.querySelector('#addPerm').addEventListener('click',addPermRow);
-createRole.addEventListener('click',function(){if(createRole.disabled)return;toast('Role created');roleName.value='';permList.innerHTML='';roleSync();show('roles');});
+createRole.addEventListener('click',function(){if(createRole.disabled)return;toast('Role created');roleName.value='';resetPerms();roleSync();show('roles');});
 roleSync();
+/* variant 3 — permissions editor */
+var SERVICES=[{n:'Rules',k:'rules'},{n:'Attacks',k:'attacks'},{n:'Incidents',k:'incidents'},{n:'API discovery',k:'api-discovery'},{n:'Integrations',k:'integrations'},{n:'Sensitive data',k:'sensitive-data'},{n:'Policies',k:'policies'},{n:'API testing',k:'api-testing'},{n:'AI protection',k:'ai-protection'},{n:'Billing',k:'billing'}];
+var SEL={},OPEN={},svcList=root.querySelector('#svcList'),svcSearch=root.querySelector('#svcSearch'),permSummary=root.querySelector('#permSummary');
+function groupsFor(k){return {List:[k+':list'],Read:[k+':read'],Write:[k+':write',k+':deploy'],Manage:[k+':grant',k+':tag']};}
+function presetActions(k,L){var g=groupsFor(k);if(L==='View')return g.List.concat(g.Read);if(L==='Edit')return g.List.concat(g.Read,g.Write);if(L==='Admin')return g.List.concat(g.Read,g.Write,g.Manage);return [];}
+function sameSet(a,b){return a.length===b.length&&a.every(function(x){return b.indexOf(x)>-1;});}
+function levelOf(k){var s=SEL[k]||[];if(!s.length)return 'No access';var lv=['View','Edit','Admin'];for(var i=0;i<lv.length;i++){if(sameSet(s,presetActions(k,lv[i])))return lv[i];}return 'Custom';}
+function rowHtml(svc){
+  var k=svc.k,lvl=levelOf(k),open=OPEN[k];
+  var segs=['No access','View','Edit','Admin'].map(function(L){return '<span data-level="'+L+'" data-k="'+k+'"'+(lvl===L?' class="on"':'')+'>'+L+'</span>';}).join('');
+  var badge=(lvl==='Custom')?'<span style="font-size:12px;color:#9A2A12;font-weight:500;margin-right:10px">Custom</span>':'';
+  var head='<div class="svchead"><div style="font-size:14px;font-weight:500">'+svc.n+'</div><div style="display:flex;align-items:center">'+badge+'<div class="seg">'+segs+'</div><span class="custlink" data-k="'+k+'">'+(open?'Hide':'Customize')+'</span></div></div>';
+  var panel='';
+  if(open){var g=groupsFor(k),sset=SEL[k]||[];panel='<div class="svcpanel">';['List','Read','Write','Manage'].forEach(function(grp){panel+='<div class="glabel">'+grp+'</div>';g[grp].forEach(function(a){var on=sset.indexOf(a)>-1;panel+='<div class="act"><span class="cbx actchk'+(on?' on':'')+'" data-k="'+k+'" data-act="'+a+'">'+(on?'<i class="ti ti-check" style="font-size:10px"></i>':'')+'</span><span class="mono" style="font-size:12px'+(on?'':';color:#94A3B8')+'">'+a+'</span></div>';});});panel+='<div style="font-size:12px;color:#94A3B8;margin-top:8px">Applies to the whole organization · resource scoping comes later</div></div>';}
+  return '<div class="svcrow" data-k="'+k+'">'+head+panel+'</div>';
+}
+function renderAll(){
+  var q=(svcSearch.value||'').toLowerCase(),list=SERVICES.filter(function(s){return s.n.toLowerCase().indexOf(q)>-1;});
+  svcList.innerHTML=list.length?list.map(rowHtml).join(''):'<div style="padding:14px;font-size:13px;color:#94A3B8">No services match.</div>';
+  var n=SERVICES.filter(function(s){return (SEL[s.k]||[]).length;}).length;
+  permSummary.innerHTML='Granting access to <b style="font-weight:500;color:#334155">'+n+' of '+SERVICES.length+' services</b>';
+}
+function resetPerms(){SEL={};OPEN={};if(svcSearch)svcSearch.value='';renderAll();}
+svcList.addEventListener('click',function(e){
+  var seg=e.target.closest('.seg span[data-level]');if(seg){SEL[seg.dataset.k]=presetActions(seg.dataset.k,seg.dataset.level);renderAll();return;}
+  var cl=e.target.closest('.custlink');if(cl){OPEN[cl.dataset.k]=!OPEN[cl.dataset.k];renderAll();return;}
+  var ck=e.target.closest('.actchk');if(ck){var k=ck.dataset.k,a=ck.dataset.act;if(!SEL[k])SEL[k]=[];var i=SEL[k].indexOf(a);if(i>-1)SEL[k].splice(i,1);else SEL[k].push(a);renderAll();return;}
+});
+svcSearch.addEventListener('input',renderAll);
+var setAllSel=root.querySelector('#setAllSel'),setAllMenu=root.querySelector('#setAllMenu');
+setAllSel.addEventListener('click',function(e){e.stopPropagation();setAllMenu.style.display=setAllMenu.style.display==='block'?'none':'block';});
+setAllMenu.querySelectorAll('[data-l]').forEach(function(it){it.addEventListener('click',function(e){e.stopPropagation();var L=it.dataset.l;SERVICES.forEach(function(s){SEL[s.k]=presetActions(s.k,L);});setAllMenu.style.display='none';renderAll();});});
+renderAll();
 /* group create */
 var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#createGroup');
 function groupSync(){syncCreate(groupName,root.querySelector('#groupIdPrev'),root.querySelector('#groupSlug'),root.querySelector('#groupArn'),createGroup,'group');}
