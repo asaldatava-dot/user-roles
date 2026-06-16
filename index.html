@@ -80,6 +80,18 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .lvl.on,.scopeopt.on{background:#FFF6F3;border-color:var(--w-orange-600);color:#9A2A12}
 .formfoot{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--slate-200);padding-top:16px;margin-top:20px;max-width:680px}
 .pickpop{position:absolute;left:0;right:0;top:46px;background:#fff;border:1px solid var(--slate-300);border-radius:var(--radius-8);box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:180px;overflow:auto;z-index:20;display:none}
+.chkcell{vertical-align:middle}.actcell{vertical-align:middle;text-align:right}
+.rowchk,#selAll{width:16px;height:16px;accent-color:var(--w-orange-600);cursor:pointer;vertical-align:middle}
+.kebab{background:none;border:none;color:var(--slate-500);cursor:pointer;padding:4px 6px;border-radius:6px}
+.kebab:hover{background:var(--slate-100);color:var(--slate-700)}
+.rowmenu{position:fixed;background:#fff;border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:6px;display:none;z-index:130;box-shadow:0 8px 24px rgba(0,0,0,.16);min-width:170px}
+.rowmenu div{font-size:13px;padding:8px 11px;border-radius:6px;cursor:pointer;color:var(--slate-700);display:flex;align-items:center;gap:9px}
+.rowmenu div:hover{background:var(--slate-50)}
+.rowmenu div.danger{color:var(--red-600)}
+.bulkbar{display:flex;align-items:center;gap:14px;background:#FFF6F3;border:1px solid #FFD2C6;border-radius:var(--radius-8);padding:9px 14px;margin-bottom:12px}
+.bulkbar .cnt{font-size:13px;font-weight:500;color:#9A2A12}
+.confirm-overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:140}
+.confirm-dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:420px;padding:20px 22px}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
@@ -150,14 +162,15 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="crumb">Settings <i>›</i> Users <i>›</i> All users</div>
         <div class="phead"><div><h1>Users</h1><div class="sub">People with access to Acme Corp · prod.</div></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
         <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="selwrap" style="position:relative"><div class="sel" id="statusSel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="statusMenu"><div data-filter="all">All statuses</div><div data-filter="active">Active</div><div data-filter="invited">Invited</div></div></div></div>
-        <table><colgroup><col style="width:34%"><col style="width:18%"><col style="width:24%"><col style="width:14%"><col style="width:10%"></colgroup>
-          <thead><tr><th>User</th><th>Type</th><th>Access</th><th>Status</th><th>Active</th></tr></thead>
+        <div class="bulkbar" id="bulkbar" style="display:none"><span class="cnt" id="bulkcnt">0 selected</span><button class="btnX" id="bulkDelete" style="font-size:13px;padding:6px 12px"><i class="ti ti-trash" style="font-size:14px;vertical-align:-2px"></i> Delete</button></div>
+        <table><colgroup><col style="width:5%"><col style="width:29%"><col style="width:16%"><col style="width:23%"><col style="width:11%"><col style="width:8%"><col style="width:8%"></colgroup>
+          <thead><tr><th class="chkcell"><input type="checkbox" id="selAll" aria-label="Select all"></th><th>User</th><th>Type</th><th>Access</th><th>Status</th><th>Active</th><th></th></tr></thead>
           <tbody>
-            <tr data-go="user-access" data-status="active"><td><span style="font-weight:500">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">Platform engineering, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr>
-            <tr data-status="active"><td><span style="font-weight:500">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d</td></tr>
-            <tr data-status="active"><td><span class="mono" style="font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td style="color:var(--slate-700);font-size:13px">ci-deploy <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h</td></tr>
-            <tr data-status="invited"><td><span style="font-weight:500">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke" style="font-family:inherit;font-size:12px;font-weight:500;color:var(--red-600);background:none;border:none;padding:2px 0;cursor:pointer;margin-top:4px">Revoke invite</button></div></td><td>—</td></tr>
-            <tr data-status="invited" class="pending-new" style="display:none"><td><span style="font-weight:500">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke" style="font-family:inherit;font-size:12px;font-weight:500;color:var(--red-600);background:none;border:none;padding:2px 0;cursor:pointer;margin-top:4px">Revoke invite</button></div></td><td>—</td></tr>
+            <tr data-go="user-access" data-status="active" data-name="Maria Hernandez"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">Platform engineering, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
+            <tr data-status="active" data-name="Alex Zahn"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d</td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
+            <tr data-status="active" data-type="sa" data-name="ci-deploy-bot"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="mono" style="font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td style="color:var(--slate-700);font-size:13px">ci-deploy <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h</td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
+            <tr data-status="invited" data-name="Sofia Rossi"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span></td><td>—</td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
+            <tr data-status="invited" class="pending-new" data-name="Priya Shah" style="display:none"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">Priya Shah</span><div style="font-size:12px;color:var(--slate-400)">priya.shah@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span></td><td>—</td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
           </tbody></table>
         <div class="foot">Showing 4 of 12 users</div>
       </div>
@@ -309,6 +322,14 @@ tr[data-go]:hover td{background:var(--slate-50)}
   </div>
 </div>
 <div class="toast"><i class="ti ti-circle-check" style="font-size:16px;color:var(--green-600)"></i><span>Done</span></div>
+<div class="rowmenu" id="rowMenu"></div>
+<div class="confirm-overlay" id="confirmOv">
+  <div class="confirm-dialog">
+    <div style="font-size:16px;font-weight:600;margin-bottom:6px" id="confirmTitle">Delete?</div>
+    <div style="font-size:13px;color:var(--slate-500);line-height:1.5;margin-bottom:18px" id="confirmBody"></div>
+    <div style="display:flex;justify-content:flex-end;gap:9px"><button class="btnD" id="confirmCancel">Cancel</button><button id="confirmYes" style="background:var(--red-600);color:#fff;border:none;font-family:inherit;font-size:14px;font-weight:500;padding:8px 15px;border-radius:8px;cursor:pointer">Delete</button></div>
+  </div>
+</div>
 
 <script>
 var P={users:'allusers','user-access':'allusers','user-membership':'allusers',roles:'roles','role-detail':'roles','role-create':'roles',groups:'groups','group-detail':'groups','group-create':'groups'};
@@ -327,6 +348,9 @@ function applyUserFilter(f){
   });
   var sel=root.querySelector('[data-screen="users"] .sel');if(sel)sel.childNodes[0].nodeValue=(f==='invited'?'Invited ':'All statuses ');
   var foot=root.querySelector('[data-screen="users"] .foot');if(foot)foot.textContent='Showing '+n+(f==='invited'?' invited':' of 12 users');
+  root.querySelectorAll('[data-screen="users"] .rowchk').forEach(function(c){c.checked=false;});
+  var sa=root.querySelector('#selAll');if(sa){sa.checked=false;sa.indeterminate=false;}
+  if(typeof updateSel==='function')updateSel();
 }
 function show(id){
   root.querySelectorAll('.screen').forEach(function(s){s.style.display='none';});
@@ -414,6 +438,38 @@ var gmPick=wirePicker(root.querySelector('#gmQ'),root.querySelector('#gmPop'),ro
 groupName.addEventListener('input',groupSync);
 createGroup.addEventListener('click',function(){if(createGroup.disabled)return;toast('Group created');groupName.value='';grPick.reset();gmPick.reset();groupSync();show('groups');});
 groupSync();
+
+/* ---- selection / row actions / confirm ---- */
+function updateSel(){
+  var rows=Array.prototype.slice.call(root.querySelectorAll('[data-screen="users"] tbody tr')).filter(function(tr){return tr.style.display!=='none';});
+  var checked=rows.filter(function(tr){var c=tr.querySelector('.rowchk');return c&&c.checked;});
+  var bar=root.querySelector('#bulkbar');
+  if(bar){if(checked.length){bar.style.display='flex';root.querySelector('#bulkcnt').textContent=checked.length+' selected';}else bar.style.display='none';}
+  var sa=root.querySelector('#selAll');if(sa){sa.checked=checked.length>0&&checked.length===rows.length;sa.indeterminate=checked.length>0&&checked.length<rows.length;}
+}
+root.querySelectorAll('[data-screen="users"] .rowchk').forEach(function(c){c.addEventListener('click',function(e){e.stopPropagation();});c.addEventListener('change',updateSel);});
+var selAll=root.querySelector('#selAll');
+if(selAll){selAll.addEventListener('click',function(e){e.stopPropagation();});selAll.addEventListener('change',function(){root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){if(tr.style.display!=='none'){var c=tr.querySelector('.rowchk');if(c)c.checked=selAll.checked;}});updateSel();});}
+var confirmCb=null;
+function openConfirm(title,body,cb){root.querySelector('#confirmTitle').textContent=title;root.querySelector('#confirmBody').textContent=body;confirmCb=cb;root.querySelector('#confirmOv').style.display='flex';}
+root.querySelector('#confirmYes').addEventListener('click',function(){if(confirmCb)confirmCb();confirmCb=null;root.querySelector('#confirmOv').style.display='none';});
+root.querySelector('#confirmCancel').addEventListener('click',function(){confirmCb=null;root.querySelector('#confirmOv').style.display='none';});
+var rowMenu=root.querySelector('#rowMenu');
+root.querySelectorAll('[data-screen="users"] .kebab').forEach(function(k){k.addEventListener('click',function(e){e.stopPropagation();
+  var tr=k.closest('tr'),st=tr.dataset.status,isSa=tr.dataset.type==='sa',nm=tr.dataset.name||'this user';
+  rowMenu.innerHTML=(st==='invited')?'<div class="danger" data-act="revoke"><i class="ti ti-mail-off" style="font-size:15px"></i>Revoke invite</div>':'<div class="danger" data-act="delete"><i class="ti ti-trash" style="font-size:15px"></i>'+(isSa?'Delete service account':'Delete user')+'</div>';
+  rowMenu.style.display='block';var r=k.getBoundingClientRect();rowMenu.style.left=Math.max(8,r.right-rowMenu.offsetWidth)+'px';rowMenu.style.top=(r.bottom+4)+'px';
+  rowMenu.querySelectorAll('[data-act]').forEach(function(it){it.addEventListener('click',function(ev){ev.stopPropagation();rowMenu.style.display='none';
+    if(it.dataset.act==='revoke'){tr.setAttribute('data-revoked','1');applyUserFilter(FILTER);toast('Invite revoked');}
+    else{openConfirm('Delete '+nm+'?','They will lose all access. This can\'t be undone.',function(){tr.remove();applyUserFilter(FILTER);toast('User deleted');});}
+  });});
+});});
+root.querySelector('#bulkDelete').addEventListener('click',function(e){e.stopPropagation();
+  var checked=Array.prototype.slice.call(root.querySelectorAll('[data-screen="users"] tbody tr')).filter(function(tr){return tr.style.display!=='none'&&tr.querySelector('.rowchk')&&tr.querySelector('.rowchk').checked;});
+  if(!checked.length)return;
+  openConfirm('Delete '+checked.length+' user'+(checked.length>1?'s':'')+'?','They will lose all access. This can\'t be undone.',function(){checked.forEach(function(tr){tr.remove();});applyUserFilter(FILTER);toast(checked.length+' users deleted');});
+});
+document.addEventListener('click',function(){if(rowMenu)rowMenu.style.display='none';});
 
 show('users');resetInvite();
 </script>
