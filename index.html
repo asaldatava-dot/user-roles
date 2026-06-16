@@ -114,6 +114,18 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .canexp.open .chev{transform:rotate(180deg)}
 .candetail{margin-top:8px}
 .vchip{display:inline-block;font-family:'Geist Mono',ui-monospace,monospace;background:var(--slate-100);color:var(--slate-700);font-size:12px;padding:2px 7px;border-radius:5px;margin:2px 5px 2px 0}
+.ghead{display:flex;align-items:center;justify-content:space-between;padding:7px 12px 7px 14px;background:var(--slate-50);border-top:1px solid var(--slate-200)}
+.ghead:first-child{border-top:none}
+.gname{font-size:13px;font-weight:600}
+.arow{display:flex;align-items:center;justify-content:space-between;padding:9px 14px 9px 26px;border-top:1px solid var(--slate-100)}
+.aname{font-size:13.5px}
+.seg span.none.on{background:var(--slate-100);color:var(--slate-500)}
+.setbtn{display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:13px;font-weight:500;color:var(--slate-900);background:#fff;border:1px solid var(--slate-300);border-radius:8px;padding:7px 11px;cursor:pointer}
+.setbtn.sm{font-size:12px;padding:5px 10px}
+.setbtn:hover{background:var(--slate-50)}
+.setmenu{position:fixed;background:#fff;border:1px solid var(--slate-200);border-radius:8px;padding:6px;display:none;z-index:130;box-shadow:0 8px 24px rgba(0,0,0,.16);min-width:150px}
+.setmenu div{font-size:13px;padding:7px 10px;border-radius:6px;cursor:pointer;color:var(--slate-700)}
+.setmenu div:hover{background:var(--slate-50)}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
@@ -277,8 +289,8 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div style="max-width:760px">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:16px;font-weight:600">Permissions</div><span style="font-size:12px;color:var(--slate-400)">Allow-only · pick a level per service</span></div>
           <div class="toolbar">
-            <div style="flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:8px;padding:8px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="svcSearch" placeholder="Find a service…" autocomplete="off"></div>
-            <div class="selwrap" style="position:relative"><div class="sel" id="setAllSel">Set all to <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="setAllMenu"><div data-l="No access">No access</div><div data-l="View">View</div><div data-l="Edit">Edit</div><div data-l="Admin">Admin</div></div></div>
+            <div style="flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:8px;padding:8px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="svcSearch" placeholder="Filter products or areas…" autocomplete="off"></div>
+            <button class="setbtn" id="setAllBtn">Set all to <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button>
           </div>
           <div id="svcList" style="border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff"></div>
           <div class="foot" id="permSummary"></div>
@@ -349,6 +361,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 </div>
 <div class="toast"><i class="ti ti-circle-check" style="font-size:16px;color:var(--green-600)"></i><span>Done</span></div>
 <div class="rowmenu" id="rowMenu"></div>
+<div class="setmenu" id="setMenu"></div>
 <div class="confirm-overlay" id="confirmOv">
   <div class="confirm-dialog">
     <div style="font-size:16px;font-weight:600;margin-bottom:6px" id="confirmTitle">Delete?</div>
@@ -362,7 +375,7 @@ var P={users:'allusers','user-access':'allusers','user-membership':'allusers',ro
 var GROUPS=[{l:'SOC tier 1',r:'soc-analyst'},{l:'SOC tier 2',r:'soc-analyst, incident-responder'},{l:'Platform engineering',r:'dataplane-admin'},{l:'Compliance',r:'read-only-auditor'},{l:'AI platform',r:'ai-governance'}];
 var ROLES=['soc-analyst','dataplane-admin','incident-responder','read-only-auditor','ai-governance','ci-deploy'];
 var root=document,FILTER='all',priyaSent=false;
-function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';var sm=root.querySelector('#statusMenu');if(sm)sm.style.display='none';var sa=root.querySelector('#setAllMenu');if(sa)sa.style.display='none';}
+function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';var sm=root.querySelector('#statusMenu');if(sm)sm.style.display='none';var sa=root.querySelector('#setMenu');if(sa)sa.style.display='none';}
 function applyUserFilter(f){
   FILTER=f;var n=0;
   root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){
@@ -445,38 +458,51 @@ function roleSync(){syncCreate(roleName,root.querySelector('#roleIdPrev'),root.q
 roleName.addEventListener('input',roleSync);
 createRole.addEventListener('click',function(){if(createRole.disabled)return;toast('Role created');roleName.value='';resetPerms();roleSync();show('roles');});
 roleSync();
-/* variant 3 — permissions editor */
-var SERVICES=[{n:'Rules',k:'rules'},{n:'Attacks',k:'attacks'},{n:'Incidents',k:'incidents'},{n:'API discovery',k:'api-discovery'},{n:'Integrations',k:'integrations'},{n:'Sensitive data',k:'sensitive-data'},{n:'Policies',k:'policies'},{n:'API testing',k:'api-testing'},{n:'AI protection',k:'ai-protection'},{n:'Billing',k:'billing'}];
-var SEL={},OPEN={},svcList=root.querySelector('#svcList'),svcSearch=root.querySelector('#svcSearch'),permSummary=root.querySelector('#permSummary');
-function groupsFor(k){return {List:[k+':list'],Read:[k+':read'],Write:[k+':write',k+':deploy'],Manage:[k+':grant',k+':tag']};}
-function presetActions(k,L){var g=groupsFor(k);if(L==='View')return g.List.concat(g.Read);if(L==='Edit')return g.List.concat(g.Read,g.Write);if(L==='Admin')return g.List.concat(g.Read,g.Write,g.Manage);return [];}
-function sameSet(a,b){return a.length===b.length&&a.every(function(x){return b.indexOf(x)>-1;});}
-function levelOf(k){var s=SEL[k]||[];if(!s.length)return 'No access';var lv=['View','Edit','Admin'];for(var i=0;i<lv.length;i++){if(sameSet(s,presetActions(k,lv[i])))return lv[i];}return 'Custom';}
-function rowHtml(svc){
-  var k=svc.k,lvl=levelOf(k),open=OPEN[k];
-  var segs=['No access','View','Edit','Admin'].map(function(L){return '<span data-level="'+L+'" data-k="'+k+'"'+(lvl===L?' class="on"':'')+'>'+L+'</span>';}).join('');
-  var badge=(lvl==='Custom')?'<span style="font-size:12px;color:#9A2A12;font-weight:500;margin-right:10px">Custom</span>':'';
-  var head='<div class="svchead"><div style="font-size:14px;font-weight:500">'+svc.n+'</div><div style="display:flex;align-items:center">'+badge+'<div class="seg">'+segs+'</div><span class="custlink" data-k="'+k+'">'+(open?'Hide':'Customize')+'</span></div></div>';
-  var panel='';
-  if(open){var g=groupsFor(k),sset=SEL[k]||[];panel='<div class="svcpanel">';['List','Read','Write','Manage'].forEach(function(grp){panel+='<div class="glabel">'+grp+'</div>';g[grp].forEach(function(a){var on=sset.indexOf(a)>-1;panel+='<div class="act"><span class="cbx actchk'+(on?' on':'')+'" data-k="'+k+'" data-act="'+a+'">'+(on?'<i class="ti ti-check" style="font-size:10px"></i>':'')+'</span><span class="mono" style="font-size:12px'+(on?'':';color:#94A3B8')+'">'+a+'</span></div>';});});panel+='<div style="font-size:12px;color:#94A3B8;margin-top:8px">Applies to the whole organization · resource scoping comes later</div></div>';}
-  return '<div class="svcrow" data-k="'+k+'">'+head+panel+'</div>';
+/* permissions editor — grouped by product (product → areas → level) */
+var PRODUCTS=[
+ {n:'API Security · Edge',k:'edge',areas:[{n:'Attacks',k:'attacks'},{n:'Incidents',k:'incidents'},{n:'API Sessions',k:'sessions'},{n:'Rules',k:'rules'},{n:'Triggers',k:'triggers'}]},
+ {n:'AI Protection',k:'ai',areas:[{n:'Agents',k:'agents'},{n:'MCP servers',k:'mcp'},{n:'Model endpoints',k:'endpoints'}]},
+ {n:'Infrastructure Discovery',k:'infra',areas:[{n:'Inventory',k:'inventory'},{n:'Findings',k:'findings'},{n:'Risks',k:'risks'}]},
+ {n:'API Security Testing',k:'test',areas:[{n:'Test Suites',k:'suites'},{n:'Results',k:'results'},{n:'Coverage',k:'coverage'}]},
+ {n:'Security Edge',k:'secedge',areas:[{n:'Nodes',k:'nodes'},{n:'Node configuration',k:'nodecfg'},{n:'Routing',k:'routing'}]}
+];
+var LEVELS=['None','View','Edit','Admin'];
+var SEL={},svcList=root.querySelector('#svcList'),svcSearch=root.querySelector('#svcSearch'),permSummary=root.querySelector('#permSummary'),setMenu=root.querySelector('#setMenu'),setTarget=null;
+function aKey(pk,ak){return pk+'/'+ak;}
+function levelOf(key){return SEL[key]||'None';}
+function rowHtml(p,a){
+  var key=aKey(p.k,a.k),lvl=levelOf(key);
+  var seg=LEVELS.map(function(L){return '<span data-area="'+key+'" data-level="'+L+'" class="'+(L==='None'?'none':'')+(lvl===L?' on':'')+'">'+L+'</span>';}).join('');
+  return '<div class="arow"><span class="aname">'+a.n+'</span><div class="seg">'+seg+'</div></div>';
+}
+function productHtml(p,areas){
+  return '<div class="ghead"><span class="gname">'+p.n+'</span><button class="setbtn sm" data-setall="'+p.k+'">Set all <i class="ti ti-chevron-down" style="font-size:13px;color:#62748E"></i></button></div>'+areas.map(function(a){return rowHtml(p,a);}).join('');
 }
 function renderAll(){
-  var q=(svcSearch.value||'').toLowerCase(),list=SERVICES.filter(function(s){return s.n.toLowerCase().indexOf(q)>-1;});
-  svcList.innerHTML=list.length?list.map(rowHtml).join(''):'<div style="padding:14px;font-size:13px;color:#94A3B8">No services match.</div>';
-  var n=SERVICES.filter(function(s){return (SEL[s.k]||[]).length;}).length;
-  permSummary.innerHTML='Granting access to <b style="font-weight:500;color:#334155">'+n+' of '+SERVICES.length+' services</b>';
+  var q=(svcSearch.value||'').toLowerCase(),html='';
+  PRODUCTS.forEach(function(p){
+    var pm=p.n.toLowerCase().indexOf(q)>-1;
+    var areas=pm?p.areas:p.areas.filter(function(a){return a.n.toLowerCase().indexOf(q)>-1;});
+    if(areas.length)html+=productHtml(p,areas);
+  });
+  svcList.innerHTML=html||'<div style="padding:14px;font-size:13px;color:#94A3B8">No matches.</div>';
+  var an=0,ps={};PRODUCTS.forEach(function(p){p.areas.forEach(function(a){if(levelOf(aKey(p.k,a.k))!=='None'){an++;ps[p.k]=1;}});});
+  permSummary.innerHTML='Granting access to <b style="font-weight:500;color:#334155">'+an+' areas</b> across <b style="font-weight:500;color:#334155">'+Object.keys(ps).length+' products</b>';
 }
-function resetPerms(){SEL={};OPEN={};if(svcSearch)svcSearch.value='';renderAll();}
+function resetPerms(){SEL={};if(svcSearch)svcSearch.value='';renderAll();}
+function openSetMenu(btn,target){
+  setTarget=target;
+  setMenu.innerHTML=LEVELS.map(function(L){return '<div data-l="'+L+'">'+(L==='None'?'No access':L)+'</div>';}).join('');
+  setMenu.style.display='block';var r=btn.getBoundingClientRect();setMenu.style.left=Math.max(8,r.right-setMenu.offsetWidth)+'px';setMenu.style.top=(r.bottom+4)+'px';
+  setMenu.querySelectorAll('[data-l]').forEach(function(it){it.addEventListener('click',function(ev){ev.stopPropagation();PRODUCTS.forEach(function(p){if(setTarget==='*'||setTarget===p.k){p.areas.forEach(function(a){var key=aKey(p.k,a.k);if(it.dataset.l==='None')delete SEL[key];else SEL[key]=it.dataset.l;});}});setMenu.style.display='none';renderAll();});});
+}
 svcList.addEventListener('click',function(e){
-  var seg=e.target.closest('.seg span[data-level]');if(seg){SEL[seg.dataset.k]=presetActions(seg.dataset.k,seg.dataset.level);renderAll();return;}
-  var cl=e.target.closest('.custlink');if(cl){OPEN[cl.dataset.k]=!OPEN[cl.dataset.k];renderAll();return;}
-  var ck=e.target.closest('.actchk');if(ck){var k=ck.dataset.k,a=ck.dataset.act;if(!SEL[k])SEL[k]=[];var i=SEL[k].indexOf(a);if(i>-1)SEL[k].splice(i,1);else SEL[k].push(a);renderAll();return;}
+  var seg=e.target.closest('.seg span[data-level]');if(seg){var k=seg.dataset.area,L=seg.dataset.level;if(L==='None')delete SEL[k];else SEL[k]=L;renderAll();return;}
+  var sa=e.target.closest('[data-setall]');if(sa){e.stopPropagation();openSetMenu(sa,sa.dataset.setall);return;}
 });
 svcSearch.addEventListener('input',renderAll);
-var setAllSel=root.querySelector('#setAllSel'),setAllMenu=root.querySelector('#setAllMenu');
-setAllSel.addEventListener('click',function(e){e.stopPropagation();setAllMenu.style.display=setAllMenu.style.display==='block'?'none':'block';});
-setAllMenu.querySelectorAll('[data-l]').forEach(function(it){it.addEventListener('click',function(e){e.stopPropagation();var L=it.dataset.l;SERVICES.forEach(function(s){SEL[s.k]=presetActions(s.k,L);});setAllMenu.style.display='none';renderAll();});});
+var setAllBtn=root.querySelector('#setAllBtn');
+setAllBtn.addEventListener('click',function(e){e.stopPropagation();openSetMenu(setAllBtn,'*');});
 renderAll();
 /* group create */
 var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#createGroup');
