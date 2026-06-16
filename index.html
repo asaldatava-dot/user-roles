@@ -105,6 +105,15 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .act{display:flex;align-items:center;gap:8px;padding:3px 0}
 .cbx{display:inline-flex;width:16px;height:16px;border:1.5px solid var(--slate-300);border-radius:4px;align-items:center;justify-content:center;flex:none;cursor:pointer}
 .cbx.on{background:var(--w-orange-600);border-color:var(--w-orange-600);color:#fff}
+.canexp{display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.canlvl{font-size:12px;font-weight:500;padding:2px 9px;border-radius:9999px;background:#EEF2F6;color:#334155}
+.canlvl.edit{background:#FFF1EC;color:#9A2A12}
+.canlvl.view{background:#EAF2FF;color:#1E40AF}
+.cancount{font-size:13px;color:var(--slate-500)}
+.chev{color:var(--slate-400);font-size:15px;transition:transform .15s}
+.canexp.open .chev{transform:rotate(180deg)}
+.candetail{margin-top:8px}
+.vchip{display:inline-block;font-family:'Geist Mono',ui-monospace,monospace;background:var(--slate-100);color:var(--slate-700);font-size:12px;padding:2px 7px;border-radius:5px;margin:2px 5px 2px 0}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
@@ -196,9 +205,9 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <table><colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
           <thead><tr><th>Service</th><th>Can</th><th>Via</th></tr></thead>
           <tbody>
-            <tr><td style="font-weight:500">Rules</td><td><span class="tag">rules:read</span><span class="tag">rules:write</span><span class="tag">rules:deploy</span></td><td><span class="xlink" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
-            <tr><td style="font-weight:500">Attacks</td><td><span class="tag">attacks:read</span></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
-            <tr><td style="font-weight:500">Incidents</td><td><span class="tag">incidents:read</span></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
+            <tr><td style="font-weight:500">Rules</td><td><div class="canexp"><span class="canlvl edit">Edit</span><span class="cancount">3 actions</span><i class="ti ti-chevron-down chev"></i></div><div class="candetail" style="display:none"><span class="vchip">read</span><span class="vchip">write</span><span class="vchip">deploy</span></div></td><td><span class="xlink" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
+            <tr><td style="font-weight:500">Attacks</td><td><div class="canexp"><span class="canlvl view">View</span><span class="cancount">1 action</span><i class="ti ti-chevron-down chev"></i></div><div class="candetail" style="display:none"><span class="vchip">read</span></div></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
+            <tr><td style="font-weight:500">Incidents</td><td><div class="canexp"><span class="canlvl view">View</span><span class="cancount">1 action</span><i class="ti ti-chevron-down chev"></i></div><div class="candetail" style="display:none"><span class="vchip">read</span></div></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
           </tbody></table>
       </div>
 
@@ -509,6 +518,7 @@ root.querySelector('#bulkDelete').addEventListener('click',function(e){e.stopPro
   openConfirm('Delete '+checked.length+' user'+(checked.length>1?'s':'')+'?','They will lose all access. This can\'t be undone.',function(){checked.forEach(function(tr){tr.remove();});applyUserFilter(FILTER);toast(checked.length+' users deleted');});
 });
 document.addEventListener('click',function(){if(rowMenu)rowMenu.style.display='none';});
+root.querySelectorAll('.canexp').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var d=el.parentNode.querySelector('.candetail');if(!d)return;var open=d.style.display!=='none';d.style.display=open?'none':'block';el.classList.toggle('open',!open);});});
 
 show('users');resetInvite();
 </script>
