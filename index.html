@@ -15,8 +15,7 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .topbar{max-width:1080px;margin:0 auto 12px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .brand{font-size:14px;color:var(--slate-700)}.brand b{font-weight:600;color:var(--slate-900)}
-.model{font-size:12px;color:var(--slate-500);background:#fff;border:1px solid var(--slate-200);border-radius:9999px;padding:5px 12px}
-.model b{font-weight:500;color:var(--slate-700)}
+.model{font-size:12px;color:var(--slate-500);background:#fff;border:1px solid var(--slate-200);border-radius:9999px;padding:5px 12px}.model b{font-weight:500;color:var(--slate-700)}
 .wapp{color:var(--slate-900);position:relative;display:flex;min-height:600px;max-width:1080px;margin:0 auto;border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .mono{font-family:'Geist Mono',ui-monospace,monospace}
 .wapp .subnav{width:224px;flex:none;border-right:1px solid var(--slate-200);padding:16px 12px;background:#fff}
@@ -51,9 +50,18 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
 .wapp .crow{display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
 .wapp .overlay{position:absolute;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
 .wapp .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:hidden}
+.wapp .dbody{padding:16px 20px;min-height:312px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:var(--slate-100);color:var(--slate-700);padding:4px 8px;border-radius:6px;font-size:13px;margin:2px}
-.opt{display:flex;align-items:flex-start;justify-content:space-between;padding:9px 12px;cursor:pointer}
+.card{display:flex;align-items:flex-start;gap:11px;border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:12px 14px;margin-bottom:8px;cursor:pointer}
+.card.on{border:1.5px solid var(--w-orange-600);background:#FFF6F3}
+.rad{width:18px;height:18px;border-radius:9999px;border:1.5px solid var(--slate-300);flex:none;margin-top:1px}
+.card.on .rad{border:5px solid var(--w-orange-600)}
+.ttag{font-size:11px;color:var(--slate-500);background:var(--slate-100);border-radius:9999px;padding:2px 9px;display:inline-flex;align-items:center;gap:4px}
+.acc-q{font-family:inherit;font-size:14px;border:none;outline:none;flex:1;background:transparent;color:var(--slate-900)}
+.acc-q::placeholder{color:var(--slate-400)}
+.opt{display:flex;align-items:center;justify-content:space-between;padding:8px 11px;cursor:pointer}
 .opt:hover{background:var(--slate-50)}
+.gh{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:8px 11px 3px}
 .revoke{font-family:inherit;font-size:12px;font-weight:500;color:var(--red-600);background:none;border:none;padding:2px 0;cursor:pointer;margin-top:4px}
 .wapp .quickball{position:absolute;right:18px;bottom:18px;width:46px;height:46px;border-radius:9999px;background:var(--w-orange-600);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:40;box-shadow:0 4px 14px rgba(255,68,28,.4);border:none}
 .wapp .qmenu{position:absolute;right:18px;bottom:74px;background:#fff;border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:6px;display:none;z-index:40;box-shadow:0 8px 24px rgba(0,0,0,.14);min-width:196px}
@@ -87,7 +95,7 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
       <table><colgroup><col style="width:34%"><col style="width:18%"><col style="width:24%"><col style="width:14%"><col style="width:10%"></colgroup>
         <thead><tr><th>User</th><th>Type</th><th>Access</th><th>Status</th><th>Active</th></tr></thead>
         <tbody>
-          <tr data-go="user-access"><td><span style="color:var(--blue-600)">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">dataplane-admin, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr>
+          <tr data-go="user-access"><td><span style="color:var(--blue-600)">Maria Hernandez</span><div style="font-size:12px;color:var(--slate-400)">maria.hernandez@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">Platform engineering, soc-analyst</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr>
           <tr><td><span style="color:var(--blue-600)">Alex Zahn</span><div style="font-size:12px;color:var(--slate-400)">alex.zahn@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>2d</td></tr>
           <tr><td><span class="mono" style="color:var(--blue-600);font-size:13px">ci-deploy-bot</span></td><td><span class="pill" style="background:#F3E8FF;color:#9810FA"><i class="ti ti-cpu" style="font-size:12px"></i>Service account</span></td><td style="color:var(--slate-700);font-size:13px">ci-deploy <span style="color:var(--slate-400)">· role only</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>1h</td></tr>
           <tr><td><span style="color:var(--blue-600)">Sofia Rossi</span><div style="font-size:12px;color:var(--slate-400)">sofia.rossi@acme.com</div></td><td><span class="pill"><i class="ti ti-user" style="font-size:12px"></i>User</span></td><td style="color:var(--slate-700);font-size:13px">soc-analyst</td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span><div><button class="revoke" data-action="revoke">Revoke invite</button></div></td><td>—</td></tr>
@@ -182,29 +190,32 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
   <div class="overlay">
     <div class="dialog">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)">
-        <div><div style="font-size:17px;font-weight:600">Invite users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Grant access by group or role — at least one is required.</div></div>
+        <div><div style="font-size:17px;font-weight:600">Invite users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Grant access by role or group — at least one is required.</div></div>
         <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" data-action="closeInvite" aria-label="Close"></i>
       </div>
-      <div style="padding:16px 20px">
+      <div class="dbody">
         <div style="font-size:14px;font-weight:600;margin-bottom:7px">Email addresses</div>
-        <div style="border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:7px;display:flex;flex-wrap:wrap;align-items:center;margin-bottom:18px"><span class="chip">priya.shah@acme.com <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span></div>
-        <div style="font-size:14px;font-weight:600;margin-bottom:3px">Access <span style="color:var(--red-600)">·</span> <span style="font-weight:400;color:var(--slate-400)">required</span></div>
-        <div style="font-size:12px;color:var(--slate-500);margin-bottom:8px">Pick a group (roles included) or a role directly.</div>
-        <div class="acc-chips" style="display:flex;flex-wrap:wrap;margin-bottom:8px"></div>
-        <div class="acc-list" style="border:1px solid var(--slate-300);border-radius:var(--radius-8);overflow:hidden">
-          <div style="display:flex;align-items:center;gap:7px;padding:8px 11px;border-bottom:1px solid var(--slate-200);color:var(--slate-400);font-size:14px"><i class="ti ti-search" style="font-size:15px"></i>Search groups or roles…</div>
-          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:8px 12px 4px">Groups · roles included</div>
-          <div class="opt" data-add data-kind="group" data-label="SOC tier 1" data-role="soc-analyst" data-perms="attacks:read,incidents:read,sensitive-data:read"><div><div style="font-size:14px;display:flex;align-items:center;gap:6px"><i class="ti ti-users-group" style="font-size:14px;color:var(--slate-500)"></i>SOC tier 1</div><div style="font-size:12px;color:var(--slate-400);margin-top:2px">grants soc-analyst</div></div><span style="font-size:12px;color:var(--blue-600);align-self:center">Add</span></div>
-          <div class="opt" data-add data-kind="group" data-label="Platform engineering" data-role="dataplane-admin" data-perms="rules:read,rules:write,rules:deploy,integrations:read,integrations:write"><div><div style="font-size:14px;display:flex;align-items:center;gap:6px"><i class="ti ti-users-group" style="font-size:14px;color:var(--slate-500)"></i>Platform engineering</div><div style="font-size:12px;color:var(--slate-400);margin-top:2px">grants dataplane-admin</div></div><span style="font-size:12px;color:var(--blue-600);align-self:center">Add</span></div>
-          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:10px 12px 4px;border-top:1px solid var(--slate-200)">Roles · assign directly</div>
-          <div class="opt" data-add data-kind="role" data-label="read-only-auditor" data-perms="attacks:read,rules:read,api-discovery:read"><div style="font-size:14px"><span class="mono" style="font-size:13px">read-only-auditor</span></div><span style="font-size:12px;color:var(--blue-600);align-self:center">Add</span></div>
-          <div class="opt" data-add data-kind="role" data-label="dataplane-admin" data-perms="rules:read,rules:write,rules:deploy,integrations:read,integrations:write"><div style="font-size:14px"><span class="mono" style="font-size:13px">dataplane-admin</span></div><span style="font-size:12px;color:var(--blue-600);align-self:center">Add</span></div>
+        <div style="border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:7px;margin-bottom:18px"><span class="chip">priya.shah@acme.com <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span></div>
+        <div style="font-size:14px;font-weight:600;margin-bottom:3px">What access should they have? <span style="color:var(--red-600)">·</span> <span style="font-weight:400;color:var(--slate-400)">required</span></div>
+        <div style="font-size:12px;color:var(--slate-400);margin-bottom:10px">Start from a role. Add groups under Custom for teams.</div>
+        <div class="acc-presets">
+          <div class="card on" data-preset="soc"><div class="rad"></div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:14px;font-weight:500">SOC analyst</div><span class="ttag"><i class="ti ti-key" style="font-size:11px"></i>Role</span></div><div style="font-size:12px;color:var(--slate-500);margin-top:3px">Read attacks, incidents &amp; sensitive data</div></div></div>
+          <div class="card" data-preset="plat"><div class="rad"></div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:14px;font-weight:500">Platform engineer</div><span class="ttag"><i class="ti ti-key" style="font-size:11px"></i>Role</span></div><div style="font-size:12px;color:var(--slate-500);margin-top:3px">Manage rules &amp; integrations, read API discovery</div></div></div>
+          <div class="card" data-preset="aud"><div class="rad"></div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:14px;font-weight:500">Auditor</div><span class="ttag"><i class="ti ti-key" style="font-size:11px"></i>Role</span></div><div style="font-size:12px;color:var(--slate-500);margin-top:3px">Read-only across the organization</div></div></div>
+          <div class="card" data-preset="custom" style="border-style:dashed"><div class="rad"></div><div style="flex:1"><div style="font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px"><i class="ti ti-adjustments" style="font-size:15px;color:var(--slate-500)"></i>Custom access</div><div style="font-size:12px;color:var(--slate-500);margin-top:2px">Search and pick specific groups or roles</div></div></div>
         </div>
-        <div class="acc-preview" style="display:none;background:var(--slate-50);border-radius:var(--radius-8);padding:11px 13px;margin-top:14px;font-size:13px"><div style="font-size:12px;color:var(--slate-500);margin-bottom:5px">Priya will be able to</div><div class="acc-preview-tags"></div></div>
+        <div class="acc-search" style="display:none">
+          <div class="acc-back" style="font-size:13px;color:var(--blue-600);cursor:pointer;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px"><i class="ti ti-chevron-left" style="font-size:14px"></i>Use a preset</div>
+          <div class="acc-toks" style="display:flex;flex-wrap:wrap;margin-bottom:8px"></div>
+          <div class="acc-field-wrap" style="position:relative">
+            <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" placeholder="Search groups or roles…" autocomplete="off"></div>
+            <div class="acc-pop" style="display:none;position:absolute;left:0;right:0;top:46px;background:#fff;border:1px solid var(--slate-300);border-radius:var(--radius-8);box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:180px;overflow:auto;z-index:20"></div>
+          </div>
+        </div>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50)">
         <button class="btnD" data-action="closeInvite">Cancel</button>
-        <button class="btnP" data-action="send" disabled style="opacity:.5;cursor:not-allowed">Send invite</button>
+        <button class="btnP" data-action="send">Send invite</button>
       </div>
     </div>
   </div>
@@ -218,6 +229,8 @@ body{margin:0;background:#F8FAFC;font-family:'Geist',ui-sans-serif,system-ui,san
 
 <script>
 var P={users:'users','user-access':'users','user-membership':'users',groups:'groups','group-detail':'groups',roles:'roles','role-detail':'roles'};
+var GROUPS=[{l:'SOC tier 1',r:'soc-analyst'},{l:'SOC tier 2',r:'soc-analyst, incident-responder'},{l:'Platform engineering',r:'dataplane-admin'},{l:'Compliance',r:'read-only-auditor'},{l:'AI platform',r:'ai-governance'}];
+var ROLES=['soc-analyst','dataplane-admin','incident-responder','read-only-auditor','ai-governance','ci-deploy'];
 function initApp(root){
   function closeMenu(){var m=root.querySelector('.qmenu');if(m)m.style.display='none';}
   function show(id){
@@ -228,38 +241,41 @@ function initApp(root){
     closeMenu();
   }
   function toast(m){var t=root.querySelector('.toast');t.querySelector('span').textContent=m;t.style.display='flex';clearTimeout(t._t);t._t=setTimeout(function(){t.style.display='none';},2600);}
-  function recomputeAccess(){
-    var chips=root.querySelectorAll('.acc-chip');var perms=new Set();
-    chips.forEach(function(c){(c.dataset.perms||'').split(',').filter(Boolean).forEach(function(p){perms.add(p);});});
-    var prev=root.querySelector('.acc-preview-tags');
-    if(prev)prev.innerHTML=Array.from(perms).map(function(p){return '<span class="tag">'+p+'</span>';}).join('');
-    var box=root.querySelector('.acc-preview');if(box)box.style.display=chips.length?'block':'none';
-    var send=root.querySelector('[data-action="send"]');
-    if(send){var off=chips.length===0;send.disabled=off;send.style.opacity=off?'.5':'1';send.style.cursor=off?'not-allowed':'pointer';}
-  }
-  function clearAccess(){root.querySelectorAll('.acc-chip').forEach(function(c){c.remove();});recomputeAccess();}
-  root.querySelectorAll('[data-go]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();show(el.dataset.go);});});
-  root.querySelectorAll('.opt[data-add]').forEach(function(o){o.addEventListener('click',function(e){e.stopPropagation();
-    var label=o.dataset.label;
-    if(root.querySelector('.acc-chip[data-label="'+label+'"]'))return;
-    var chip=document.createElement('span');chip.className='chip acc-chip';chip.dataset.perms=o.dataset.perms||'';chip.dataset.label=label;
-    var sub=o.dataset.kind==='group'?' · '+o.dataset.role:'';
-    chip.innerHTML='<span>'+label+(sub?'<span style="color:#94A3B8">'+sub+'</span>':'')+'</span> <i class="ti ti-x chip-x" style="font-size:12px;color:#94A3B8;cursor:pointer"></i>';
-    root.querySelector('.acc-chips').appendChild(chip);
-    chip.querySelector('.chip-x').addEventListener('click',function(ev){ev.stopPropagation();chip.remove();recomputeAccess();});
-    recomputeAccess();
+
+  var presets=root.querySelector('.acc-presets'),searchA=root.querySelector('.acc-search'),accQ=root.querySelector('.acc-q'),accPop=root.querySelector('.acc-pop'),accToks=root.querySelector('.acc-toks'),fieldWrap=root.querySelector('.acc-field-wrap'),chosen={};
+  function updateSend(){var s=root.querySelector('[data-action="send"]');var ok;if(searchA.style.display!=='none'){ok=Object.keys(chosen).length>0;}else{ok=!!root.querySelector('.acc-presets .card.on');}s.disabled=!ok;s.style.opacity=ok?'1':'.5';s.style.cursor=ok?'pointer':'not-allowed';}
+  function renderToks(){accToks.innerHTML=Object.keys(chosen).map(function(k){var o=chosen[k];var sub=o.kind==='group'?'<span style="color:#94A3B8"> · '+o.r.split(',')[0].trim()+'</span>':'';return '<span class="chip">'+(o.kind==='group'?'<i class="ti ti-users-group" style="font-size:13px;color:#62748E"></i>':'')+'<span class="'+(o.kind==='role'?'mono':'')+'">'+o.l+'</span>'+sub+' <i class="ti ti-x" data-rm="'+k+'" style="font-size:12px;color:#94A3B8;cursor:pointer"></i></span>';}).join('');accToks.querySelectorAll('[data-rm]').forEach(function(x){x.addEventListener('click',function(){delete chosen[x.dataset.rm];renderToks();renderPop();updateSend();});});}
+  function renderPop(){var s=(accQ.value||'').toLowerCase(),h='',gs=GROUPS.filter(function(g){return (g.l+' '+g.r).toLowerCase().indexOf(s)>-1&&!chosen['g:'+g.l];}),rs=ROLES.filter(function(r){return r.toLowerCase().indexOf(s)>-1&&!chosen['r:'+r];});
+    if(gs.length){h+='<div class="gh">Groups · roles included</div>';gs.forEach(function(g){h+='<div class="opt" data-k="g:'+g.l+'" data-l="'+g.l+'" data-kind="group" data-r="'+g.r+'"><div><div style="font-size:14px;display:flex;align-items:center;gap:6px"><i class="ti ti-users-group" style="font-size:14px;color:#62748E"></i>'+g.l+'</div><div style="font-size:12px;color:#94A3B8;margin-top:1px">grants '+g.r+'</div></div><span style="font-size:12px;color:#155DFC">Add</span></div>';});}
+    if(rs.length){h+='<div class="gh">Roles · assign directly</div>';rs.forEach(function(r){h+='<div class="opt" data-k="r:'+r+'" data-l="'+r+'" data-kind="role"><div class="mono" style="font-size:13px">'+r+'</div><span style="font-size:12px;color:#155DFC">Add</span></div>';});}
+    if(!gs.length&&!rs.length)h='<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>';
+    accPop.innerHTML=h;accPop.querySelectorAll('.opt').forEach(function(el){el.addEventListener('mousedown',function(e){e.preventDefault();chosen[el.dataset.k]={l:el.dataset.l,kind:el.dataset.kind,r:el.dataset.r};accQ.value='';renderToks();renderPop();updateSend();accQ.focus();});});}
+  function modePresets(){searchA.style.display='none';presets.style.display='block';accPop.style.display='none';}
+  function modeSearch(){presets.style.display='none';searchA.style.display='block';renderPop();accPop.style.display='block';accQ.focus();}
+  function resetInvite(){chosen={};renderToks();accQ.value='';modePresets();root.querySelectorAll('.acc-presets .card').forEach(function(x){x.classList.remove('on');});var d=root.querySelector('.acc-presets .card[data-preset="soc"]');if(d)d.classList.add('on');updateSend();}
+
+  root.querySelectorAll('.acc-presets .card').forEach(function(c){c.addEventListener('click',function(){
+    if(c.dataset.preset==='custom'){root.querySelectorAll('.acc-presets .card').forEach(function(x){x.classList.remove('on');});modeSearch();updateSend();}
+    else{root.querySelectorAll('.acc-presets .card').forEach(function(x){x.classList.remove('on');});c.classList.add('on');updateSend();}
   });});
+  root.querySelector('.acc-back').addEventListener('click',function(){chosen={};renderToks();accQ.value='';modePresets();var d=root.querySelector('.acc-presets .card[data-preset="soc"]');root.querySelectorAll('.acc-presets .card').forEach(function(x){x.classList.remove('on');});if(d)d.classList.add('on');updateSend();});
+  accQ.addEventListener('focus',function(){accPop.style.display='block';renderPop();});
+  accQ.addEventListener('input',function(){accPop.style.display='block';renderPop();});
+  accQ.addEventListener('keydown',function(e){if(e.key==='Escape'){accPop.style.display='none';}});
+
+  root.querySelectorAll('[data-go]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();show(el.dataset.go);});});
   root.querySelectorAll('[data-action]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var a=el.dataset.action;
-    if(a==='invite')root.querySelector('.overlay').style.display='flex';
-    else if(a==='closeInvite'){root.querySelector('.overlay').style.display='none';clearAccess();}
-    else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';clearAccess();var r=root.querySelector('[data-invited]');if(r)r.style.display='table-row';show('users');toast('Invite sent');}
+    if(a==='invite'){root.querySelector('.overlay').style.display='flex';resetInvite();}
+    else if(a==='closeInvite'){root.querySelector('.overlay').style.display='none';resetInvite();}
+    else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';resetInvite();var r=root.querySelector('[data-invited]');if(r)r.style.display='table-row';show('users');toast('Invite sent');}
     else if(a==='deactivate')toast('User deactivated');
     else if(a==='revoke'){var tr=el.closest('tr');if(tr)tr.style.display='none';toast('Invite revoked');}
   });});
   var qb=root.querySelector('.quickball');
   qb.addEventListener('click',function(e){e.stopPropagation();var m=root.querySelector('.qmenu');m.style.display=m.style.display==='block'?'none':'block';});
+  document.addEventListener('mousedown',function(e){if(fieldWrap&&!fieldWrap.contains(e.target))accPop.style.display='none';});
   show(root.dataset.home||'users');
-  recomputeAccess();
+  resetInvite();
 }
 document.querySelectorAll('.wapp').forEach(initApp);
 document.addEventListener('click',function(){document.querySelectorAll('.qmenu').forEach(function(m){m.style.display='none';});});
