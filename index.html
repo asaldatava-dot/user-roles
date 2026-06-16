@@ -130,6 +130,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .usum .fl{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);margin-bottom:3px}
 .usum .fv{font-size:13.5px}
 .usum .lab{font-size:12px;color:var(--slate-500);width:62px;flex:none}
+.grp td{background:var(--slate-50);font-weight:600;font-size:13px;color:var(--slate-900);padding:8px 14px}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
@@ -228,13 +229,16 @@ tr[data-go]:hover td{background:var(--slate-50)}
           <div style="display:flex;align-items:baseline"><span class="lab">Groups</span><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
         </div>
         <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Membership</span><span class="tab">Tokens (1)</span></div>
-        <div class="sub" style="margin:0 0 14px">Everything Maria can do, resolved from her role and group. Read-only — change it in <a data-go="user-membership" style="color:var(--blue-600);cursor:pointer">Membership</a>.</div>
-        <table><colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
-          <thead><tr><th>Service</th><th>Can</th><th>Via</th></tr></thead>
+        <div class="sub" style="margin:0 0 14px">Everything Maria can do, grouped by product. Read-only — change it in <a data-go="user-membership" style="color:var(--blue-600);cursor:pointer">Membership</a>.</div>
+        <table><colgroup><col style="width:30%"><col style="width:22%"><col style="width:48%"></colgroup>
+          <thead><tr><th>Area</th><th>Access</th><th>Via</th></tr></thead>
           <tbody>
-            <tr><td style="font-weight:500">Rules</td><td><div class="canexp"><span class="canlvl edit">Edit</span><span class="cancount">3 actions</span><i class="ti ti-chevron-down chev"></i></div><div class="candetail" style="display:none"><span class="vchip">read</span><span class="vchip">write</span><span class="vchip">deploy</span></div></td><td><span class="xlink" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
-            <tr><td style="font-weight:500">Attacks</td><td><div class="canexp"><span class="canlvl view">View</span><span class="cancount">1 action</span><i class="ti ti-chevron-down chev"></i></div><div class="candetail" style="display:none"><span class="vchip">read</span></div></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
-            <tr><td style="font-weight:500">Incidents</td><td><div class="canexp"><span class="canlvl view">View</span><span class="cancount">1 action</span><i class="ti ti-chevron-down chev"></i></div><div class="candetail" style="display:none"><span class="vchip">read</span></div></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
+            <tr class="grp"><td colspan="3">API Security · Edge</td></tr>
+            <tr><td style="padding-left:26px">Rules</td><td><span class="canlvl edit">Edit</span></td><td><span class="xlink" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
+            <tr><td style="padding-left:26px">Attacks</td><td><span class="canlvl view">View</span></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
+            <tr><td style="padding-left:26px">Incidents</td><td><span class="canlvl view">View</span></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
+            <tr class="grp"><td colspan="3">Security Edge</td></tr>
+            <tr><td style="padding-left:26px">Nodes</td><td><span class="canlvl view">View</span></td><td><span class="xlink" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
           </tbody></table>
       </div>
 
