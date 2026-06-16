@@ -109,6 +109,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .canlvl{font-size:12px;font-weight:500;padding:2px 9px;border-radius:9999px;background:#EEF2F6;color:#334155}
 .canlvl.edit{background:#FFF1EC;color:#9A2A12}
 .canlvl.view{background:#EAF2FF;color:#1E40AF}
+.canlvl.admin{background:#FDECEC;color:#B42318}
 .cancount{font-size:13px;color:var(--slate-500)}
 .chev{color:var(--slate-400);font-size:15px;transition:transform .15s}
 .canexp.open .chev{transform:rotate(180deg)}
@@ -303,15 +304,17 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="crumb"><a data-go="roles">Settings</a> <i>›</i> <a data-go="roles">Roles</a> <i>›</i> dataplane-admin</div>
         <div class="phead"><div><h1 class="mono" style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span class="xlink" style="color:var(--slate-700)">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
         <div class="info" style="margin-bottom:18px">This role can <b style="font-weight:500">edit rules</b> and <b style="font-weight:500">view Security Edge nodes</b>.</div>
-        <div style="font-size:16px;font-weight:600;margin-bottom:12px">Permissions</div>
-        <table><colgroup><col style="width:60%"><col style="width:40%"></colgroup>
-          <thead><tr><th>Area</th><th>Access</th></tr></thead>
-          <tbody>
-            <tr class="grp"><td colspan="2">API Security · Edge</td></tr>
-            <tr><td style="padding-left:26px">Rules</td><td><span class="canlvl edit">Edit</span></td></tr>
-            <tr class="grp"><td colspan="2">Security Edge</td></tr>
-            <tr><td style="padding-left:26px">Nodes</td><td><span class="canlvl view">View</span></td></tr>
-          </tbody></table>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:16px;font-weight:600">Permissions</div><button class="btnD" id="roleEditBtn"><i class="ti ti-edit" style="font-size:14px;vertical-align:-2px"></i> Edit</button></div>
+        <div id="roleView"><table><colgroup><col style="width:60%"><col style="width:40%"></colgroup><thead><tr><th>Area</th><th>Access</th></tr></thead><tbody id="roleViewBody"></tbody></table></div>
+        <div id="roleEdit" style="display:none">
+          <div class="toolbar">
+            <div style="flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:8px;padding:8px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="rsvcSearch" placeholder="Filter products or areas…" autocomplete="off"></div>
+            <button class="setbtn" id="rsetAllBtn">Set all to <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button>
+          </div>
+          <div id="rsvcList" style="border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff"></div>
+          <div class="foot" id="rpermSummary"></div>
+          <div class="formfoot"><button class="btnD" id="roleEditCancel">Cancel</button><button class="btnP" id="roleEditSave">Save changes</button></div>
+        </div>
       </div>
 
       <div class="screen" data-screen="role-create">
@@ -500,44 +503,32 @@ var PRODUCTS=[
  {n:'API Security Testing',k:'test',areas:[{n:'Test Suites',k:'suites'},{n:'Results',k:'results'},{n:'Coverage',k:'coverage'}]},
  {n:'Security Edge',k:'secedge',areas:[{n:'Nodes',k:'nodes'},{n:'Node configuration',k:'nodecfg'},{n:'Routing',k:'routing'}]}
 ];
-var LEVELS=['None','View','Edit','Admin'];
-var SEL={},svcList=root.querySelector('#svcList'),svcSearch=root.querySelector('#svcSearch'),permSummary=root.querySelector('#permSummary'),setMenu=root.querySelector('#setMenu'),setTarget=null;
+var LEVELS=['None','View','Edit','Admin'],setMenu=root.querySelector('#setMenu');
 function aKey(pk,ak){return pk+'/'+ak;}
-function levelOf(key){return SEL[key]||'None';}
-function rowHtml(p,a){
-  var key=aKey(p.k,a.k),lvl=levelOf(key);
-  var seg=LEVELS.map(function(L){return '<span data-area="'+key+'" data-level="'+L+'" class="'+(L==='None'?'none':'')+(lvl===L?' on':'')+'">'+L+'</span>';}).join('');
-  return '<div class="arow"><span class="aname">'+a.n+'</span><div class="seg">'+seg+'</div></div>';
+function makePermEditor(o){
+  var SEL={};
+  function levelOf(key){return SEL[key]||'None';}
+  function rowHtml(p,a){var key=aKey(p.k,a.k),lvl=levelOf(key);var seg=LEVELS.map(function(L){return '<span data-area="'+key+'" data-level="'+L+'" class="'+(L==='None'?'none':'')+(lvl===L?' on':'')+'">'+L+'</span>';}).join('');return '<div class="arow"><span class="aname">'+a.n+'</span><div class="seg">'+seg+'</div></div>';}
+  function productHtml(p,areas){return '<div class="ghead"><span class="gname">'+p.n+'</span><button class="setbtn sm" data-setall="'+p.k+'">Set all <i class="ti ti-chevron-down" style="font-size:13px;color:#62748E"></i></button></div>'+areas.map(function(a){return rowHtml(p,a);}).join('');}
+  function render(){var q=(o.search.value||'').toLowerCase(),html='';PRODUCTS.forEach(function(p){var pm=p.n.toLowerCase().indexOf(q)>-1;var areas=pm?p.areas:p.areas.filter(function(a){return a.n.toLowerCase().indexOf(q)>-1;});if(areas.length)html+=productHtml(p,areas);});o.list.innerHTML=html||'<div style="padding:14px;font-size:13px;color:#94A3B8">No matches.</div>';var an=0,ps={};PRODUCTS.forEach(function(p){p.areas.forEach(function(a){if(levelOf(aKey(p.k,a.k))!=='None'){an++;ps[p.k]=1;}});});o.summary.innerHTML='Granting access to <b style="font-weight:500;color:#334155">'+an+' areas</b> across <b style="font-weight:500;color:#334155">'+Object.keys(ps).length+' products</b>';}
+  function openSetMenu(btn,target){setMenu.innerHTML=LEVELS.map(function(L){return '<div data-l="'+L+'">'+(L==='None'?'No access':L)+'</div>';}).join('');setMenu.style.display='block';var r=btn.getBoundingClientRect();setMenu.style.left=Math.max(8,r.right-setMenu.offsetWidth)+'px';setMenu.style.top=(r.bottom+4)+'px';setMenu.querySelectorAll('[data-l]').forEach(function(it){it.addEventListener('click',function(ev){ev.stopPropagation();PRODUCTS.forEach(function(p){if(target==='*'||target===p.k){p.areas.forEach(function(a){var key=aKey(p.k,a.k);if(it.dataset.l==='None')delete SEL[key];else SEL[key]=it.dataset.l;});}});setMenu.style.display='none';render();});});}
+  o.list.addEventListener('click',function(e){var seg=e.target.closest('.seg span[data-level]');if(seg){var k=seg.dataset.area,L=seg.dataset.level;if(L==='None')delete SEL[k];else SEL[k]=L;render();return;}var sa=e.target.closest('[data-setall]');if(sa){e.stopPropagation();openSetMenu(sa,sa.dataset.setall);return;}});
+  o.search.addEventListener('input',render);
+  o.setAllBtn.addEventListener('click',function(e){e.stopPropagation();openSetMenu(o.setAllBtn,'*');});
+  render();
+  return {sel:function(){return SEL;},set:function(s){SEL={};for(var k in (s||{}))SEL[k]=s[k];render();},reset:function(){SEL={};if(o.search)o.search.value='';render();}};
 }
-function productHtml(p,areas){
-  return '<div class="ghead"><span class="gname">'+p.n+'</span><button class="setbtn sm" data-setall="'+p.k+'">Set all <i class="ti ti-chevron-down" style="font-size:13px;color:#62748E"></i></button></div>'+areas.map(function(a){return rowHtml(p,a);}).join('');
-}
-function renderAll(){
-  var q=(svcSearch.value||'').toLowerCase(),html='';
-  PRODUCTS.forEach(function(p){
-    var pm=p.n.toLowerCase().indexOf(q)>-1;
-    var areas=pm?p.areas:p.areas.filter(function(a){return a.n.toLowerCase().indexOf(q)>-1;});
-    if(areas.length)html+=productHtml(p,areas);
-  });
-  svcList.innerHTML=html||'<div style="padding:14px;font-size:13px;color:#94A3B8">No matches.</div>';
-  var an=0,ps={};PRODUCTS.forEach(function(p){p.areas.forEach(function(a){if(levelOf(aKey(p.k,a.k))!=='None'){an++;ps[p.k]=1;}});});
-  permSummary.innerHTML='Granting access to <b style="font-weight:500;color:#334155">'+an+' areas</b> across <b style="font-weight:500;color:#334155">'+Object.keys(ps).length+' products</b>';
-}
-function resetPerms(){SEL={};if(svcSearch)svcSearch.value='';renderAll();}
-function openSetMenu(btn,target){
-  setTarget=target;
-  setMenu.innerHTML=LEVELS.map(function(L){return '<div data-l="'+L+'">'+(L==='None'?'No access':L)+'</div>';}).join('');
-  setMenu.style.display='block';var r=btn.getBoundingClientRect();setMenu.style.left=Math.max(8,r.right-setMenu.offsetWidth)+'px';setMenu.style.top=(r.bottom+4)+'px';
-  setMenu.querySelectorAll('[data-l]').forEach(function(it){it.addEventListener('click',function(ev){ev.stopPropagation();PRODUCTS.forEach(function(p){if(setTarget==='*'||setTarget===p.k){p.areas.forEach(function(a){var key=aKey(p.k,a.k);if(it.dataset.l==='None')delete SEL[key];else SEL[key]=it.dataset.l;});}});setMenu.style.display='none';renderAll();});});
-}
-svcList.addEventListener('click',function(e){
-  var seg=e.target.closest('.seg span[data-level]');if(seg){var k=seg.dataset.area,L=seg.dataset.level;if(L==='None')delete SEL[k];else SEL[k]=L;renderAll();return;}
-  var sa=e.target.closest('[data-setall]');if(sa){e.stopPropagation();openSetMenu(sa,sa.dataset.setall);return;}
-});
-svcSearch.addEventListener('input',renderAll);
-var setAllBtn=root.querySelector('#setAllBtn');
-setAllBtn.addEventListener('click',function(e){e.stopPropagation();openSetMenu(setAllBtn,'*');});
-renderAll();
+var roleEditor=makePermEditor({list:root.querySelector('#svcList'),search:root.querySelector('#svcSearch'),setAllBtn:root.querySelector('#setAllBtn'),summary:root.querySelector('#permSummary')});
+function resetPerms(){roleEditor.reset();}
+/* role detail — view + edit permissions */
+var roleDetailEditor=makePermEditor({list:root.querySelector('#rsvcList'),search:root.querySelector('#rsvcSearch'),setAllBtn:root.querySelector('#rsetAllBtn'),summary:root.querySelector('#rpermSummary')});
+var ROLE_SEL={'edge/rules':'Edit','secedge/nodes':'View'},roleViewBody=root.querySelector('#roleViewBody');
+function renderRoleView(){var html='';PRODUCTS.forEach(function(p){var rows=p.areas.filter(function(a){return (ROLE_SEL[aKey(p.k,a.k)]||'None')!=='None';});if(!rows.length)return;html+='<tr class="grp"><td colspan="2">'+p.n+'</td></tr>';rows.forEach(function(a){var lvl=ROLE_SEL[aKey(p.k,a.k)];html+='<tr><td style="padding-left:26px">'+a.n+'</td><td><span class="canlvl '+lvl.toLowerCase()+'">'+lvl+'</span></td></tr>';});});roleViewBody.innerHTML=html||'<tr><td colspan="2" style="color:#94A3B8;padding:14px 8px">No permissions.</td></tr>';}
+function roleMode(edit){root.querySelector('#roleView').style.display=edit?'none':'block';root.querySelector('#roleEditBtn').style.display=edit?'none':'inline-flex';root.querySelector('#roleEdit').style.display=edit?'block':'none';}
+root.querySelector('#roleEditBtn').addEventListener('click',function(){roleDetailEditor.set(ROLE_SEL);roleMode(true);});
+root.querySelector('#roleEditCancel').addEventListener('click',function(){roleMode(false);});
+root.querySelector('#roleEditSave').addEventListener('click',function(){var s=roleDetailEditor.sel();ROLE_SEL={};for(var k in s)ROLE_SEL[k]=s[k];renderRoleView();roleMode(false);toast('Role saved');});
+renderRoleView();
 /* group create */
 var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#createGroup');
 function groupSync(){syncCreate(groupName,root.querySelector('#groupIdPrev'),root.querySelector('#groupSlug'),root.querySelector('#groupArn'),createGroup,'group');}
