@@ -126,6 +126,10 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .setmenu{position:fixed;background:#fff;border:1px solid var(--slate-200);border-radius:8px;padding:6px;display:none;z-index:130;box-shadow:0 8px 24px rgba(0,0,0,.16);min-width:150px}
 .setmenu div{font-size:13px;padding:7px 10px;border-radius:6px;cursor:pointer;color:var(--slate-700)}
 .setmenu div:hover{background:var(--slate-50)}
+.usum{border:1px solid var(--slate-200);border-radius:12px;padding:14px 16px;margin-bottom:18px}
+.usum .fl{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);margin-bottom:3px}
+.usum .fv{font-size:13.5px}
+.usum .lab{font-size:12px;color:var(--slate-500);width:62px;flex:none}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
@@ -212,6 +216,17 @@ tr[data-go]:hover td{background:var(--slate-50)}
       <div class="screen" data-screen="user-access">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
         <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill"><i class="ti ti-user" style="font-size:13px"></i>User</span></div><button class="btnX" data-action="deactivate">Deactivate</button></div>
+        <div class="usum">
+          <div style="display:flex;gap:30px;flex-wrap:wrap;margin-bottom:14px">
+            <div><div class="fl">Status</div><div class="fv"><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div></div>
+            <div><div class="fl">Email</div><div class="fv">maria.hernandez@acme.com</div></div>
+            <div><div class="fl">Last sign-in</div><div class="fv">8d ago</div></div>
+            <div><div class="fl">MFA</div><div class="fv">On</div></div>
+            <div><div class="fl">Tokens</div><div class="fv">1</div></div>
+          </div>
+          <div style="border-top:1px solid var(--slate-100);padding-top:12px;display:flex;align-items:baseline;margin-bottom:8px"><span class="lab">Roles</span><div><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+          <div style="display:flex;align-items:baseline"><span class="lab">Groups</span><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
+        </div>
         <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Membership</span><span class="tab">Tokens (1)</span></div>
         <div class="sub" style="margin:0 0 14px">Everything Maria can do, resolved from her role and group. Read-only — change it in <a data-go="user-membership" style="color:var(--blue-600);cursor:pointer">Membership</a>.</div>
         <table><colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
@@ -226,6 +241,17 @@ tr[data-go]:hover td{background:var(--slate-50)}
       <div class="screen" data-screen="user-membership">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
         <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill"><i class="ti ti-user" style="font-size:13px"></i>User</span></div><button class="btnX" data-action="deactivate">Deactivate</button></div>
+        <div class="usum">
+          <div style="display:flex;gap:30px;flex-wrap:wrap;margin-bottom:14px">
+            <div><div class="fl">Status</div><div class="fv"><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div></div>
+            <div><div class="fl">Email</div><div class="fv">maria.hernandez@acme.com</div></div>
+            <div><div class="fl">Last sign-in</div><div class="fv">8d ago</div></div>
+            <div><div class="fl">MFA</div><div class="fv">On</div></div>
+            <div><div class="fl">Tokens</div><div class="fv">1</div></div>
+          </div>
+          <div style="border-top:1px solid var(--slate-100);padding-top:12px;display:flex;align-items:baseline;margin-bottom:8px"><span class="lab">Roles</span><div><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+          <div style="display:flex;align-items:baseline"><span class="lab">Groups</span><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
+        </div>
         <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Membership</span><span class="tab">Tokens (1)</span></div>
         <div class="info" style="margin:0 0 16px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Access comes from <b style="font-weight:500">direct roles</b> and <b style="font-weight:500">groups</b>. At least one role is always required; groups are optional.</div></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Direct roles (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
