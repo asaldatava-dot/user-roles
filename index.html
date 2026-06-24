@@ -132,6 +132,25 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .usum .fv{font-size:13.5px}
 .usum .lab{font-size:12px;color:var(--slate-500);width:62px;flex:none}
 .grp td{background:var(--slate-50);font-weight:600;font-size:13px;color:var(--slate-900);padding:8px 14px}
+.poltop{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.seg2{display:inline-flex;border:1px solid var(--slate-300);border-radius:8px;overflow:hidden}
+.seg2 span{font-size:13px;padding:5px 13px;color:var(--slate-500);cursor:pointer;border-right:1px solid var(--slate-200)}
+.seg2 span:last-child{border-right:none}.seg2 span.on{background:var(--slate-900);color:#fff;font-weight:500}
+.polcard{border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff;margin-bottom:10px}
+.polcardh{display:flex;align-items:flex-start;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--slate-200);background:var(--slate-50)}
+.polsec{padding:13px 14px;border-top:1px solid var(--slate-200)}
+.polseclab{font-size:13px;font-weight:600;margin-bottom:8px}
+.polsearch{display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:8px;padding:7px 10px;margin-bottom:8px;color:var(--slate-400)}
+.polsearch input{border:none;outline:none;font-family:inherit;font-size:13px;flex:1;background:transparent;color:var(--slate-900)}
+.alvl{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--slate-100);font-size:13.5px;cursor:pointer}
+.cnt{color:var(--slate-500);font-size:12.5px}
+.actgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px 16px;padding:2px 0 6px 38px}
+.act{display:flex;align-items:center;gap:7px;padding:3px 0;font-size:13px}
+.rdo{width:15px;height:15px;border-radius:9999px;border:1.5px solid var(--slate-300);flex:none;display:inline-block;box-sizing:border-box}.rdo.on{border:5px solid var(--w-orange-600)}
+.effrow{display:flex;align-items:center;gap:14px;font-size:13px}
+.eff{display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--slate-500)}.eff.on{color:var(--slate-900)}
+.poljson{background:#0F172B;color:#E2E8F0;border-radius:12px;padding:14px 16px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;line-height:1.6;overflow:auto;white-space:pre;margin:0}
+.canlvl.deny{background:#FDECEC;color:#B42318}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
@@ -231,16 +250,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
         </div>
         <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Membership</span><span class="tab">Tokens (1)</span></div>
         <div class="sub" style="margin:0 0 14px">Everything Maria can do, grouped by product. Read-only — change it in <a data-go="user-membership" style="color:var(--blue-600);cursor:pointer">Membership</a>.</div>
-        <table><colgroup><col style="width:30%"><col style="width:22%"><col style="width:48%"></colgroup>
-          <thead><tr><th>Area</th><th>Access</th><th>Via</th></tr></thead>
-          <tbody>
-            <tr class="grp"><td colspan="3">API Security · Edge</td></tr>
-            <tr><td style="padding-left:26px">Rules</td><td><span class="canlvl edit">Edit</span></td><td><span class="xlink" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
-            <tr><td style="padding-left:26px">Attacks</td><td><span class="canlvl view">View</span></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
-            <tr><td style="padding-left:26px">Incidents</td><td><span class="canlvl view">View</span></td><td><span class="tag" data-go="role-detail" style="cursor:pointer">soc-analyst</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">direct role</div></td></tr>
-            <tr class="grp"><td colspan="3">Security Edge</td></tr>
-            <tr><td style="padding-left:26px">Nodes</td><td><span class="canlvl view">View</span></td><td><span class="xlink" data-go="group-detail">Platform engineering</span><div style="font-size:12px;color:var(--slate-400);margin-top:3px">group · role dataplane-admin</div></td></tr>
-          </tbody></table>
+        <div id="accessView"></div>
       </div>
 
       <div class="screen" data-screen="user-membership">
@@ -305,14 +315,9 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="phead"><div><h1 class="mono" style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span class="xlink" style="color:var(--slate-700)">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
         <div class="info" style="margin-bottom:18px">This role can <b style="font-weight:500">edit rules</b> and <b style="font-weight:500">view Security Edge nodes</b>.</div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:16px;font-weight:600">Permissions</div><button class="btnD" id="roleEditBtn"><i class="ti ti-edit" style="font-size:14px;vertical-align:-2px"></i> Edit</button></div>
-        <div id="roleView"><table><colgroup><col style="width:60%"><col style="width:40%"></colgroup><thead><tr><th>Area</th><th>Access</th></tr></thead><tbody id="roleViewBody"></tbody></table></div>
+        <div id="roleView"></div>
         <div id="roleEdit" style="display:none">
-          <div class="toolbar">
-            <div style="flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:8px;padding:8px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="rsvcSearch" placeholder="Filter products or areas…" autocomplete="off"></div>
-            <button class="setbtn" id="rsetAllBtn">Set all to <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button>
-          </div>
-          <div id="rsvcList" style="border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff"></div>
-          <div class="foot" id="rpermSummary"></div>
+          <div id="polEdit"></div>
           <div class="formfoot"><button class="btnD" id="roleEditCancel">Cancel</button><button class="btnP" id="roleEditSave">Save changes</button></div>
         </div>
       </div>
@@ -323,15 +328,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="fgroup"><div class="flabel">Name</div><input class="finput" id="roleName" placeholder="e.g. Platform engineer" autocomplete="off"></div>
         <div class="idprev" id="roleIdPrev" style="display:none">Identifier <span class="mono" id="roleSlug" style="background:#F1F5F9;color:#334155;padding:2px 6px;border-radius:4px;font-size:12px"></span> <span style="color:var(--slate-400)">· auto · fixed after create</span><div class="mono" id="roleArn" style="font-size:12px;color:var(--slate-400);margin-top:5px"></div></div>
         <div class="fgroup"><div class="flabel">Description <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div><textarea class="ftext" placeholder="What this role is for"></textarea></div>
-        <div style="max-width:760px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:16px;font-weight:600">Permissions</div><span style="font-size:12px;color:var(--slate-400)">Allow-only · pick a level per service</span></div>
-          <div class="toolbar">
-            <div style="flex:1;display:flex;align-items:center;gap:7px;border:1px solid var(--slate-300);border-radius:8px;padding:8px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="svcSearch" placeholder="Filter products or areas…" autocomplete="off"></div>
-            <button class="setbtn" id="setAllBtn">Set all to <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button>
-          </div>
-          <div id="svcList" style="border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff"></div>
-          <div class="foot" id="permSummary"></div>
-        </div>
+        <div style="max-width:760px"><div id="polCreate"></div></div>
         <div class="formfoot"><button class="btnD" data-go="roles">Cancel</button><button class="btnP" id="createRole">Create role</button></div>
       </div>
 
@@ -495,40 +492,67 @@ function roleSync(){syncCreate(roleName,root.querySelector('#roleIdPrev'),root.q
 roleName.addEventListener('input',roleSync);
 createRole.addEventListener('click',function(){if(createRole.disabled)return;toast('Role created');roleName.value='';resetPerms();roleSync();show('roles');});
 roleSync();
-/* permissions editor — grouped by product (product → areas → level) */
-var PRODUCTS=[
- {n:'API Security · Edge',k:'edge',areas:[{n:'Attacks',k:'attacks'},{n:'Incidents',k:'incidents'},{n:'API Sessions',k:'sessions'},{n:'Rules',k:'rules'},{n:'Triggers',k:'triggers'}]},
- {n:'AI Protection',k:'ai',areas:[{n:'Agents',k:'agents'},{n:'MCP servers',k:'mcp'},{n:'Model endpoints',k:'endpoints'}]},
- {n:'Infrastructure Discovery',k:'infra',areas:[{n:'Inventory',k:'inventory'},{n:'Findings',k:'findings'},{n:'Risks',k:'risks'}]},
- {n:'API Security Testing',k:'test',areas:[{n:'Test Suites',k:'suites'},{n:'Results',k:'results'},{n:'Coverage',k:'coverage'}]},
- {n:'Security Edge',k:'secedge',areas:[{n:'Nodes',k:'nodes'},{n:'Node configuration',k:'nodecfg'},{n:'Routing',k:'routing'}]}
-];
-var LEVELS=['None','View','Edit','Admin'],setMenu=root.querySelector('#setMenu');
-function aKey(pk,ak){return pk+'/'+ak;}
-function makePermEditor(o){
-  var SEL={};
-  function levelOf(key){return SEL[key]||'None';}
-  function rowHtml(p,a){var key=aKey(p.k,a.k),lvl=levelOf(key);var seg=LEVELS.map(function(L){return '<span data-area="'+key+'" data-level="'+L+'" class="'+(L==='None'?'none':'')+(lvl===L?' on':'')+'">'+L+'</span>';}).join('');return '<div class="arow"><span class="aname">'+a.n+'</span><div class="seg">'+seg+'</div></div>';}
-  function productHtml(p,areas){return '<div class="ghead"><span class="gname">'+p.n+'</span><button class="setbtn sm" data-setall="'+p.k+'">Set all <i class="ti ti-chevron-down" style="font-size:13px;color:#62748E"></i></button></div>'+areas.map(function(a){return rowHtml(p,a);}).join('');}
-  function render(){var q=(o.search.value||'').toLowerCase(),html='';PRODUCTS.forEach(function(p){var pm=p.n.toLowerCase().indexOf(q)>-1;var areas=pm?p.areas:p.areas.filter(function(a){return a.n.toLowerCase().indexOf(q)>-1;});if(areas.length)html+=productHtml(p,areas);});o.list.innerHTML=html||'<div style="padding:14px;font-size:13px;color:#94A3B8">No matches.</div>';var an=0,ps={};PRODUCTS.forEach(function(p){p.areas.forEach(function(a){if(levelOf(aKey(p.k,a.k))!=='None'){an++;ps[p.k]=1;}});});o.summary.innerHTML='Granting access to <b style="font-weight:500;color:#334155">'+an+' areas</b> across <b style="font-weight:500;color:#334155">'+Object.keys(ps).length+' products</b>';}
-  function openSetMenu(btn,target){setMenu.innerHTML=LEVELS.map(function(L){return '<div data-l="'+L+'">'+(L==='None'?'No access':L)+'</div>';}).join('');setMenu.style.display='block';var r=btn.getBoundingClientRect();setMenu.style.left=Math.max(8,r.right-setMenu.offsetWidth)+'px';setMenu.style.top=(r.bottom+4)+'px';setMenu.querySelectorAll('[data-l]').forEach(function(it){it.addEventListener('click',function(ev){ev.stopPropagation();PRODUCTS.forEach(function(p){if(target==='*'||target===p.k){p.areas.forEach(function(a){var key=aKey(p.k,a.k);if(it.dataset.l==='None')delete SEL[key];else SEL[key]=it.dataset.l;});}});setMenu.style.display='none';render();});});}
-  o.list.addEventListener('click',function(e){var seg=e.target.closest('.seg span[data-level]');if(seg){var k=seg.dataset.area,L=seg.dataset.level;if(L==='None')delete SEL[k];else SEL[k]=L;render();return;}var sa=e.target.closest('[data-setall]');if(sa){e.stopPropagation();openSetMenu(sa,sa.dataset.setall);return;}});
-  o.search.addEventListener('input',render);
-  o.setAllBtn.addEventListener('click',function(e){e.stopPropagation();openSetMenu(o.setAllBtn,'*');});
+/* AWS-style policy editor (service → actions by access level → resources → effect) */
+var CATALOG={
+ apisec:{label:'API Security',ns:'apisec',acts:{List:['ListEndpoints','ListHosts'],Read:['GetEndpoint','GetHost','DescribeRisk'],Write:['UpdateEndpoint','DeleteEndpoint','UpdateHost'],'Permissions management':['GrantEndpointAccess'],Tagging:['TagEndpoint']},res:['endpoint','host']},
+ rules:{label:'Rules',ns:'protect',acts:{List:['ListRules'],Read:['GetRule'],Write:['CreateRule','UpdateRule','DeleteRule','DeployRuleSet'],'Permissions management':['GrantRuleAccess'],Tagging:['TagRule']},res:['rule','rule-set']},
+ ai:{label:'AI Protection',ns:'ai',acts:{List:['ListAgents','ListMcpServers'],Read:['GetAgent','GetModelEndpoint'],Write:['UpdateAgent','UpdateGuardrail'],'Permissions management':['GrantAiAccess'],Tagging:['TagAgent']},res:['agent','mcp-server','model-endpoint']},
+ infra:{label:'Infrastructure Discovery',ns:'discovery',acts:{List:['ListAssets'],Read:['GetAsset','GetFinding'],Write:['UpdateAsset','ResolveFinding'],'Permissions management':[],Tagging:['TagAsset']},res:['asset','finding']},
+ testing:{label:'API Security Testing',ns:'test',acts:{List:['ListSuites'],Read:['GetResult'],Write:['RunSuite','CreateSuite'],'Permissions management':[],Tagging:[]},res:['suite','result']}
+};
+var ALEVELS=['List','Read','Write','Permissions management','Tagging'];
+function clone(x){return JSON.parse(JSON.stringify(x));}
+function svcNames(svc){var a=[];ALEVELS.forEach(function(L){(CATALOG[svc].acts[L]||[]).forEach(function(n){a.push(svc+':'+n);});});return a;}
+function makePolicyEditor(wrap){
+  var st=[],view='visual';
+  wrap.innerHTML='<div class="poltop"><div style="font-size:14px;font-weight:600">Policy editor</div><div class="seg2 polseg"><span data-view="visual" class="on">Visual</span><span data-view="json">JSON</span></div></div><div class="polvisual"></div><pre class="poljson" style="display:none"></pre>';
+  var vis=wrap.querySelector('.polvisual'),js=wrap.querySelector('.poljson');
+  function cardHtml(s,i){
+    if(!s.svc)return '<div class="polcard"><div class="polcardh"><div><div style="font-size:14px;font-weight:600">Select a service</div><div style="font-size:12px;color:#62748E;margin-top:2px">What actions can be performed.</div></div><i class="ti ti-trash" data-rm="'+i+'" style="font-size:16px;color:#94A3B8;cursor:pointer"></i></div><div style="padding:12px 14px"><select class="fsel polsvc" data-i="'+i+'" style="max-width:280px"><option value="">Choose a service</option>'+Object.keys(CATALOG).map(function(k){return '<option value="'+k+'">'+CATALOG[k].label+'</option>';}).join('')+'</select></div></div>';
+    var c=CATALOG[s.svc],q=(s.q||'').toLowerCase();
+    var head='<div class="polcardh"><div style="font-size:14px;font-weight:600">'+c.label+' <span style="font-weight:400;color:#62748E;font-size:12px">· '+c.ns+'</span></div><div style="display:flex;align-items:center;gap:16px"><div class="effrow"><span class="eff '+(s.effect==='Allow'?'on':'')+'" data-eff="Allow" data-i="'+i+'"><span class="rdo '+(s.effect==='Allow'?'on':'')+'"></span>Allow</span><span class="eff '+(s.effect==='Deny'?'on':'')+'" data-eff="Deny" data-i="'+i+'"><span class="rdo '+(s.effect==='Deny'?'on':'')+'"></span>Deny</span></div><i class="ti ti-trash" data-rm="'+i+'" style="font-size:16px;color:#94A3B8;cursor:pointer"></i></div></div>';
+    var names=svcNames(s.svc),allOn=names.length&&names.every(function(n){return s.acts[n];});
+    var a='<div class="polsec"><div class="polseclab">Actions allowed</div><div class="polsearch"><i class="ti ti-search" style="font-size:14px"></i><input class="polq" data-i="'+i+'" placeholder="Filter actions…" value="'+(s.q||'')+'"></div><div class="act"><span class="cbx allact '+(allOn?'on':'')+'" data-i="'+i+'">'+(allOn?'<i class="ti ti-check" style="font-size:9px"></i>':'')+'</span><span style="margin-left:2px">All '+c.label+' actions (<span class="mono" style="font-size:12px">'+s.svc+':*</span>)</span></div><div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#94A3B8;margin:9px 0 0">Access level</div>';
+    ALEVELS.forEach(function(L){var an=(c.acts[L]||[]).map(function(n){return s.svc+':'+n;});if(!an.length)return;var shown=an.filter(function(n){return n.toLowerCase().indexOf(q)>-1;});var sel=an.filter(function(n){return s.acts[n];}).length;var gOn=sel===an.length,gSome=sel>0&&!gOn,open=s.open[L]||(q&&shown.length);
+      a+='<div class="alvl" data-grp="'+L+'" data-i="'+i+'"><i class="ti ti-chevron-'+(open?'down':'right')+'" style="font-size:15px;color:#62748E"></i><span class="cbx grpcbx '+(gOn?'on':'')+'" data-grp="'+L+'" data-i="'+i+'"'+(gSome?' style="background:#FFD2C6;border-color:#FF441C"':'')+'>'+(gOn?'<i class="ti ti-check" style="font-size:9px"></i>':(gSome?'<i class="ti ti-minus" style="font-size:9px;color:#9A2A12"></i>':''))+'</span><span'+((gOn||gSome)?' style="font-weight:500"':'')+'>'+L+'</span><span class="cnt">('+(sel?'Selected '+sel+'/'+an.length:an.length)+')</span></div>';
+      if(open)a+='<div class="actgrid">'+(shown.length?shown.map(function(n){var on=s.acts[n];return '<div class="act"><span class="cbx actc '+(on?'on':'')+'" data-act="'+n+'" data-i="'+i+'">'+(on?'<i class="ti ti-check" style="font-size:9px"></i>':'')+'</span><span class="mono" style="font-size:12px;'+(on?'':'color:#94A3B8')+'">'+n+'</span></div>';}).join(''):'<div style="font-size:12px;color:#94A3B8;padding:3px">No matches</div>')+'</div>';});
+    a+='</div>';
+    var rs='<div class="polsec"><div class="polseclab">Resources</div><div style="display:flex;gap:18px;font-size:13px;margin-bottom:8px"><span class="resmode" data-mode="all" data-i="'+i+'" style="display:flex;align-items:center;gap:6px;cursor:pointer'+(s.resMode==='all'?'':';color:#62748E')+'"><span class="rdo '+(s.resMode==='all'?'on':'')+'"></span>All resources</span><span class="resmode" data-mode="specific" data-i="'+i+'" style="display:flex;align-items:center;gap:6px;cursor:pointer'+(s.resMode==='specific'?'':';color:#62748E')+'"><span class="rdo '+(s.resMode==='specific'?'on':'')+'"></span>Specific resources</span></div>';
+    if(s.resMode==='specific')rs+='<div style="border:1px solid #E2E8F0;border-radius:8px">'+c.res.map(function(tp,ri){var any=s.any[tp];return '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;'+(ri?'border-top:1px solid #F1F5F9':'')+'"><div><span class="mono" style="font-size:12.5px">'+tp+'</span><div style="font-size:12px;color:#155DFC;margin-top:2px;cursor:pointer">Add ARNs</div></div><span class="anyacct" data-t="'+tp+'" data-i="'+i+'" style="font-size:12.5px;color:#62748E;display:flex;align-items:center;gap:6px;cursor:pointer"><span class="cbx '+(any?'on':'')+'">'+(any?'<i class="ti ti-check" style="font-size:9px"></i>':'')+'</span>Any in this account</span></div>';}).join('')+'</div>';
+    rs+='</div>';
+    return '<div class="polcard">'+head+a+rs+'</div>';
+  }
+  function toJSON(){var s2=st.filter(function(s){return s.svc;}).map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});var resources=s.resMode==='all'?['*']:c.res.filter(function(t){return s.any[t];}).map(function(t){return 'arn:wlrm:'+c.ns+':*:acme:'+t+'/*';});return {Effect:s.effect,Action:actions,Resource:resources.length?resources:['*']};});return JSON.stringify({Version:'2026-01-01',Statement:s2},null,2);}
+  function render(){if(view==='json'){vis.style.display='none';js.style.display='block';js.textContent=toJSON();return;}vis.style.display='block';js.style.display='none';vis.innerHTML=st.map(cardHtml).join('')+'<button class="setbtn addperm" style="margin-top:4px"><i class="ti ti-plus" style="font-size:14px"></i> Add more permissions</button>';}
+  wrap.addEventListener('click',function(e){var t=e.target;
+    var seg=t.closest('.polseg span[data-view]');if(seg){view=seg.dataset.view;wrap.querySelectorAll('.polseg span').forEach(function(x){x.classList.toggle('on',x.dataset.view===view);});render();return;}
+    var add=t.closest('.addperm');if(add){st.push({svc:null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''});render();return;}
+    var rm=t.closest('[data-rm]');if(rm){st.splice(+rm.dataset.rm,1);render();return;}
+    var eff=t.closest('.eff');if(eff){st[+eff.dataset.i].effect=eff.dataset.eff;render();return;}
+    var al=t.closest('.allact');if(al){var s=st[+al.dataset.i],ns=svcNames(s.svc),on=ns.every(function(n){return s.acts[n];});ns.forEach(function(n){if(on)delete s.acts[n];else s.acts[n]=1;});render();return;}
+    var gc=t.closest('.grpcbx');if(gc){var s=st[+gc.dataset.i],ns=(CATALOG[s.svc].acts[gc.dataset.grp]||[]).map(function(n){return s.svc+':'+n;}),on=ns.every(function(n){return s.acts[n];});ns.forEach(function(n){if(on)delete s.acts[n];else s.acts[n]=1;});render();return;}
+    var ac=t.closest('.actc');if(ac){var s=st[+ac.dataset.i],n=ac.dataset.act;if(s.acts[n])delete s.acts[n];else s.acts[n]=1;render();return;}
+    var lv=t.closest('.alvl');if(lv){var s=st[+lv.dataset.i];s.open[lv.dataset.grp]=!s.open[lv.dataset.grp];render();return;}
+    var rmode=t.closest('.resmode');if(rmode){st[+rmode.dataset.i].resMode=rmode.dataset.mode;render();return;}
+    var anyb=t.closest('.anyacct');if(anyb){var s=st[+anyb.dataset.i],tp=anyb.dataset.t;if(s.any[tp])delete s.any[tp];else s.any[tp]=1;render();return;}
+  });
+  wrap.addEventListener('change',function(e){var sel=e.target.closest('.polsvc');if(sel){st[+sel.dataset.i]={svc:sel.value||null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''};render();}});
+  wrap.addEventListener('input',function(e){var q=e.target.closest('.polq');if(q){var i=+q.dataset.i;st[i].q=q.value;render();var ni=wrap.querySelector('.polq[data-i="'+i+'"]');if(ni){ni.focus();ni.setSelectionRange(ni.value.length,ni.value.length);}}});
   render();
-  return {sel:function(){return SEL;},set:function(s){SEL={};for(var k in (s||{}))SEL[k]=s[k];render();},reset:function(){SEL={};if(o.search)o.search.value='';render();}};
+  return {get:function(){return clone(st);},set:function(s){st=clone(s||[]);render();},reset:function(){st=[];render();}};
 }
-var roleEditor=makePermEditor({list:root.querySelector('#svcList'),search:root.querySelector('#svcSearch'),setAllBtn:root.querySelector('#setAllBtn'),summary:root.querySelector('#permSummary')});
-function resetPerms(){roleEditor.reset();}
-/* role detail — view + edit permissions */
-var roleDetailEditor=makePermEditor({list:root.querySelector('#rsvcList'),search:root.querySelector('#rsvcSearch'),setAllBtn:root.querySelector('#rsetAllBtn'),summary:root.querySelector('#rpermSummary')});
-var ROLE_SEL={'edge/rules':'Edit','secedge/nodes':'View'},roleViewBody=root.querySelector('#roleViewBody');
-function renderRoleView(){var html='';PRODUCTS.forEach(function(p){var rows=p.areas.filter(function(a){return (ROLE_SEL[aKey(p.k,a.k)]||'None')!=='None';});if(!rows.length)return;html+='<tr class="grp"><td colspan="2">'+p.n+'</td></tr>';rows.forEach(function(a){var lvl=ROLE_SEL[aKey(p.k,a.k)];html+='<tr><td style="padding-left:26px">'+a.n+'</td><td><span class="canlvl '+lvl.toLowerCase()+'">'+lvl+'</span></td></tr>';});});roleViewBody.innerHTML=html||'<tr><td colspan="2" style="color:#94A3B8;padding:14px 8px">No permissions.</td></tr>';}
+function renderPolicyRead(container,stmts,withVia){if(!container)return;container.innerHTML=stmts.map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});return '<div class="polcard"><div class="polcardh"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:14px;font-weight:600">'+c.label+'</span><span class="canlvl '+(s.effect==='Deny'?'deny':'edit')+'">'+s.effect+'</span></div><span class="cnt">'+actions.length+' action'+(actions.length===1?'':'s')+'</span></div><div style="padding:11px 14px">'+actions.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('')+(withVia&&s.via?'<div style="font-size:12px;color:#94A3B8;margin-top:7px">via '+s.via+'</div>':'<div style="font-size:12px;color:#94A3B8;margin-top:7px">on '+(s.resMode==='all'?'all resources':'specific resources')+'</div>')+'</div></div>';}).join('')||'<div style="color:#94A3B8;padding:12px;font-size:13px">No permissions.</div>';}
+var polCreate=makePolicyEditor(root.querySelector('#polCreate'));
+function resetPerms(){polCreate.reset();}
+var polEdit=makePolicyEditor(root.querySelector('#polEdit'));
+var ROLE_STMTS=[{svc:'rules',effect:'Allow',acts:{'rules:GetRule':1,'rules:CreateRule':1,'rules:UpdateRule':1,'rules:DeployRuleSet':1},resMode:'all',any:{},open:{},q:''},{svc:'ai',effect:'Deny',acts:{'ai:UpdateGuardrail':1},resMode:'all',any:{},open:{},q:''}];
+function renderRoleView(){renderPolicyRead(root.querySelector('#roleView'),ROLE_STMTS,false);}
 function roleMode(edit){root.querySelector('#roleView').style.display=edit?'none':'block';root.querySelector('#roleEditBtn').style.display=edit?'none':'inline-flex';root.querySelector('#roleEdit').style.display=edit?'block':'none';}
-root.querySelector('#roleEditBtn').addEventListener('click',function(){roleDetailEditor.set(ROLE_SEL);roleMode(true);});
+root.querySelector('#roleEditBtn').addEventListener('click',function(){polEdit.set(ROLE_STMTS);roleMode(true);});
 root.querySelector('#roleEditCancel').addEventListener('click',function(){roleMode(false);});
-root.querySelector('#roleEditSave').addEventListener('click',function(){var s=roleDetailEditor.sel();ROLE_SEL={};for(var k in s)ROLE_SEL[k]=s[k];renderRoleView();roleMode(false);toast('Role saved');});
+root.querySelector('#roleEditSave').addEventListener('click',function(){ROLE_STMTS=polEdit.get();renderRoleView();roleMode(false);toast('Role saved');});
 renderRoleView();
+renderPolicyRead(root.querySelector('#accessView'),[{svc:'rules',effect:'Allow',acts:{'rules:GetRule':1,'rules:UpdateRule':1,'rules:DeployRuleSet':1},resMode:'all',via:'Platform engineering · dataplane-admin'},{svc:'apisec',effect:'Allow',acts:{'apisec:ListEndpoints':1,'apisec:GetEndpoint':1},resMode:'all',via:'soc-analyst · direct role'}],true);
 /* group create */
 var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#createGroup');
 function groupSync(){syncCreate(groupName,root.querySelector('#groupIdPrev'),root.querySelector('#groupSlug'),root.querySelector('#groupArn'),createGroup,'group');}
