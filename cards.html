@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wallarm IAM — role & group card variants</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<style>
+:root{--slate-900:#0F172B;--slate-700:#334155;--slate-500:#62748E;--slate-400:#94A3B8;--slate-300:#CAD5E2;--slate-200:#E2E8F0;--slate-100:#F1F5F9;--slate-50:#F8FAFC}
+*{box-sizing:border-box}
+body{margin:0;background:#EEF2F6;font-family:'Geist',ui-sans-serif,system-ui,sans-serif;color:#0F172B;padding:28px}
+.mono{font-family:'Geist Mono',ui-monospace,monospace}
+h1{font-size:22px;font-weight:600;margin:0 0 4px}
+.note{font-size:13px;color:var(--slate-500);margin:0 0 24px}
+h2{font-size:15px;font-weight:600;margin:26px 0 12px}
+.lbl{font-size:12px;font-weight:500;color:var(--slate-500);margin:0 0 8px}
+.cols{display:flex;gap:24px;flex-wrap:wrap}
+.col{flex:1;min-width:300px;max-width:420px}
+.card{border:1px solid var(--slate-200);border-radius:12px;background:#fff;padding:14px 16px;margin-bottom:18px}
+.rn{display:flex;align-items:center;gap:8px;font-size:13.5px}
+.gn{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+.lv{font-size:11px;font-weight:500;padding:2px 8px;border-radius:9999px}
+.lv.e{background:#FFF1EC;color:#9A2A12}.lv.v{background:#EAF2FF;color:#1E40AF}
+.svc{display:inline-flex;align-items:center;gap:7px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:5px 10px;font-size:13px;margin:3px 6px 3px 0}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-top:1px solid #F1F5F9;font-size:13.5px}
+.rolechip{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;background:#F1F5F9;color:#334155;padding:2px 7px;border-radius:5px}
+.miniL{font-size:11px;color:#94A3B8;margin:10px 0 4px}
+.eff{font-size:11px;font-weight:500;padding:2px 9px;border-radius:9999px}.eff.a{background:#E8F7EE;color:#00813A}.eff.d{background:#FDECEC;color:#B42318}
+.stmt{padding:12px 14px;border-top:1px solid #F1F5F9}.stmt:first-of-type{border-top:none}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.lvc{display:inline-flex;align-items:center;gap:6px;background:#F1F5F9;color:#334155;border-radius:8px;padding:4px 9px;font-size:12.5px;margin:0 6px 6px 0}
+.lvc .n{color:#94A3B8}.lvc.open{background:#EAF2FF;color:#1E40AF}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:1px 16px;padding:4px 0 8px 2px}.ac{font-size:12px;color:#334155;padding:2px 0}
+.crh{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid #E2E8F0;background:#F8FAFC;border-radius:12px 12px 0 0}
+</style>
+</head>
+<body>
+<h1>Role &amp; group cards — variants</h1>
+<p class="note">For the user detail page (Membership). Cards replace the per-user roles/groups tables and show what each role/group <b style="font-weight:500">grants</b>. Recommended: role <b style="font-weight:500">R2</b>, group <b style="font-weight:500">G1</b>.</p>
+
+<h2>Role cards <span style="font-weight:400;color:var(--slate-500);font-size:13px">(example: dataplane-admin)</span></h2>
+<div class="cols">
+  <div class="col">
+    <div class="lbl">R1 — summary + access chips</div>
+    <div class="card">
+      <div class="rn" style="justify-content:space-between"><span style="display:flex;align-items:center;gap:8px"><i class="ti ti-key" style="font-size:14px;color:#62748E"></i><span class="mono" style="font-size:13px;font-weight:500">dataplane-admin</span></span><i class="ti ti-dots" style="color:#94A3B8"></i></div>
+      <div style="font-size:13px;color:#62748E;margin:8px 0 10px">Can edit Rules and view Security Edge.</div>
+      <div><span class="svc">Rules <span class="lv e">Edit</span></span><span class="svc">Security Edge <span class="lv v">View</span></span></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="lbl">R2 — service rows with level (recommended)</div>
+    <div class="card">
+      <div class="rn"><i class="ti ti-key" style="font-size:14px;color:#62748E"></i><span class="mono" style="font-size:13px;font-weight:500">dataplane-admin</span></div>
+      <div class="srow" style="border-top:none"><span>Rules</span><span class="lv e">Edit</span></div>
+      <div class="srow"><span>Security Edge</span><span class="lv v">View</span></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="lbl">R3 — compact stat, expand for detail</div>
+    <div class="card" style="padding:12px 16px">
+      <div style="display:flex;align-items:center;justify-content:space-between"><span class="rn"><i class="ti ti-key" style="font-size:14px;color:#62748E"></i><span class="mono" style="font-size:13px;font-weight:500">dataplane-admin</span></span><span style="display:flex;align-items:center;gap:10px;color:#62748E;font-size:13px">2 services · 5 actions <i class="ti ti-chevron-down" style="font-size:15px;color:#94A3B8"></i></span></div>
+    </div>
+  </div>
+</div>
+
+<h2>Group cards <span style="font-weight:400;color:var(--slate-500);font-size:13px">(example: Platform engineering)</span></h2>
+<div class="cols">
+  <div class="col">
+    <div class="lbl">G1 — roles it carries + resulting access (recommended)</div>
+    <div class="card">
+      <div class="gn" style="justify-content:space-between"><span style="display:flex;align-items:center;gap:8px"><i class="ti ti-users-group" style="font-size:15px;color:#62748E"></i>Platform engineering</span><i class="ti ti-dots" style="color:#94A3B8"></i></div>
+      <div class="miniL">Grants role</div><div><span class="rolechip">dataplane-admin</span></div>
+      <div class="miniL">Access</div><div><span class="svc">Rules <span class="lv e">Edit</span></span><span class="svc">Security Edge <span class="lv v">View</span></span></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="lbl">G2 — access as rows, with "via role"</div>
+    <div class="card">
+      <div class="gn"><i class="ti ti-users-group" style="font-size:15px;color:#62748E"></i>Platform engineering <span style="font-size:12px;font-weight:400;color:#94A3B8">· via dataplane-admin</span></div>
+      <div class="srow" style="border-top:none"><span>Rules</span><span class="lv e">Edit</span></div>
+      <div class="srow"><span>Security Edge</span><span class="lv v">View</span></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="lbl">G3 — roles chips + stat, expand</div>
+    <div class="card" style="padding:12px 16px">
+      <div style="display:flex;align-items:center;justify-content:space-between"><span class="gn"><i class="ti ti-users-group" style="font-size:15px;color:#62748E"></i>Platform engineering</span><span style="display:flex;align-items:center;gap:10px;color:#62748E;font-size:13px">1 role · 2 services <i class="ti ti-chevron-down" style="font-size:15px;color:#94A3B8"></i></span></div>
+      <div style="margin-top:8px"><span class="rolechip">dataplane-admin</span></div>
+    </div>
+  </div>
+</div>
+
+<h2>Expanded role — compact statements <span style="font-weight:400;color:var(--slate-500);font-size:13px">(many actions/resources stay readable)</span></h2>
+<div style="border:1px solid #E2E8F0;border-radius:12px;background:#fff;max-width:580px">
+  <div class="crh"><i class="ti ti-key" style="font-size:14px;color:#62748E"></i><span class="mono" style="font-size:13px;font-weight:500">dataplane-admin</span><span style="margin-left:auto;font-size:12px;color:#94A3B8">3 statements</span></div>
+  <div class="stmt"><div class="sh"><span style="font-size:13.5px;font-weight:500">Infra Discovery</span><span class="eff a">Allow</span></div><div class="miniL" style="margin-top:0">Actions</div><div><span class="lvc open">Read <span class="n">12</span> <i class="ti ti-chevron-down" style="font-size:12px"></i></span><span class="lvc">Write <span class="n">8</span></span><span class="lvc">Manage <span class="n">1</span></span></div><div class="acts"><span class="ac mono">scan:read</span><span class="ac mono">assets:read</span><span class="ac mono">findings:read</span><span class="ac mono">risks:read</span><span class="ac mono" style="color:#94A3B8">+8 more</span></div><div class="miniL">Resources</div><div style="font-size:12.5px;color:#62748E">All resources</div></div>
+  <div class="stmt"><div class="sh"><span style="font-size:13.5px;font-weight:500">Rules</span><span class="eff a">Allow</span></div><div class="miniL" style="margin-top:0">Actions</div><div><span class="lvc">Read <span class="n">3</span></span><span class="lvc">Write <span class="n">4</span></span></div><div class="miniL">Resources</div><div style="font-size:12.5px;color:#155DFC;cursor:pointer">3 rule-sets →</div></div>
+  <div class="stmt"><div class="sh"><span style="font-size:13.5px;font-weight:500">Attacks</span><span class="eff d">Deny</span></div><div class="miniL" style="margin-top:0">Actions</div><div><span class="lvc">Write <span class="n">5</span></span></div><div class="miniL">Resources</div><div style="font-size:12.5px;color:#62748E">All resources</div></div>
+</div>
+</body>
+</html>
