@@ -52,7 +52,7 @@ button,.btn{font-family:inherit;font-size:14px;font-weight:500;padding:8px 14px;
 table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff}
 thead th{background:var(--slate-50);font-size:12px;font-weight:500;color:var(--slate-500);text-align:left;padding:10px 14px;border-bottom:1px solid var(--slate-200);border-right:1px solid var(--slate-200);white-space:nowrap}
 thead th:last-child{border-right:none}
-td{padding:12px 14px;border-top:1px solid var(--slate-200);font-size:14px;color:var(--slate-900);vertical-align:top}
+td{padding:12px 14px;border-top:1px solid var(--slate-200);font-size:14px;color:var(--slate-900);vertical-align:middle}
 tbody tr:first-child td{border-top:none}
 tr[data-go]{cursor:pointer}
 tr[data-go]:hover td{background:var(--slate-50)}
@@ -130,13 +130,13 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .usum{border:1px solid var(--slate-200);border-radius:12px;padding:18px 20px;margin-bottom:18px}
 .ugrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 26px}
 .attr{position:relative}
-.attr .lab{font-size:12px;color:var(--slate-500);margin-bottom:4px}
+.attr .lab{font-size:14px;color:var(--slate-500);margin-bottom:4px}
 .attr .val{font-size:14px;color:var(--slate-900);display:flex;align-items:center;gap:8px;min-height:20px}
 .attr .act{opacity:0;color:var(--slate-400);cursor:pointer;font-size:15px;transition:opacity .12s}
 .attr:hover .act{opacity:1}
 .vtag{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:#E8F7EE;color:#00A63E;flex:none}
 .udiv{border-top:1px solid var(--slate-100);margin:16px 0}
-.usec{font-size:12px;color:var(--slate-500);margin-bottom:8px}
+.usec{font-size:14px;color:var(--slate-500);margin-bottom:8px}
 .grp td{background:var(--slate-50);font-weight:600;font-size:13px;color:var(--slate-900);padding:8px 14px}
 .poltop{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .seg2{display:inline-flex;border:1px solid var(--slate-300);border-radius:8px;overflow:hidden}
@@ -264,7 +264,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
           <tbody>
             <tr data-go="user-access" data-status="active" data-name="Maria Hernandez"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">Maria Hernandez</span></td><td style="font-size:13px"><span style="display:inline-flex;align-items:center;gap:6px">maria.hernandez@acme.com <span class="vtag" title="Verified"><i class="ti ti-check" style="font-size:12px"></i></span></span></td><td>8d</td><td><span class="gtag">Platform engineering</span></td><td><span class="tag">soc-analyst</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
 <tr data-status="active" data-name="Alex Zahn"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">Alex Zahn</span></td><td style="font-size:13px"><span style="display:inline-flex;align-items:center;gap:6px">alex.zahn@acme.com <span class="vtag" title="Verified"><i class="ti ti-check" style="font-size:12px"></i></span></span></td><td>2d</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
-<tr data-status="active" data-name="ci-deploy-bot" data-type="sa"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="mono" style="font-size:13px">ci-deploy-bot</span></td><td style="font-size:13px">svc-ci-deploy@acme.test</td><td>1h</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">ci-deploy</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
+<tr data-status="active" data-name="ci-deploy-bot" data-type="sa"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">ci-deploy-bot</span></td><td style="font-size:13px">svc-ci-deploy@acme.test</td><td>1h</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">ci-deploy</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
 <tr data-status="invited" data-name="Sofia Rossi"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">Sofia Rossi</span></td><td style="font-size:13px">sofia.rossi@acme.com</td><td>—</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span></td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
 <tr data-status="invited" data-name="Priya Shah" class="pending-new" style="display:none"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span style="font-weight:500">Priya Shah</span></td><td style="font-size:13px">priya.shah@acme.com</td><td>—</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span></td><td class="actcell"><button class="kebab" aria-label="Actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>
           </tbody></table>
