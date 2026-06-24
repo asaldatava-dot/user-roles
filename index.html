@@ -255,9 +255,9 @@ tr[data-go]:hover td{background:var(--slate-50)}
             <div class="attr"><div class="lab">Status</div><div class="val"><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div></div>
           </div>
           <div class="udiv"></div>
-          <div class="ugrid" style="grid-template-columns:1fr 3fr">
+          <div class="ugrid">
             <div class="attr"><div class="lab">Identity provider</div><div class="val" style="color:var(--slate-400)">—</div></div>
-            <div class="attr"><div class="lab">User ID</div><div class="val mono" style="font-size:13px;word-break:break-all">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
+            <div class="attr" style="grid-column:span 2"><div class="lab">User ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
           </div>
           <div class="udiv"></div>
           <div class="ugrid">
@@ -271,8 +271,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
           <div class="usec">Groups</div>
           <div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div>
         </div>
-        <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Membership</span><span class="tab">Tokens (1)</span></div>
-        <div class="sub" style="margin:0 0 14px">Everything Maria can do, grouped by product. Read-only — change it in <a data-go="user-membership" style="color:var(--blue-600);cursor:pointer">Membership</a>.</div>
+        <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Membership</span></div>
         <div id="accessView"></div>
       </div>
 
@@ -287,9 +286,9 @@ tr[data-go]:hover td{background:var(--slate-50)}
             <div class="attr"><div class="lab">Status</div><div class="val"><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div></div>
           </div>
           <div class="udiv"></div>
-          <div class="ugrid" style="grid-template-columns:1fr 3fr">
+          <div class="ugrid">
             <div class="attr"><div class="lab">Identity provider</div><div class="val" style="color:var(--slate-400)">—</div></div>
-            <div class="attr"><div class="lab">User ID</div><div class="val mono" style="font-size:13px;word-break:break-all">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
+            <div class="attr" style="grid-column:span 2"><div class="lab">User ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
           </div>
           <div class="udiv"></div>
           <div class="ugrid">
@@ -303,7 +302,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
           <div class="usec">Groups</div>
           <div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div>
         </div>
-        <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Membership</span><span class="tab">Tokens (1)</span></div>
+        <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Membership</span></div>
         <div class="info" style="margin:0 0 16px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Access comes from <b style="font-weight:500">direct roles</b> and <b style="font-weight:500">groups</b>. At least one role is always required; groups are optional.</div></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Direct roles (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
         <table><colgroup><col style="width:78%"><col style="width:22%"></colgroup><tbody><tr data-go="role-detail"><td><span class="mono" style="font-size:13px">soc-analyst</span></td><td style="text-align:right"><button class="btnD" style="font-size:12px;padding:5px 10px">Remove</button></td></tr></tbody></table>
@@ -390,9 +389,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="formfoot"><button class="btnD" data-go="groups">Cancel</button><button class="btnP" id="createGroup">Create group</button></div>
       </div>
 
-      <button class="quickball" aria-label="Jump to screen"><i class="ti ti-layout-grid" style="font-size:20px"></i></button>
-      <div class="qmenu">
-        <div class="qh">Jump to screen</div>
+      <div class="qmenu" style="display:none">
         <div data-go="users">Users</div><div data-go="user-access">User · Access</div><div data-go="user-membership">User · Membership</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div><div data-go="role-create">Create role</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div><div data-go="group-create">Create group</div>
       </div>
     </section>
@@ -499,7 +496,6 @@ root.querySelectorAll('[data-action]').forEach(function(el){el.addEventListener(
   else if(a==='deactivate')toast('User deactivated');
   else if(a==='revoke'){var tr=el.closest('tr');if(tr)tr.setAttribute('data-revoked','1');applyUserFilter(FILTER);toast('Invite revoked');}
 });});
-root.querySelector('.quickball').addEventListener('click',function(e){e.stopPropagation();var m=root.querySelector('.qmenu');m.style.display=m.style.display==='block'?'none':'block';});
 var statusSel=root.querySelector('#statusSel'),statusMenu=root.querySelector('#statusMenu');
 statusSel.addEventListener('click',function(e){e.stopPropagation();statusMenu.style.display=statusMenu.style.display==='block'?'none':'block';});
 statusMenu.querySelectorAll('[data-filter]').forEach(function(it){it.addEventListener('click',function(e){e.stopPropagation();applyUserFilter(it.dataset.filter);statusMenu.style.display='none';});});
