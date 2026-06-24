@@ -151,6 +151,10 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .eff{display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--slate-500)}.eff.on{color:var(--slate-900)}
 .poljson{background:#0F172B;color:#E2E8F0;border-radius:12px;padding:14px 16px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;line-height:1.6;overflow:auto;white-space:pre;margin:0}
 .canlvl.deny{background:#FDECEC;color:#B42318}
+.idtag{font-family:'Geist Mono',ui-monospace,monospace;font-size:12.5px;background:var(--slate-100);color:var(--slate-700);padding:2px 8px;border-radius:6px}
+.cklist{border:1px solid var(--slate-300);border-radius:var(--radius-8);max-height:224px;overflow:auto;margin-top:8px}
+.clrow{display:flex;align-items:center;gap:10px;padding:9px 12px;border-top:1px solid var(--slate-100);cursor:pointer;font-size:13.5px}
+.clrow:first-child{border-top:none}.clrow:hover{background:var(--slate-50)}
 .overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:500px;overflow:visible}
 .dbody{padding:16px 20px;min-height:312px}
@@ -314,7 +318,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="crumb"><a data-go="roles">Settings</a> <i>›</i> <a data-go="roles">Roles</a> <i>›</i> dataplane-admin</div>
         <div class="phead"><div><h1 class="mono" style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span class="xlink" style="color:var(--slate-700)">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
         <div class="info" style="margin-bottom:18px">This role can <b style="font-weight:500">edit rules</b> and <b style="font-weight:500">view Security Edge nodes</b>.</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:16px;font-weight:600">Permissions</div><button class="btnD" id="roleEditBtn"><i class="ti ti-edit" style="font-size:14px;vertical-align:-2px"></i> Edit</button></div>
+        <div id="roleHead" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:16px;font-weight:600">Policy editor</div><button class="btnD" id="roleEditBtn"><i class="ti ti-edit" style="font-size:14px;vertical-align:-2px"></i> Edit</button></div>
         <div id="roleView"></div>
         <div id="roleEdit" style="display:none">
           <div id="polEdit"></div>
@@ -338,16 +342,18 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="fgroup"><div class="flabel">Name</div><input class="finput" id="groupName" placeholder="e.g. Platform engineering" autocomplete="off"></div>
         <div class="idprev" id="groupIdPrev" style="display:none">Identifier <span class="mono" id="groupSlug" style="background:#F1F5F9;color:#334155;padding:2px 6px;border-radius:4px;font-size:12px"></span> <span style="color:var(--slate-400)">· auto · fixed after create</span><div class="mono" id="groupArn" style="font-size:12px;color:var(--slate-400);margin-top:5px"></div></div>
         <div class="fgroup"><div class="flabel">Description <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div><textarea class="ftext" placeholder="What this group is for"></textarea></div>
-        <div class="fgroup" style="max-width:680px">
-          <div class="flabel">Roles granted</div>
+        <div class="fgroup" style="max-width:760px">
+          <div class="flabel">Assign roles to the group</div>
           <div class="fhint">Everyone in this group gets these roles automatically.</div>
-          <div id="grChips" style="display:flex;flex-wrap:wrap;margin-bottom:6px"></div>
-          <div style="position:relative"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="grQ" placeholder="Search roles…" autocomplete="off"></div><div class="pickpop" id="grPop"></div></div>
+          <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="grQ" placeholder="Search roles…" autocomplete="off"></div>
+          <div class="cklist" id="grList"></div>
+          <div class="foot" id="grCount"></div>
         </div>
-        <div class="fgroup" style="max-width:680px">
-          <div class="flabel">Members <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
-          <div id="gmChips" style="display:flex;flex-wrap:wrap;margin-bottom:6px"></div>
-          <div style="position:relative"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="gmQ" placeholder="Search users…" autocomplete="off"></div><div class="pickpop" id="gmPop"></div></div>
+        <div class="fgroup" style="max-width:760px">
+          <div class="flabel">Add users to the group <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
+          <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="gmQ" placeholder="Search users…" autocomplete="off"></div>
+          <div class="cklist" id="gmList"></div>
+          <div class="foot" id="gmCount"></div>
         </div>
         <div class="formfoot"><button class="btnD" data-go="groups">Cancel</button><button class="btnP" id="createGroup">Create group</button></div>
       </div>
@@ -510,9 +516,9 @@ function makePolicyEditor(wrap){
   function cardHtml(s,i){
     if(!s.svc)return '<div class="polcard"><div class="polcardh"><div><div style="font-size:14px;font-weight:600">Select a service</div><div style="font-size:12px;color:#62748E;margin-top:2px">What actions can be performed.</div></div><i class="ti ti-trash" data-rm="'+i+'" style="font-size:16px;color:#94A3B8;cursor:pointer"></i></div><div style="padding:12px 14px"><select class="fsel polsvc" data-i="'+i+'" style="max-width:280px"><option value="">Choose a service</option>'+Object.keys(CATALOG).map(function(k){return '<option value="'+k+'">'+CATALOG[k].label+'</option>';}).join('')+'</select></div></div>';
     var c=CATALOG[s.svc],q=(s.q||'').toLowerCase();
-    var head='<div class="polcardh"><div style="font-size:14px;font-weight:600">'+c.label+' <span style="font-weight:400;color:#62748E;font-size:12px">· '+c.ns+'</span></div><div style="display:flex;align-items:center;gap:16px"><div class="effrow"><span class="eff '+(s.effect==='Allow'?'on':'')+'" data-eff="Allow" data-i="'+i+'"><span class="rdo '+(s.effect==='Allow'?'on':'')+'"></span>Allow</span><span class="eff '+(s.effect==='Deny'?'on':'')+'" data-eff="Deny" data-i="'+i+'"><span class="rdo '+(s.effect==='Deny'?'on':'')+'"></span>Deny</span></div><i class="ti ti-trash" data-rm="'+i+'" style="font-size:16px;color:#94A3B8;cursor:pointer"></i></div></div>';
+    var head='<div class="polcardh"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:14px;font-weight:600">'+c.label+'</span><span class="idtag">'+c.ns+'</span></div><div style="display:flex;align-items:center;gap:16px"><div class="effrow"><span class="eff '+(s.effect==='Allow'?'on':'')+'" data-eff="Allow" data-i="'+i+'"><span class="rdo '+(s.effect==='Allow'?'on':'')+'"></span>Allow</span><span class="eff '+(s.effect==='Deny'?'on':'')+'" data-eff="Deny" data-i="'+i+'"><span class="rdo '+(s.effect==='Deny'?'on':'')+'"></span>Deny</span></div><i class="ti ti-trash" data-rm="'+i+'" style="font-size:16px;color:#94A3B8;cursor:pointer"></i></div></div>';
     var names=svcNames(s.svc),allOn=names.length&&names.every(function(n){return s.acts[n];});
-    var a='<div class="polsec"><div class="polseclab">Actions allowed</div><div class="polsearch"><i class="ti ti-search" style="font-size:14px"></i><input class="polq" data-i="'+i+'" placeholder="Filter actions…" value="'+(s.q||'')+'"></div><div class="act"><span class="cbx allact '+(allOn?'on':'')+'" data-i="'+i+'">'+(allOn?'<i class="ti ti-check" style="font-size:9px"></i>':'')+'</span><span style="margin-left:2px">All '+c.label+' actions (<span class="mono" style="font-size:12px">'+s.svc+':*</span>)</span></div><div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#94A3B8;margin:9px 0 0">Access level</div>';
+    var a='<div class="polsec"><div class="polseclab">Actions allowed</div><div class="polsearch"><i class="ti ti-search" style="font-size:14px"></i><input class="polq" data-i="'+i+'" placeholder="Filter actions…" value="'+(s.q||'')+'"></div><div class="act"><span class="cbx allact '+(allOn?'on':'')+'" data-i="'+i+'">'+(allOn?'<i class="ti ti-check" style="font-size:9px"></i>':'')+'</span><span style="margin-left:2px">All '+c.label+' actions (<span class="mono" style="font-size:12px">'+s.svc+':*</span>)</span></div><div style="font-size:12px;font-weight:500;color:#62748E;margin:12px 0 4px">Access level</div>';
     ALEVELS.forEach(function(L){var an=(c.acts[L]||[]).map(function(n){return s.svc+':'+n;});if(!an.length)return;var shown=an.filter(function(n){return n.toLowerCase().indexOf(q)>-1;});var sel=an.filter(function(n){return s.acts[n];}).length;var gOn=sel===an.length,gSome=sel>0&&!gOn,open=s.open[L]||(q&&shown.length);
       a+='<div class="alvl" data-grp="'+L+'" data-i="'+i+'"><i class="ti ti-chevron-'+(open?'down':'right')+'" style="font-size:15px;color:#62748E"></i><span class="cbx grpcbx '+(gOn?'on':'')+'" data-grp="'+L+'" data-i="'+i+'"'+(gSome?' style="background:#FFD2C6;border-color:#FF441C"':'')+'>'+(gOn?'<i class="ti ti-check" style="font-size:9px"></i>':(gSome?'<i class="ti ti-minus" style="font-size:9px;color:#9A2A12"></i>':''))+'</span><span'+((gOn||gSome)?' style="font-weight:500"':'')+'>'+L+'</span><span class="cnt">('+(sel?'Selected '+sel+'/'+an.length:an.length)+')</span></div>';
       if(open)a+='<div class="actgrid">'+(shown.length?shown.map(function(n){var on=s.acts[n];return '<div class="act"><span class="cbx actc '+(on?'on':'')+'" data-act="'+n+'" data-i="'+i+'">'+(on?'<i class="ti ti-check" style="font-size:9px"></i>':'')+'</span><span class="mono" style="font-size:12px;'+(on?'':'color:#94A3B8')+'">'+n+'</span></div>';}).join(''):'<div style="font-size:12px;color:#94A3B8;padding:3px">No matches</div>')+'</div>';});
@@ -523,7 +529,7 @@ function makePolicyEditor(wrap){
     return '<div class="polcard">'+head+a+rs+'</div>';
   }
   function toJSON(){var s2=st.filter(function(s){return s.svc;}).map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});var resources=s.resMode==='all'?['*']:c.res.filter(function(t){return s.any[t];}).map(function(t){return 'arn:wlrm:'+c.ns+':*:acme:'+t+'/*';});return {Effect:s.effect,Action:actions,Resource:resources.length?resources:['*']};});return JSON.stringify({Version:'2026-01-01',Statement:s2},null,2);}
-  function render(){if(view==='json'){vis.style.display='none';js.style.display='block';js.textContent=toJSON();return;}vis.style.display='block';js.style.display='none';vis.innerHTML=st.map(cardHtml).join('')+'<button class="setbtn addperm" style="margin-top:4px"><i class="ti ti-plus" style="font-size:14px"></i> Add more permissions</button>';}
+  function render(){if(view==='json'){vis.style.display='none';js.style.display='block';js.textContent=toJSON();return;}vis.style.display='block';js.style.display='none';vis.innerHTML=st.map(cardHtml).join('')+'<button class="setbtn addperm" style="margin-top:4px"><i class="ti ti-plus" style="font-size:14px"></i> Add another service</button>';}
   wrap.addEventListener('click',function(e){var t=e.target;
     var seg=t.closest('.polseg span[data-view]');if(seg){view=seg.dataset.view;wrap.querySelectorAll('.polseg span').forEach(function(x){x.classList.toggle('on',x.dataset.view===view);});render();return;}
     var add=t.closest('.addperm');if(add){st.push({svc:null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''});render();return;}
@@ -541,13 +547,13 @@ function makePolicyEditor(wrap){
   render();
   return {get:function(){return clone(st);},set:function(s){st=clone(s||[]);render();},reset:function(){st=[];render();}};
 }
-function renderPolicyRead(container,stmts,withVia){if(!container)return;container.innerHTML=stmts.map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});return '<div class="polcard"><div class="polcardh"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:14px;font-weight:600">'+c.label+'</span><span class="canlvl '+(s.effect==='Deny'?'deny':'edit')+'">'+s.effect+'</span></div><span class="cnt">'+actions.length+' action'+(actions.length===1?'':'s')+'</span></div><div style="padding:11px 14px">'+actions.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('')+(withVia&&s.via?'<div style="font-size:12px;color:#94A3B8;margin-top:7px">via '+s.via+'</div>':'<div style="font-size:12px;color:#94A3B8;margin-top:7px">on '+(s.resMode==='all'?'all resources':'specific resources')+'</div>')+'</div></div>';}).join('')||'<div style="color:#94A3B8;padding:12px;font-size:13px">No permissions.</div>';}
+function renderPolicyRead(container,stmts,withVia){if(!container)return;container.innerHTML=stmts.map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});return '<div class="polcard"><div class="polcardh"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:14px;font-weight:600">'+c.label+'</span><span class="idtag">'+c.ns+'</span><span class="canlvl '+(s.effect==='Deny'?'deny':'edit')+'">'+s.effect+'</span></div><span class="cnt">'+actions.length+' action'+(actions.length===1?'':'s')+'</span></div><div style="padding:11px 14px">'+actions.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('')+(withVia&&s.via?'<div style="font-size:12px;color:#94A3B8;margin-top:7px">via '+s.via+'</div>':'<div style="font-size:12px;color:#94A3B8;margin-top:7px">on '+(s.resMode==='all'?'all resources':'specific resources')+'</div>')+'</div></div>';}).join('')||'<div style="color:#94A3B8;padding:12px;font-size:13px">No permissions.</div>';}
 var polCreate=makePolicyEditor(root.querySelector('#polCreate'));
 function resetPerms(){polCreate.reset();}
 var polEdit=makePolicyEditor(root.querySelector('#polEdit'));
 var ROLE_STMTS=[{svc:'rules',effect:'Allow',acts:{'rules:GetRule':1,'rules:CreateRule':1,'rules:UpdateRule':1,'rules:DeployRuleSet':1},resMode:'all',any:{},open:{},q:''},{svc:'ai',effect:'Deny',acts:{'ai:UpdateGuardrail':1},resMode:'all',any:{},open:{},q:''}];
 function renderRoleView(){renderPolicyRead(root.querySelector('#roleView'),ROLE_STMTS,false);}
-function roleMode(edit){root.querySelector('#roleView').style.display=edit?'none':'block';root.querySelector('#roleEditBtn').style.display=edit?'none':'inline-flex';root.querySelector('#roleEdit').style.display=edit?'block':'none';}
+function roleMode(edit){root.querySelector('#roleHead').style.display=edit?'none':'flex';root.querySelector('#roleView').style.display=edit?'none':'block';root.querySelector('#roleEdit').style.display=edit?'block':'none';}
 root.querySelector('#roleEditBtn').addEventListener('click',function(){polEdit.set(ROLE_STMTS);roleMode(true);});
 root.querySelector('#roleEditCancel').addEventListener('click',function(){roleMode(false);});
 root.querySelector('#roleEditSave').addEventListener('click',function(){ROLE_STMTS=polEdit.get();renderRoleView();roleMode(false);toast('Role saved');});
@@ -556,8 +562,15 @@ renderPolicyRead(root.querySelector('#accessView'),[{svc:'rules',effect:'Allow',
 /* group create */
 var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#createGroup');
 function groupSync(){syncCreate(groupName,root.querySelector('#groupIdPrev'),root.querySelector('#groupSlug'),root.querySelector('#groupArn'),createGroup,'group');}
-var grPick=wirePicker(root.querySelector('#grQ'),root.querySelector('#grPop'),root.querySelector('#grChips'),ROLES,true);
-var gmPick=wirePicker(root.querySelector('#gmQ'),root.querySelector('#gmPop'),root.querySelector('#gmChips'),USERS,false);
+function makeCheckList(o){var chosen={};
+  function render(){var q=(o.search.value||'').toLowerCase();var rows=o.items.filter(function(it){return o.text(it).toLowerCase().indexOf(q)>-1;});o.list.innerHTML=rows.length?rows.map(function(it){var id=o.key(it);return '<label class="clrow" data-k="'+id+'"><span class="cbx '+(chosen[id]?'on':'')+'">'+(chosen[id]?'<i class="ti ti-check" style="font-size:10px"></i>':'')+'</span>'+o.row(it)+'</label>';}).join(''):'<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>';o.count.textContent=Object.keys(chosen).length+' selected';}
+  o.list.addEventListener('click',function(e){var r=e.target.closest('.clrow');if(!r)return;var id=r.dataset.k;if(chosen[id])delete chosen[id];else chosen[id]=1;render();});
+  o.search.addEventListener('input',render);render();
+  return {reset:function(){chosen={};o.search.value='';render();}};}
+var ROLES_FULL=[{n:'dataplane-admin',t:'Default'},{n:'soc-analyst',t:'Managed'},{n:'incident-responder',t:'Default'},{n:'read-only-auditor',t:'Managed'},{n:'ai-governance',t:'Default'}];
+var USERS_FULL=[{n:'Max TT',e:'max@tretyakov-ma.ru',s:'Enabled'},{n:'Test Guy',e:'test@tretyakov-ma.ru',s:'Enabled'},{n:'Andrey Morskov',e:'amorskov@wallarm.com',s:'Enabled'},{n:'Maria Hernandez',e:'maria.hernandez@acme.com',s:'Enabled'},{n:'Alex Zahn',e:'alex.zahn@acme.com',s:'Enabled'},{n:'Wen Li',e:'wen.li@acme.com',s:'Enabled'}];
+var grPick=makeCheckList({search:root.querySelector('#grQ'),list:root.querySelector('#grList'),count:root.querySelector('#grCount'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span class="mono" style="flex:1;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
+var gmPick=makeCheckList({search:root.querySelector('#gmQ'),list:root.querySelector('#gmList'),count:root.querySelector('#gmCount'),items:USERS_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.e;},row:function(it){return '<span style="flex:1"><span style="font-weight:500">'+it.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+it.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+it.s+'</span>';}});
 groupName.addEventListener('input',groupSync);
 createGroup.addEventListener('click',function(){if(createGroup.disabled)return;toast('Group created');groupName.value='';grPick.reset();gmPick.reset();groupSync();show('groups');});
 groupSync();
