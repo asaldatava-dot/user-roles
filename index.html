@@ -50,11 +50,9 @@ button,.btn{font-family:inherit;font-size:14px;font-weight:500;padding:8px 14px;
 .tab{padding-bottom:11px;color:var(--slate-500);cursor:pointer}.tab.on{color:var(--slate-900);font-weight:500;border-bottom:2px solid var(--slate-900);margin-bottom:-1px}
 /* DS Table */
 table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff}
-thead th{background:var(--slate-50);font-size:12px;font-weight:500;color:var(--slate-500);text-align:left;padding:10px 14px;border-bottom:1px solid var(--slate-200);border-right:1px solid var(--slate-200);white-space:nowrap}
-[data-screen="users"] thead th{height:32px;padding:0 14px}
+thead th{background:var(--slate-50);font-size:12px;font-weight:500;color:var(--slate-500);text-align:left;height:32px;padding:0 14px;border-bottom:1px solid var(--slate-200);border-right:1px solid var(--slate-200);white-space:nowrap}
 thead th:last-child{border-right:none}
-td{padding:12px 14px;border-top:1px solid var(--slate-200);font-size:14px;color:var(--slate-900);vertical-align:middle}
-[data-screen="users"] td{min-height:36px;padding:8px 14px}
+td{min-height:36px;padding:8px 14px;border-top:1px solid var(--slate-200);font-size:14px;color:var(--slate-900);vertical-align:middle}
 tbody tr:first-child td{border-top:none}
 tr[data-go]{cursor:pointer}
 tr[data-go]:hover td{background:var(--slate-50)}
@@ -263,7 +261,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
     <section class="content">
 
       <div class="screen" data-screen="users">
-        <div class="crumb">Settings <i>›</i> Users <i>›</i> All users</div>
+        <div class="crumb">Settings <i>›</i> Users</div>
         <div class="phead"><div><h1>Users</h1></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
         <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="selwrap" style="position:relative"><div class="sel" id="statusSel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="statusMenu"><div data-filter="all">All statuses</div><div data-filter="active">Active</div><div data-filter="invited">Invited</div></div></div></div>
         <div class="bulkbar" id="bulkbar" style="display:none"><span class="cnt" id="bulkcnt">0 selected</span><button class="btnX" id="bulkDelete" style="font-size:13px;padding:6px 12px"><i class="ti ti-trash" style="font-size:14px;vertical-align:-2px"></i> Delete</button></div>
@@ -281,30 +279,26 @@ tr[data-go]:hover td{background:var(--slate-50)}
 
       <div class="screen" data-screen="user-access">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill"><i class="ti ti-user" style="font-size:13px"></i>User</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
           <div class="ugrid">
             <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
             <div class="attr"><div class="lab">Last name</div><div class="val">Hernandez <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
             <div class="attr"><div class="lab">Email</div><div class="val">maria.hernandez@acme.com <span class="vtag" title="Verified"><i class="ti ti-check" style="font-size:12px"></i></span> <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
-            <div class="attr"><div class="lab">Status</div><div class="val"><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div></div>
+            <div class="attr"><div class="lab">User ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
           </div>
           <div class="udiv"></div>
           <div class="ugrid">
             <div class="attr"><div class="lab">Identity provider</div><div class="val" style="color:var(--slate-400)">—</div></div>
-            <div class="attr" style="grid-column:span 2"><div class="lab">User ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
-          </div>
-          <div class="udiv"></div>
-          <div class="ugrid">
             <div class="attr"><div class="lab">Created</div><div class="val">12 Mar 2026</div></div>
             <div class="attr"><div class="lab">Updated</div><div class="val">2 days ago</div></div>
             <div class="attr"><div class="lab">Last sign-in</div><div class="val">8 days ago</div></div>
           </div>
           <div class="udiv"></div>
-          <div class="usec">Roles</div>
-          <div style="margin-bottom:12px"><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div>
-          <div class="usec">Groups</div>
-          <div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div>
+          <div class="ugrid" style="grid-template-columns:1fr 1fr">
+            <div class="attr"><div class="lab">Roles</div><div><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+            <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
+          </div>
         </div>
         <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Membership</span></div>
         <div id="accessView"></div>
@@ -312,30 +306,26 @@ tr[data-go]:hover td{background:var(--slate-50)}
 
       <div class="screen" data-screen="user-membership">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill"><i class="ti ti-user" style="font-size:13px"></i>User</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
           <div class="ugrid">
             <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
             <div class="attr"><div class="lab">Last name</div><div class="val">Hernandez <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
             <div class="attr"><div class="lab">Email</div><div class="val">maria.hernandez@acme.com <span class="vtag" title="Verified"><i class="ti ti-check" style="font-size:12px"></i></span> <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
-            <div class="attr"><div class="lab">Status</div><div class="val"><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div></div>
+            <div class="attr"><div class="lab">User ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
           </div>
           <div class="udiv"></div>
           <div class="ugrid">
             <div class="attr"><div class="lab">Identity provider</div><div class="val" style="color:var(--slate-400)">—</div></div>
-            <div class="attr" style="grid-column:span 2"><div class="lab">User ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
-          </div>
-          <div class="udiv"></div>
-          <div class="ugrid">
             <div class="attr"><div class="lab">Created</div><div class="val">12 Mar 2026</div></div>
             <div class="attr"><div class="lab">Updated</div><div class="val">2 days ago</div></div>
             <div class="attr"><div class="lab">Last sign-in</div><div class="val">8 days ago</div></div>
           </div>
           <div class="udiv"></div>
-          <div class="usec">Roles</div>
-          <div style="margin-bottom:12px"><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div>
-          <div class="usec">Groups</div>
-          <div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div>
+          <div class="ugrid" style="grid-template-columns:1fr 1fr">
+            <div class="attr"><div class="lab">Roles</div><div><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+            <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
+          </div>
         </div>
         <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Membership</span></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Direct roles (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
@@ -345,7 +335,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
       </div>
 
       <div class="screen" data-screen="groups">
-        <div class="crumb">Settings <i>›</i> Access management <i>›</i> Groups</div>
+        <div class="crumb">Settings <i>›</i> Groups</div>
         <div class="phead"><div><h1>Groups</h1></div><button class="btnP" data-go="group-create"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add group</button></div>
         <table><colgroup><col style="width:32%"><col style="width:16%"><col style="width:36%"><col style="width:16%"></colgroup>
           <thead><tr><th>Group</th><th>Members</th><th>Grants roles</th><th>Created</th></tr></thead>
@@ -368,7 +358,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
       </div>
 
       <div class="screen" data-screen="roles">
-        <div class="crumb">Settings <i>›</i> Users <i>›</i> Roles</div>
+        <div class="crumb">Settings <i>›</i> Roles</div>
         <div class="phead"><div><h1>Roles</h1></div><button class="btnP" data-go="role-create"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add role</button></div>
         <table><colgroup><col style="width:40%"><col style="width:26%"><col style="width:17%"><col style="width:17%"></colgroup>
           <thead><tr><th>Role</th><th>Attached to</th><th>Created</th><th>Updated</th></tr></thead>
