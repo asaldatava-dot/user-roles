@@ -127,7 +127,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .setmenu{position:fixed;background:#fff;border:1px solid var(--slate-200);border-radius:8px;padding:6px;display:none;z-index:130;box-shadow:0 8px 24px rgba(0,0,0,.16);min-width:150px}
 .setmenu div{font-size:13px;padding:7px 10px;border-radius:6px;cursor:pointer;color:var(--slate-700)}
 .setmenu div:hover{background:var(--slate-50)}
-.usum{border:1px solid var(--slate-200);border-radius:12px;padding:18px 20px;margin-bottom:18px}
+.usum{background:#fff;border:1px solid var(--slate-200);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.05);padding:16px 20px;margin-bottom:18px}
 .ugrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 26px}
 .attr{position:relative}
 .attr .lab{font-size:14px;color:var(--slate-500);margin-bottom:4px}
@@ -158,7 +158,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .poljson{background:#0F172B;color:#E2E8F0;border-radius:12px;padding:14px 16px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;line-height:1.6;overflow:auto;white-space:pre;margin:0}
 .canlvl.deny{background:#FDECEC;color:#B42318}
 .idtag{font-family:'Geist Mono',ui-monospace,monospace;font-size:12.5px;background:var(--slate-100);color:var(--slate-700);padding:2px 8px;border-radius:6px}
-.mcard{border:1px solid var(--slate-200);border-radius:12px;background:#fff;margin-bottom:10px;overflow:hidden;max-width:620px}
+.mcard{border:1px solid var(--slate-200);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.05);background:#fff;margin-bottom:10px;overflow:hidden;max-width:620px}
 .mch{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer}
 .mname{display:flex;align-items:center;gap:8px;font-size:13.5px}
 .mbody{padding:0 14px 10px 14px}
@@ -300,7 +300,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
-        <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Membership</span></div>
+        <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Roles &amp; groups</span></div>
         <div id="accessView"></div>
       </div>
 
@@ -327,10 +327,10 @@ tr[data-go]:hover td{background:var(--slate-50)}
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
-        <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Membership</span></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Direct roles (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
+        <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Roles &amp; groups</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
         <div id="memRoles"></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Groups (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:24px 0 10px"><div style="font-size:15px;font-weight:600">Groups</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
         <div id="memGroups"></div>
       </div>
 
@@ -680,8 +680,15 @@ var USER_ROLES=['soc-analyst'],USER_GROUPS=[{name:'Platform engineering',roles:[
 function mExtended(pol){return pol.map(function(s){var c=CATALOG[s.svc];var lv=ALEVELS.map(function(L){var an=(c.acts[L]||[]).map(function(n){return s.svc+':'+n;}).filter(function(n){return s.acts[n];});if(!an.length)return '';var acts=an.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('');return '<div class="lvrow"><i class="ti ti-chevron-right lvchev" style="font-size:14px;color:#94A3B8"></i><span class="lvname">'+L+'</span><span class="lvn">'+an.length+'</span></div><div class="lvacts" style="display:none">'+acts+'</div>';}).join('');return '<div class="mcard" style="padding:12px 16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:13.5px;font-weight:600">'+c.label+'</span><span class="meff '+(s.effect==='Deny'?'d':'a')+'">'+s.effect+'</span></div>'+lv+'<div style="margin-top:8px"><span class="rscope"><i class="ti ti-world" style="font-size:13px"></i>'+(s.resMode==='all'?'All resources':'Specific resources')+'</span></div></div>';}).join('');}
 function mRoleCard(rn){var pol=ROLE_POLICY[rn]||[];var rows=pol.map(function(s){var lab=CATALOG[s.svc].label;if(s.effect==='Deny')return '<div class="mrow"><span>'+lab+'</span><span class="mlv deny">Deny · '+(mFullGroups(s.svc,s.acts).join(', ')||'actions')+'</span></div>';var L=mLevel(s.svc,s.acts);return '<div class="mrow"><span>'+lab+'</span><span class="mlv '+mLClass(L)+'">'+L+'</span></div>';}).join('');return '<div class="mcard"><div class="mch" style="cursor:default"><span class="mname"><i class="ti ti-key" style="font-size:14px;color:#62748E"></i><span style="font-weight:500">'+rn+'</span></span></div><div class="mbody">'+rows+'</div></div>';}
 function mGroupCard(g){var roleChips=g.roles.map(function(r){return '<span class="mrole">'+r+'</span>';}).join('');var combined={};g.roles.forEach(function(r){(ROLE_POLICY[r]||[]).forEach(function(s){if(s.effect!=='Allow')return;combined[s.svc]=combined[s.svc]||{};Object.keys(s.acts).forEach(function(k){combined[s.svc][k]=1;});});});var acc=Object.keys(combined).map(function(svc){var L=mLevel(svc,combined[svc]);return '<span class="msvc">'+CATALOG[svc].label+' <span class="mlv '+mLClass(L)+'">'+L+'</span></span>';}).join('');var ext=g.roles.map(function(r){return '<div class="mmini" style="margin-top:0">Role '+r+'</div>'+mExtended(ROLE_POLICY[r]||[]);}).join('');return '<div class="mcard"><div class="mch" style="cursor:default"><span class="mname"><i class="ti ti-users-group" style="font-size:15px;color:#62748E"></i><span style="font-weight:600">'+g.name+'</span></span></div><div class="mbody"><div class="mmini" style="margin-top:0">Grants role</div><div>'+roleChips+'</div><div class="mmini">Access</div><div>'+acc+'</div></div></div>';}
-root.querySelector('#memRoles').innerHTML=USER_ROLES.map(mRoleCard).join('');
-root.querySelector('#memGroups').innerHTML=USER_GROUPS.map(mGroupCard).join('');
+function mAcc(pol){var a=pol.filter(function(s){return s.effect==='Allow';}).map(function(s){var L=mLevel(s.svc,s.acts);return '<span class="msvc">'+CATALOG[s.svc].label+' <span class="mlv '+mLClass(L)+'">'+L+'</span></span>';});var d=pol.filter(function(s){return s.effect==='Deny';}).map(function(s){return '<span class="msvc">'+CATALOG[s.svc].label+' <span class="mlv deny">Deny</span></span>';});return a.concat(d).join('')||'<span style="color:var(--slate-400)">—</span>';}
+function mGroupAcc(g){var c={};g.roles.forEach(function(r){(ROLE_POLICY[r]||[]).forEach(function(s){if(s.effect!=='Allow')return;c[s.svc]=c[s.svc]||{};Object.keys(s.acts).forEach(function(k){c[s.svc][k]=1;});});});return Object.keys(c).map(function(svc){var L=mLevel(svc,c[svc]);return '<span class="msvc">'+CATALOG[svc].label+' <span class="mlv '+mLClass(L)+'">'+L+'</span></span>';}).join('')||'<span style="color:var(--slate-400)">—</span>';}
+var rgRoles=[];
+USER_ROLES.forEach(function(r){rgRoles.push({role:r,direct:true,pol:ROLE_POLICY[r]||[]});});
+USER_GROUPS.forEach(function(g){g.roles.forEach(function(r){rgRoles.push({role:r,via:g.name,pol:ROLE_POLICY[r]||[]});});});
+root.querySelector('#memRoles').innerHTML='<table><colgroup><col style="width:26%"><col style="width:30%"><col style="width:44%"></colgroup><thead><tr><th>Role</th><th>Source</th><th>Access</th></tr></thead><tbody>'+rgRoles.map(function(x){var src=x.direct?'<span class="pill">Direct</span>':'<span class="gtag"><i class="ti ti-users-group" style="font-size:11px;vertical-align:-1px"></i> '+x.via+'</span>';return '<tr data-go="role-detail"><td><span style="font-weight:500">'+x.role+'</span></td><td>'+src+'</td><td>'+mAcc(x.pol)+'</td></tr>';}).join('')+'</tbody></table>';
+root.querySelector('#memGroups').innerHTML='<table><colgroup><col style="width:30%"><col style="width:28%"><col style="width:42%"></colgroup><thead><tr><th>Group</th><th>Roles</th><th>Access</th></tr></thead><tbody>'+USER_GROUPS.map(function(g){var roleTags=g.roles.map(function(r){return '<span class="tag">'+r+'</span>';}).join('');return '<tr data-go="group-detail"><td><span style="font-weight:500">'+g.name+'</span></td><td>'+roleTags+'</td><td>'+mGroupAcc(g)+'</td></tr>';}).join('')+'</tbody></table>';
+root.querySelector('#memRoles').addEventListener('click',function(e){var r=e.target.closest('tr[data-go]');if(r)show(r.dataset.go);});
+root.querySelector('#memGroups').addEventListener('click',function(e){var r=e.target.closest('tr[data-go]');if(r)show(r.dataset.go);});
 /* Access derives from the same membership policy (single source of truth) */
 function mResolved(){var map={},order=[];function add(s){var k=s.svc+'|'+s.effect;if(!map[k]){map[k]={svc:s.svc,effect:s.effect,acts:{},resMode:'all'};order.push(k);}Object.keys(s.acts).forEach(function(a){map[k].acts[a]=1;});}USER_ROLES.forEach(function(r){(ROLE_POLICY[r]||[]).forEach(add);});USER_GROUPS.forEach(function(g){g.roles.forEach(function(r){(ROLE_POLICY[r]||[]).forEach(add);});});return order.map(function(k){return map[k];});}
 root.querySelector('#accessView').innerHTML=mExtended(mResolved());
