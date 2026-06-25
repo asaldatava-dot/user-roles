@@ -1,84 +1,59 @@
 # Identity & Access — recommended changes
 
-Design recommendations against the current developer implementation.
-The prototype in this repo is the reference (etalon) for the target behaviour.
+The prototype (on localhost) shows the intended direction — an approximate
+target for how this should work and look. Below are the **conceptual** changes
+to bring the current production build closer to it. Visual details (typography,
+paddings, row heights) are secondary; the points below are about structure and
+meaning.
 
-## Tables (apply to every table)
+## 1. Add an "Access" view — what the user can actually do
+Today the detail page only lists the policies *attached* to a user. It never
+shows the user's **effective access**. Add an **Access** tab that resolves all
+roles and groups into one view: grouped by product/service, with Allow/Deny and
+an access level (View / Edit / Admin). Tabs become **Access | Roles | Groups**.
+This answers the real question — "what can this person do?" — not just "what is
+attached to them?".
 
-- **One text style for all cells.** Body text: Geist, 14px, regular (400),
-  line-height 20px, color `--color-text-primary` (#0F172B). Header text: 12px.
-  Today the size and weight vary between tables.
-- **No monospace for names.** Role and group names use the regular font, not
-  monospace. Keep monospace only for technical identifiers (ARNs, slugs,
-  policy action names, resource types) — same convention as AWS IAM.
-- **No medium weight for names.** Names render at regular (400), not 500.
-- **Consistent padding and row height.** 8px vertical / 14px horizontal padding,
-  rows ~36px, header 32px — the same in every table.
-- **A chip must never change the row height.** Tags/pills are clamped to the
-  20px line box and vertically centered, so a cell with a chip is exactly as
-  tall as a cell with plain text. Rows only grow when content wraps to a second
-  line.
+## 2. Show meaning, not raw counts and internals
+- **Users list:** the Groups and Roles columns show only counts ("1", "1").
+  Show the actual **names** as tags, collapsing extras into a "+N" chip when they
+  don't fit. A bare count hides what the access actually is.
+- **Roles tab:** replace technical columns like "Statements: 1" and
+  "Type: Managed / Default" with a readable **access summary** (which services,
+  at what level). Keep "Attached via" (Direct / via &lt;group&gt;) — that part is good.
 
-## Users table
+## 3. One vocabulary
+The detail page mixes "Policy name", "Type: Managed/Default", and roles. Two rows
+both called "Admin" with different types is confusing — the user can't tell what
+differs. Pick one model and name it consistently (a Role, with its policy), so
+identical-looking rows aren't ambiguous.
 
-- **Email is its own column** (not stacked under the name).
-- **Drop the "Type" column.**
-- **Show Groups and Roles as separate columns**, each as tags.
-- **Add a "Verified" indicator** — a small green check next to verified emails.
-- **Keep Status as a pill** and add a "Last active" column.
-- **Groups column is a bit wider** to fit common cases.
-- **Group overflow is width-driven.** Show as many group tags as fit; collapse
-  the rest into a "+N" chip *only when the tags exceed the column width*. The
-  "+N" chip opens a tooltip listing the hidden groups. It is not a fixed count.
+## 4. Make roles and groups open
+Roles and groups — and the "Attached via" group links — are not clickable today.
+Every role and group should open its own detail page.
 
-## User detail page
+## 5. Implement create role / create group
+Both flows are currently non-functional. Build them the simplified way shown in
+the prototype: a single name field with an auto-generated identifier, and an
+**AWS IAM-style policy editor** (service → actions grouped by access level →
+resources → Allow/Deny, with a Visual / JSON toggle). Don't reinvent IAM — most
+users are DevOps and already know that model.
 
-- **Use the Card component for the summary** (rounded-8, 1px border, subtle
-  shadow) instead of a plain box.
-- **Move Status into the page header**; remove the separate "User" tag.
-- **Put User ID next to Email** in the same row.
-- **Put Identity Provider in the same row** as Created / Updated / Last sign-in.
-- **Lay out Roles and Groups in two columns** inside the summary card to keep it
-  compact.
-- **Attribute labels are 14px**, not 12px.
-- **Split "Roles & groups" into two separate tabs.** Tabs are now
-  **Access | Roles | Groups**.
-- **Roles and Groups tabs use tables**, not cards:
-  - Roles: `Role | Source (Direct / via <group>) | Access`.
-  - Groups: `Group | Roles | Access`.
-  - Access is derived from the same role policies as the Access tab
-    (single source of truth).
+## 6. Tighten the summary card
+Group related attributes on the same row and avoid lonely rows (e.g. "Last
+sign-in —" sitting on its own line). Put **User ID next to Email**, and
+**Identity provider on the same row** as Created / Updated / Last sign-in. Move
+**Status up next to the name**. The card becomes compact and scannable.
 
-## Navigation & breadcrumbs
+## 7. Consistent status and labels
+Align status wording and labels across list and detail (e.g. "Enabled" vs
+"Active" — pick one).
 
-- **Breadcrumbs end on the current page.** List pages read `Settings › Users`,
-  `Settings › Roles`, `Settings › Groups` — the current section is the active
-  last item, no redundant trailing segment (e.g. drop "All users").
-- **Fix the Roles breadcrumb parent** — it should be `Settings › Roles`, not
-  `Settings › Users › Roles`.
-- **Remove the "Access management" middle segment** from breadcrumbs.
-- **A navigation item must not act as a filter.** Remove the "Pending invites"
-  nav entry; move status filtering into the table toolbar.
-- **No page descriptions** under the title on the Users, Roles and Groups list
-  pages.
+## 8. Single source of truth
+The Access view and the Roles / Groups tabs should be derived from the same
+data, so the effective access can never contradict the list of what's attached.
 
-## Permissions / policy editor
+---
 
-- **Follow AWS IAM exactly** — don't reinvent it (most users are DevOps):
-  - Service → actions grouped by access level (List / Read / Write /
-    Permissions management / Tagging) → resources (All / specific ARN) → Effect.
-  - Support both **Allow and Deny**.
-  - Offer a **Visual | JSON** toggle.
-- **Friendly rollup in read-only views.** Where we only show the result (cards,
-  table summaries), collapse levels into View / Edit / Admin / Custom.
-
-## Create role / create group
-
-- **Single name field with an auto-generated slug** (identifier fixed after
-  creation); keep the form minimal.
-- **No giant catalog tables** in the create flow.
-
-## General principle
-
-- **Keep v1 minimal.** When in doubt, remove. Prefer the simplest version that
-  still works — the reference should show the ideal, lean first version.
+*Lower priority (already detailed elsewhere): table styling — one text style,
+consistent paddings and row heights, and chips that don't change row height.*
