@@ -405,14 +405,19 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="role-detail">
         <div class="crumb"><a data-go="roles">Settings</a> <i>›</i> <a data-go="roles">Roles</a> <i>›</i> dataplane-admin</div>
-        <div class="phead"><div><h1 style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span class="xlink" style="color:var(--slate-700)">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
-        <div class="info" style="margin-bottom:18px">This role can <b style="font-weight:500">edit rules</b> and <b style="font-weight:500">view Security Edge nodes</b>.</div>
-        <div id="roleHead" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:16px;font-weight:600">Policy editor</div><button class="btnD" id="roleEditBtn"><i class="ti ti-edit" style="font-size:14px;vertical-align:-2px"></i> Edit</button></div>
-        <div id="roleView"></div>
-        <div id="roleEdit" style="display:none">
-          <div id="polEdit"></div>
-          <div class="formfoot"><button class="btnD" id="roleEditCancel">Cancel</button><button class="btnP" id="roleEditSave">Save changes</button></div>
+        <div class="phead"><div><h1>dataplane-admin</h1></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-ract="duplicate"><i class="ti ti-copy" style="font-size:15px"></i>Duplicate</div><div data-ract="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div style="font-size:15px;font-weight:600;margin:4px 0 10px">Summary</div>
+        <div class="usum">
+          <div class="ugrid">
+            <div class="attr"><div class="lab">Name</div><div class="val">dataplane-admin <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
+            <div class="attr"><div class="lab">Resource ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:role/dataplane-admin <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
+            <div class="attr"><div class="lab">Created At</div><div class="val">11 Jan 2026 · 09:24</div></div>
+            <div class="attr"><div class="lab">Updated At</div><div class="val">2 days ago</div></div>
+          </div>
         </div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin:18px 0 10px"><div><div style="font-size:15px;font-weight:600">Permissions</div><div id="rolePermStats" style="font-size:13px;color:var(--slate-500);margin-top:3px"></div></div><div class="seg2"><span class="on" data-rview="table">Table</span><span data-rview="json">JSON</span></div></div>
+        <div id="rolePermsWrap"><table><colgroup><col style="width:22%"><col style="width:40%"><col style="width:20%"><col style="width:12%"><col style="width:6%"></colgroup><thead><tr><th>Service</th><th>Permissions</th><th>Resources</th><th>Effect</th><th></th></tr></thead><tbody id="rolePermsBody"></tbody></table></div>
+        <div id="rolePermsJson" style="display:none"></div>
       </div>
 
       <div class="screen" data-screen="role-create">
@@ -647,14 +652,18 @@ function makePolicyEditor(wrap){
 function renderPolicyRead(container,stmts,withVia){if(!container)return;container.innerHTML=stmts.map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});return '<div class="polcard"><div class="polcardh"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:14px;font-weight:600">'+c.label+'</span><span class="idtag">'+c.ns+'</span><span class="canlvl '+(s.effect==='Deny'?'deny':'edit')+'">'+s.effect+'</span></div><span class="cnt">'+actions.length+' action'+(actions.length===1?'':'s')+'</span></div><div style="padding:11px 14px">'+actions.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('')+(withVia&&s.via?'<div style="font-size:12px;color:#94A3B8;margin-top:7px">via '+s.via+'</div>':'<div style="font-size:12px;color:#94A3B8;margin-top:7px">on '+(s.resMode==='all'?'all resources':'specific resources')+'</div>')+'</div></div>';}).join('')||'<div style="color:#94A3B8;padding:12px;font-size:13px">No permissions.</div>';}
 var polCreate=makePolicyEditor(root.querySelector('#polCreate'));
 function resetPerms(){polCreate.reset();}
-var polEdit=makePolicyEditor(root.querySelector('#polEdit'));
 var ROLE_STMTS=[{svc:'rules',effect:'Allow',acts:{'rules:GetRule':1,'rules:CreateRule':1,'rules:UpdateRule':1,'rules:DeployRuleSet':1},resMode:'all',any:{},open:{},q:''},{svc:'ai',effect:'Deny',acts:{'ai:UpdateGuardrail':1},resMode:'all',any:{},open:{},q:''}];
-function renderRoleView(){renderPolicyRead(root.querySelector('#roleView'),ROLE_STMTS,false);}
-function roleMode(edit){root.querySelector('#roleHead').style.display=edit?'none':'flex';root.querySelector('#roleView').style.display=edit?'none':'block';root.querySelector('#roleEdit').style.display=edit?'block':'none';}
-root.querySelector('#roleEditBtn').addEventListener('click',function(){polEdit.set(ROLE_STMTS);roleMode(true);});
-root.querySelector('#roleEditCancel').addEventListener('click',function(){roleMode(false);});
-root.querySelector('#roleEditSave').addEventListener('click',function(){ROLE_STMTS=polEdit.get();renderRoleView();roleMode(false);toast('Role saved');});
-renderRoleView();
+function rolePolicyJson(){return JSON.stringify({Version:'2026-01-01',Statement:ROLE_STMTS.map(function(s){return {Effect:s.effect,Service:(CATALOG[s.svc]||{label:s.svc}).label,Action:Object.keys(s.acts).filter(function(k){return s.acts[k];}),Resource:s.resMode==='all'?'*':'arn:wlrm:*'};})},null,2).replace(/</g,'&lt;');}
+function renderRolePerms(){
+  var allow=ROLE_STMTS.filter(function(s){return s.effect!=='Deny';}).length,deny=ROLE_STMTS.length-allow;
+  var stEl=root.querySelector('#rolePermStats');if(stEl)stEl.textContent=ROLE_STMTS.length+' statement'+(ROLE_STMTS.length===1?'':'s')+' · '+allow+' allow · '+deny+' deny';
+  var tb=root.querySelector('#rolePermsBody');if(tb)tb.innerHTML=ROLE_STMTS.map(function(s,i){var c=CATALOG[s.svc]||{label:s.svc};var perms=Object.keys(s.acts).filter(function(k){return s.acts[k];}).map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('');var eff=s.effect==='Deny'?'<span class="pill" style="background:#FDECEC;color:#B42318">Deny</span>':'<span class="pill" style="background:#E8F7EE;color:#00A63E">Allow</span>';return '<tr><td><span>'+c.label+'</span></td><td>'+perms+'</td><td><span style="color:var(--slate-500)">All resources</span></td><td>'+eff+'</td><td class="actcell"><button class="kebab rkebab" data-i="'+i+'" aria-label="Service actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>';}).join('')||'<tr><td colspan="5" style="color:var(--slate-400)">No permissions.</td></tr>';
+  var js=root.querySelector('#rolePermsJson');if(js)js.innerHTML='<pre class="mono" style="margin:0;font-size:12.5px;background:var(--slate-50);border:1px solid var(--slate-200);border-radius:8px;padding:14px;overflow:auto;color:var(--slate-700)">'+rolePolicyJson()+'</pre>';
+}
+renderRolePerms();
+root.querySelectorAll('[data-screen="role-detail"] [data-rview]').forEach(function(el){el.addEventListener('click',function(){var v=el.dataset.rview;el.parentNode.querySelectorAll('span').forEach(function(x){x.classList.toggle('on',x===el);});root.querySelector('#rolePermsWrap').style.display=v==='table'?'block':'none';root.querySelector('#rolePermsJson').style.display=v==='json'?'block':'none';});});
+root.querySelector('#rolePermsBody').addEventListener('click',function(e){var k=e.target.closest('.rkebab');if(!k)return;e.stopPropagation();var i=+k.dataset.i,rm=root.querySelector('#rowMenu');rm.innerHTML='<div class="danger" data-rrm="1"><i class="ti ti-trash" style="font-size:15px"></i>Remove service</div>';rm.style.display='block';var r=k.getBoundingClientRect();rm.style.left=Math.max(8,r.right-rm.offsetWidth)+'px';rm.style.top=(r.bottom+4)+'px';rm.querySelector('[data-rrm]').addEventListener('click',function(ev){ev.stopPropagation();rm.style.display='none';ROLE_STMTS.splice(i,1);renderRolePerms();toast('Service removed');});});
+root.querySelectorAll('[data-ract]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var a=el.dataset.ract;var am=el.closest('.actmenu');if(am)am.style.display='none';toast(a==='delete'?'Role deleted':'Role duplicated');});});
 renderPolicyRead(root.querySelector('#accessView'),[{svc:'rules',effect:'Allow',acts:{'rules:GetRule':1,'rules:UpdateRule':1,'rules:DeployRuleSet':1},resMode:'all',via:'Platform engineering · dataplane-admin'},{svc:'apisec',effect:'Allow',acts:{'apisec:ListEndpoints':1,'apisec:GetEndpoint':1},resMode:'all',via:'soc-analyst · direct role'}],true);
 /* group create */
 var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#createGroup');
