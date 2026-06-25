@@ -415,7 +415,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
             <div class="attr"><div class="lab">Updated At</div><div class="val">2 days ago</div></div>
           </div>
         </div>
-        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin:18px 0 10px"><div><div style="font-size:15px;font-weight:600">Permissions</div><div id="rolePermStats" style="font-size:13px;color:var(--slate-500);margin-top:3px"></div></div><div class="seg2"><span class="on" data-rview="table">Table</span><span data-rview="json">JSON</span></div></div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin:18px 0 10px"><div style="font-size:15px;font-weight:600">Permissions</div><div class="seg2"><span class="on" data-rview="table">Table</span><span data-rview="json">JSON</span></div></div>
         <div id="rolePermsWrap"><table><colgroup><col style="width:22%"><col style="width:40%"><col style="width:20%"><col style="width:12%"><col style="width:6%"></colgroup><thead><tr><th>Service</th><th>Permissions</th><th>Resources</th><th>Effect</th><th></th></tr></thead><tbody id="rolePermsBody"></tbody></table></div>
         <div id="rolePermsJson" style="display:none"></div>
       </div>
@@ -655,8 +655,6 @@ function resetPerms(){polCreate.reset();}
 var ROLE_STMTS=[{svc:'rules',effect:'Allow',acts:{'rules:GetRule':1,'rules:CreateRule':1,'rules:UpdateRule':1,'rules:DeployRuleSet':1},resMode:'all',any:{},open:{},q:''},{svc:'ai',effect:'Deny',acts:{'ai:UpdateGuardrail':1},resMode:'all',any:{},open:{},q:''}];
 function rolePolicyJson(){return JSON.stringify({Version:'2026-01-01',Statement:ROLE_STMTS.map(function(s){return {Effect:s.effect,Service:(CATALOG[s.svc]||{label:s.svc}).label,Action:Object.keys(s.acts).filter(function(k){return s.acts[k];}),Resource:s.resMode==='all'?'*':'arn:wlrm:*'};})},null,2).replace(/</g,'&lt;');}
 function renderRolePerms(){
-  var allow=ROLE_STMTS.filter(function(s){return s.effect!=='Deny';}).length,deny=ROLE_STMTS.length-allow;
-  var stEl=root.querySelector('#rolePermStats');if(stEl)stEl.textContent=ROLE_STMTS.length+' statement'+(ROLE_STMTS.length===1?'':'s')+' · '+allow+' allow · '+deny+' deny';
   var tb=root.querySelector('#rolePermsBody');if(tb)tb.innerHTML=ROLE_STMTS.map(function(s,i){var c=CATALOG[s.svc]||{label:s.svc};var perms=Object.keys(s.acts).filter(function(k){return s.acts[k];}).map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('');var eff=s.effect==='Deny'?'<span class="pill" style="background:#FDECEC;color:#B42318">Deny</span>':'<span class="pill" style="background:#E8F7EE;color:#00A63E">Allow</span>';return '<tr><td><span>'+c.label+'</span></td><td>'+perms+'</td><td><span style="color:var(--slate-500)">All resources</span></td><td>'+eff+'</td><td class="actcell"><button class="kebab rkebab" data-i="'+i+'" aria-label="Service actions"><i class="ti ti-dots" style="font-size:18px"></i></button></td></tr>';}).join('')||'<tr><td colspan="5" style="color:var(--slate-400)">No permissions.</td></tr>';
   var js=root.querySelector('#rolePermsJson');if(js)js.innerHTML='<pre class="mono" style="margin:0;font-size:12.5px;background:var(--slate-50);border:1px solid var(--slate-200);border-radius:8px;padding:14px;overflow:auto;color:var(--slate-700)">'+rolePolicyJson()+'</pre>';
 }
