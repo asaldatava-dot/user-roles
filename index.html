@@ -304,11 +304,11 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
-        <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-membership">Roles &amp; groups</span></div>
+        <div class="tabs"><span class="tab on">Access</span><span class="tab" data-go="user-roles">Roles</span><span class="tab" data-go="user-groups">Groups</span></div>
         <div id="accessView"></div>
       </div>
 
-      <div class="screen" data-screen="user-membership">
+      <div class="screen" data-screen="user-roles">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
         <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
@@ -331,10 +331,36 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
-        <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Roles &amp; groups</span></div>
+        <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Roles</span><span class="tab" data-go="user-groups">Groups</span></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
         <div id="memRoles"></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin:24px 0 10px"><div style="font-size:15px;font-weight:600">Groups</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
+      </div>
+
+      <div class="screen" data-screen="user-groups">
+        <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="usum">
+          <div class="ugrid">
+            <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
+            <div class="attr"><div class="lab">Last name</div><div class="val">Hernandez <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
+            <div class="attr"><div class="lab">Email</div><div class="val">maria.hernandez@acme.com <span class="vtag" title="Verified"><i class="ti ti-check" style="font-size:12px"></i></span> <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
+            <div class="attr"><div class="lab">User ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:user/maria <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
+          </div>
+          <div class="udiv"></div>
+          <div class="ugrid">
+            <div class="attr"><div class="lab">Identity provider</div><div class="val" style="color:var(--slate-400)">—</div></div>
+            <div class="attr"><div class="lab">Created</div><div class="val">12 Mar 2026</div></div>
+            <div class="attr"><div class="lab">Updated</div><div class="val">2 days ago</div></div>
+            <div class="attr"><div class="lab">Last sign-in</div><div class="val">8 days ago</div></div>
+          </div>
+          <div class="udiv"></div>
+          <div class="ugrid" style="grid-template-columns:1fr 1fr">
+            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+            <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
+          </div>
+        </div>
+        <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab" data-go="user-roles">Roles</span><span class="tab on">Groups</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Groups</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
         <div id="memGroups"></div>
       </div>
 
@@ -418,7 +444,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
       </div>
 
       <div class="qmenu" style="display:none">
-        <div data-go="users">Users</div><div data-go="user-access">User · Access</div><div data-go="user-membership">User · Membership</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div><div data-go="role-create">Create role</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div><div data-go="group-create">Create group</div>
+        <div data-go="users">Users</div><div data-go="user-access">User · Access</div><div data-go="user-roles">User · Roles</div><div data-go="user-groups">User · Groups</div><div data-go="roles">Roles</div><div data-go="role-detail">Role detail</div><div data-go="role-create">Create role</div><div data-go="groups">Groups</div><div data-go="group-detail">Group detail</div><div data-go="group-create">Create group</div>
       </div>
     </section>
   </main>
@@ -468,7 +494,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 </div>
 
 <script>
-var P={users:'allusers','user-access':'allusers','user-membership':'allusers',roles:'roles','role-detail':'roles','role-create':'roles',groups:'groups','group-detail':'groups','group-create':'groups'};
+var P={users:'allusers','user-access':'allusers','user-roles':'allusers','user-groups':'allusers',roles:'roles','role-detail':'roles','role-create':'roles',groups:'groups','group-detail':'groups','group-create':'groups'};
 var GROUPS=[{l:'SOC tier 1',r:'soc-analyst'},{l:'SOC tier 2',r:'soc-analyst, incident-responder'},{l:'Platform engineering',r:'dataplane-admin'},{l:'Compliance',r:'read-only-auditor'},{l:'AI platform',r:'ai-governance'}];
 var ROLES=['soc-analyst','dataplane-admin','incident-responder','read-only-auditor','ai-governance','ci-deploy'];
 var root=document,FILTER='all',priyaSent=false;
