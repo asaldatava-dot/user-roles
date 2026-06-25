@@ -57,7 +57,7 @@ tbody tr:first-child td{border-top:none}
 tr[data-go]{cursor:pointer}
 tr[data-go]:hover td{background:var(--slate-50)}
 .xlink{cursor:pointer}.xlink:hover{text-decoration:underline}
-.tag{font-family:'Geist Mono',ui-monospace,monospace;background:var(--slate-100);color:var(--slate-700);padding:2px 6px;border-radius:4px;font-size:12px;display:inline-block;margin:2px 3px 2px 0}
+.tag{background:var(--slate-100);color:var(--slate-700);padding:2px 6px;border-radius:4px;font-size:12px;display:inline-block;margin:2px 3px 2px 0}
 .verb{display:inline-block;background:var(--slate-100);color:var(--slate-700);font-size:13px;padding:3px 9px;border-radius:6px;margin:2px 4px 2px 0}
 .pill{display:inline-flex;align-items:center;gap:5px;background:var(--slate-100);color:var(--slate-700);font-size:12px;padding:3px 9px;border-radius:9999px}
 .toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
@@ -166,7 +166,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
 .mlv{font-size:11px;font-weight:500;padding:2px 8px;border-radius:9999px}
 .mlv.e{background:#FFF1EC;color:#9A2A12}.mlv.v{background:#EAF2FF;color:#1E40AF}.mlv.a{background:#FDECEC;color:#B42318}.mlv.c{background:var(--slate-100);color:var(--slate-500)}.mlv.deny{background:#FDECEC;color:#B42318}
 .msvc{display:inline-flex;align-items:center;gap:7px;background:#F8FAFC;border:1px solid var(--slate-200);border-radius:8px;padding:5px 10px;font-size:13px;margin:3px 6px 3px 0}
-.mrole{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;background:var(--slate-100);color:var(--slate-700);padding:2px 7px;border-radius:5px;margin:0 5px 5px 0;display:inline-block}
+.mrole{font-size:12px;background:var(--slate-100);color:var(--slate-700);padding:2px 7px;border-radius:5px;margin:0 5px 5px 0;display:inline-block}
 .mmini{font-size:11px;color:var(--slate-400);margin:10px 0 4px}
 .mchev{transition:transform .12s}
 .mext{padding:10px 14px 12px;border-top:1px solid var(--slate-200);background:#FAFBFC}
@@ -296,7 +296,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
           </div>
           <div class="udiv"></div>
           <div class="ugrid" style="grid-template-columns:1fr 1fr">
-            <div class="attr"><div class="lab">Roles</div><div><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
@@ -323,7 +323,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
           </div>
           <div class="udiv"></div>
           <div class="ugrid" style="grid-template-columns:1fr 1fr">
-            <div class="attr"><div class="lab">Roles</div><div><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip mono" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
@@ -352,7 +352,7 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <div class="phead"><div><h1>Platform engineering</h1><div class="sub">4 members · grants 1 role</div></div><button class="btnX">Delete</button></div>
         <div class="info" style="margin-bottom:18px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Everyone in this group automatically gets the roles below — that's the point of a group.</div></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles granted (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
-        <table><colgroup><col style="width:30%"><col style="width:70%"></colgroup><tbody><tr data-go="role-detail"><td><span class="mono" style="font-size:13px">dataplane-admin</span></td><td style="color:var(--slate-500);font-size:13px">edit rules, view Security Edge nodes</td></tr></tbody></table>
+        <table><colgroup><col style="width:30%"><col style="width:70%"></colgroup><tbody><tr data-go="role-detail"><td><span style="font-weight:500">dataplane-admin</span></td><td style="color:var(--slate-500);font-size:13px">edit rules, view Security Edge nodes</td></tr></tbody></table>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Members (4)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
         <table><colgroup><col style="width:70%"><col style="width:30%"></colgroup><tbody><tr data-go="user-access"><td><span style="font-weight:500">Maria Hernandez</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">8d ago</td></tr><tr><td><span style="font-weight:500">Wen Li</span></td><td style="text-align:right;color:var(--slate-500);font-size:13px">3d ago</td></tr></tbody></table>
       </div>
@@ -363,15 +363,15 @@ tr[data-go]:hover td{background:var(--slate-50)}
         <table><colgroup><col style="width:40%"><col style="width:26%"><col style="width:17%"><col style="width:17%"></colgroup>
           <thead><tr><th>Role</th><th>Attached to</th><th>Created</th><th>Updated</th></tr></thead>
           <tbody>
-            <tr data-go="role-detail"><td><span class="mono" style="font-size:13px">dataplane-admin</span></td><td style="color:var(--slate-700)">4 users · 2 groups</td><td>11 Jan 2026</td><td>2d ago</td></tr>
-            <tr><td><span class="mono" style="font-size:13px">soc-analyst</span></td><td style="color:var(--slate-700)">22 users · 2 groups</td><td>11 Jan 2026</td><td>9d ago</td></tr>
+            <tr data-go="role-detail"><td><span style="font-weight:500">dataplane-admin</span></td><td style="color:var(--slate-700)">4 users · 2 groups</td><td>11 Jan 2026</td><td>2d ago</td></tr>
+            <tr><td><span style="font-weight:500">soc-analyst</span></td><td style="color:var(--slate-700)">22 users · 2 groups</td><td>11 Jan 2026</td><td>9d ago</td></tr>
           </tbody></table>
         <div class="foot">Showing 2 of 7 roles</div>
       </div>
 
       <div class="screen" data-screen="role-detail">
         <div class="crumb"><a data-go="roles">Settings</a> <i>›</i> <a data-go="roles">Roles</a> <i>›</i> dataplane-admin</div>
-        <div class="phead"><div><h1 class="mono" style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span class="xlink" style="color:var(--slate-700)">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
+        <div class="phead"><div><h1 style="font-size:26px">dataplane-admin</h1><div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span class="pill"><span style="width:7px;height:7px;border-radius:9999px;background:var(--slate-400);display:inline-block"></span>Managed by Acme Corp</span><span style="font-size:13px;color:var(--slate-500)">Attached to <span class="xlink" style="color:var(--slate-700)">4 users · 2 groups</span></span></div></div><div style="display:flex;gap:8px"><button class="btnD">Duplicate</button><button class="btnX">Delete</button></div></div>
         <div class="info" style="margin-bottom:18px">This role can <b style="font-weight:500">edit rules</b> and <b style="font-weight:500">view Security Edge nodes</b>.</div>
         <div id="roleHead" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:16px;font-weight:600">Policy editor</div><button class="btnD" id="roleEditBtn"><i class="ti ti-edit" style="font-size:14px;vertical-align:-2px"></i> Edit</button></div>
         <div id="roleView"></div>
@@ -498,7 +498,7 @@ function updateSend(){var s=root.querySelector('[data-action="send"]');var ok;if
 function renderToks(){accToks.innerHTML=Object.keys(chosen).map(function(k){var o=chosen[k];var sub=o.kind==='group'?'<span style="color:#94A3B8"> · '+o.r.split(',')[0].trim()+'</span>':'';return '<span class="chip">'+(o.kind==='group'?'<i class="ti ti-users-group" style="font-size:13px;color:#62748E"></i>':'')+'<span class="'+(o.kind==='role'?'mono':'')+'">'+o.l+'</span>'+sub+' <i class="ti ti-x" data-rm="'+k+'" style="font-size:12px;color:#94A3B8;cursor:pointer"></i></span>';}).join('');accToks.querySelectorAll('[data-rm]').forEach(function(x){x.addEventListener('click',function(){delete chosen[x.dataset.rm];renderToks();renderPop();updateSend();});});}
 function renderPop(){var s=(accQ.value||'').toLowerCase(),h='',gs=GROUPS.filter(function(g){return (g.l+' '+g.r).toLowerCase().indexOf(s)>-1&&!chosen['g:'+g.l];}),rs=ROLES.filter(function(r){return r.toLowerCase().indexOf(s)>-1&&!chosen['r:'+r];});
   if(gs.length){h+='<div class="gh">Groups · roles included</div>';gs.forEach(function(g){h+='<div class="opt" data-k="g:'+g.l+'" data-l="'+g.l+'" data-kind="group" data-r="'+g.r+'"><div><div style="font-size:14px;display:flex;align-items:center;gap:6px"><i class="ti ti-users-group" style="font-size:14px;color:#62748E"></i>'+g.l+'</div><div style="font-size:12px;color:#94A3B8;margin-top:1px">grants '+g.r+'</div></div><span style="font-size:12px;color:#155DFC">Add</span></div>';});}
-  if(rs.length){h+='<div class="gh">Roles · assign directly</div>';rs.forEach(function(r){h+='<div class="opt" data-k="r:'+r+'" data-l="'+r+'" data-kind="role"><div class="mono" style="font-size:13px">'+r+'</div><span style="font-size:12px;color:#155DFC">Add</span></div>';});}
+  if(rs.length){h+='<div class="gh">Roles · assign directly</div>';rs.forEach(function(r){h+='<div class="opt" data-k="r:'+r+'" data-l="'+r+'" data-kind="role"><div style="font-weight:500">'+r+'</div><span style="font-size:12px;color:#155DFC">Add</span></div>';});}
   if(!gs.length&&!rs.length)h='<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>';
   accPop.innerHTML=h;accPop.querySelectorAll('.opt').forEach(function(el){el.addEventListener('mousedown',function(e){e.preventDefault();chosen[el.dataset.k]={l:el.dataset.l,kind:el.dataset.kind,r:el.dataset.r};accQ.value='';renderToks();renderPop();updateSend();accQ.focus();});});}
 function modePresets(){searchA.style.display='none';presets.style.display='block';accPop.style.display='none';}
@@ -627,7 +627,7 @@ function makeCheckList(o){var chosen={};
   return {reset:function(){chosen={};o.search.value='';render();}};}
 var ROLES_FULL=[{n:'dataplane-admin',t:'Default'},{n:'soc-analyst',t:'Managed'},{n:'incident-responder',t:'Default'},{n:'read-only-auditor',t:'Managed'},{n:'ai-governance',t:'Default'}];
 var USERS_FULL=[{n:'Max TT',e:'max@tretyakov-ma.ru',s:'Enabled'},{n:'Test Guy',e:'test@tretyakov-ma.ru',s:'Enabled'},{n:'Andrey Morskov',e:'amorskov@wallarm.com',s:'Enabled'},{n:'Maria Hernandez',e:'maria.hernandez@acme.com',s:'Enabled'},{n:'Alex Zahn',e:'alex.zahn@acme.com',s:'Enabled'},{n:'Wen Li',e:'wen.li@acme.com',s:'Enabled'}];
-var grPick=makeCheckList({search:root.querySelector('#grQ'),list:root.querySelector('#grList'),count:root.querySelector('#grCount'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span class="mono" style="flex:1;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
+var grPick=makeCheckList({search:root.querySelector('#grQ'),list:root.querySelector('#grList'),count:root.querySelector('#grCount'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
 var gmPick=makeCheckList({search:root.querySelector('#gmQ'),list:root.querySelector('#gmList'),count:root.querySelector('#gmCount'),items:USERS_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.e;},row:function(it){return '<span style="flex:1"><span style="font-weight:500">'+it.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+it.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+it.s+'</span>';}});
 groupName.addEventListener('input',groupSync);
 createGroup.addEventListener('click',function(){if(createGroup.disabled)return;toast('Group created');groupName.value='';grPick.reset();gmPick.reset();groupSync();show('groups');});
@@ -678,7 +678,7 @@ var ROLE_POLICY={
 };
 var USER_ROLES=['soc-analyst'],USER_GROUPS=[{name:'Platform engineering',roles:['dataplane-admin']}];
 function mExtended(pol){return pol.map(function(s){var c=CATALOG[s.svc];var lv=ALEVELS.map(function(L){var an=(c.acts[L]||[]).map(function(n){return s.svc+':'+n;}).filter(function(n){return s.acts[n];});if(!an.length)return '';var acts=an.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('');return '<div class="lvrow"><i class="ti ti-chevron-right lvchev" style="font-size:14px;color:#94A3B8"></i><span class="lvname">'+L+'</span><span class="lvn">'+an.length+'</span></div><div class="lvacts" style="display:none">'+acts+'</div>';}).join('');return '<div class="mcard" style="padding:12px 16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:13.5px;font-weight:600">'+c.label+'</span><span class="meff '+(s.effect==='Deny'?'d':'a')+'">'+s.effect+'</span></div>'+lv+'<div style="margin-top:8px"><span class="rscope"><i class="ti ti-world" style="font-size:13px"></i>'+(s.resMode==='all'?'All resources':'Specific resources')+'</span></div></div>';}).join('');}
-function mRoleCard(rn){var pol=ROLE_POLICY[rn]||[];var rows=pol.map(function(s){var lab=CATALOG[s.svc].label;if(s.effect==='Deny')return '<div class="mrow"><span>'+lab+'</span><span class="mlv deny">Deny · '+(mFullGroups(s.svc,s.acts).join(', ')||'actions')+'</span></div>';var L=mLevel(s.svc,s.acts);return '<div class="mrow"><span>'+lab+'</span><span class="mlv '+mLClass(L)+'">'+L+'</span></div>';}).join('');return '<div class="mcard"><div class="mch" style="cursor:default"><span class="mname"><i class="ti ti-key" style="font-size:14px;color:#62748E"></i><span class="mono" style="font-size:13px">'+rn+'</span></span></div><div class="mbody">'+rows+'</div></div>';}
+function mRoleCard(rn){var pol=ROLE_POLICY[rn]||[];var rows=pol.map(function(s){var lab=CATALOG[s.svc].label;if(s.effect==='Deny')return '<div class="mrow"><span>'+lab+'</span><span class="mlv deny">Deny · '+(mFullGroups(s.svc,s.acts).join(', ')||'actions')+'</span></div>';var L=mLevel(s.svc,s.acts);return '<div class="mrow"><span>'+lab+'</span><span class="mlv '+mLClass(L)+'">'+L+'</span></div>';}).join('');return '<div class="mcard"><div class="mch" style="cursor:default"><span class="mname"><i class="ti ti-key" style="font-size:14px;color:#62748E"></i><span style="font-weight:500">'+rn+'</span></span></div><div class="mbody">'+rows+'</div></div>';}
 function mGroupCard(g){var roleChips=g.roles.map(function(r){return '<span class="mrole">'+r+'</span>';}).join('');var combined={};g.roles.forEach(function(r){(ROLE_POLICY[r]||[]).forEach(function(s){if(s.effect!=='Allow')return;combined[s.svc]=combined[s.svc]||{};Object.keys(s.acts).forEach(function(k){combined[s.svc][k]=1;});});});var acc=Object.keys(combined).map(function(svc){var L=mLevel(svc,combined[svc]);return '<span class="msvc">'+CATALOG[svc].label+' <span class="mlv '+mLClass(L)+'">'+L+'</span></span>';}).join('');var ext=g.roles.map(function(r){return '<div class="mmini" style="margin-top:0">Role '+r+'</div>'+mExtended(ROLE_POLICY[r]||[]);}).join('');return '<div class="mcard"><div class="mch" style="cursor:default"><span class="mname"><i class="ti ti-users-group" style="font-size:15px;color:#62748E"></i><span style="font-weight:600">'+g.name+'</span></span></div><div class="mbody"><div class="mmini" style="margin-top:0">Grants role</div><div>'+roleChips+'</div><div class="mmini">Access</div><div>'+acc+'</div></div></div>';}
 root.querySelector('#memRoles').innerHTML=USER_ROLES.map(mRoleCard).join('');
 root.querySelector('#memGroups').innerHTML=USER_GROUPS.map(mGroupCard).join('');
