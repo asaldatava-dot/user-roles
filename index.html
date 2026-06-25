@@ -221,6 +221,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 .qmenu div{font-size:13px;padding:8px 11px;border-radius:6px;cursor:pointer;color:var(--slate-700)}.qmenu div:hover{background:var(--slate-50)}
 .qmenu .qh{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:6px 11px 4px;cursor:default}
 .toast{position:fixed;right:22px;top:64px;display:none;align-items:center;gap:8px;background:#fff;border:1px solid var(--slate-200);border-left:3px solid var(--green-600);border-radius:var(--radius-8);padding:10px 14px;font-size:13px;z-index:120;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.sortable{cursor:pointer;user-select:none}.sortable:hover{color:var(--slate-700)}.sicon{font-size:13px;vertical-align:-2px;color:var(--slate-300)}
 </style>
 </head>
 <body>
@@ -409,11 +410,11 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
       <div class="screen" data-screen="roles">
         <div class="crumb">Settings <i>›</i> Roles</div>
         <div class="phead"><div><h1>Roles</h1></div><button class="btnP" data-go="role-create"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Add role</button></div>
-        <table><colgroup><col style="width:40%"><col style="width:26%"><col style="width:17%"><col style="width:17%"></colgroup>
-          <thead><tr><th>Role</th><th>Attached to</th><th>Created</th><th>Updated</th></tr></thead>
-          <tbody>
-            <tr data-go="role-detail"><td><span class="lname">dataplane-admin</span></td><td style="color:var(--slate-700)">4 users · 2 groups</td><td>11 Jan 2026</td><td>2d ago</td></tr>
-            <tr><td><span class="lname">soc-analyst</span></td><td style="color:var(--slate-700)">22 users · 2 groups</td><td>11 Jan 2026</td><td>9d ago</td></tr>
+        <table><colgroup><col style="width:36%"><col style="width:12%"><col style="width:12%"><col style="width:20%"><col style="width:20%"></colgroup>
+          <thead><tr><th>Role</th><th class="sortable" data-sort="users">Users <i class="ti ti-arrows-sort sicon"></i></th><th class="sortable" data-sort="groups">Groups <i class="ti ti-arrows-sort sicon"></i></th><th>Created</th><th>Updated</th></tr></thead>
+          <tbody id="rolesBody">
+            <tr data-go="role-detail"><td><span class="lname">dataplane-admin</span></td><td>4</td><td>2</td><td>11 Jan 2026</td><td>2d ago</td></tr>
+            <tr><td><span class="lname">soc-analyst</span></td><td>22</td><td>2</td><td>11 Jan 2026</td><td>9d ago</td></tr>
           </tbody></table>
         <div class="foot">Showing 2 of 7 roles</div>
       </div>
@@ -761,6 +762,7 @@ function mResolved(){var map={},order=[];function add(s){var k=s.svc+'|'+s.effec
 root.querySelector('#accessView').innerHTML=mExtended(mResolved());
 root.querySelector('#accessView').addEventListener('click',function(e){var r=e.target.closest('.lvrow');if(!r)return;var a=r.nextElementSibling;if(!a||!a.classList.contains('lvacts'))return;var op=a.style.display!=='none';a.style.display=op?'none':'block';r.classList.toggle('open',!op);});
 
+(function(){var rb=root.querySelector('#rolesBody');if(!rb)return;root.querySelectorAll('[data-screen="roles"] th.sortable').forEach(function(th){th.addEventListener('click',function(){var col=th.dataset.sort==='users'?1:2;var asc=!th.classList.contains('asc');root.querySelectorAll('[data-screen="roles"] th.sortable').forEach(function(x){x.classList.remove('asc','desc');var i=x.querySelector('.sicon');if(i)i.className='ti ti-arrows-sort sicon';});th.classList.add(asc?'asc':'desc');var i=th.querySelector('.sicon');if(i)i.className='ti '+(asc?'ti-arrow-up':'ti-arrow-down')+' sicon';var rows=Array.prototype.slice.call(rb.querySelectorAll('tr'));rows.sort(function(a,b){var av=+a.children[col].textContent,bv=+b.children[col].textContent;return asc?av-bv:bv-av;});rows.forEach(function(r){rb.appendChild(r);});});});})();
 show('users');resetInvite();
 </script>
 </body>
