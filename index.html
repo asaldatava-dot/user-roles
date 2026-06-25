@@ -384,12 +384,24 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="group-detail">
         <div class="crumb"><a data-go="groups">Settings</a> <i>›</i> <a data-go="groups">Groups</a> <i>›</i> Platform engineering</div>
-        <div class="phead"><div><h1>Platform engineering</h1><div class="sub">4 members · grants 1 role</div></div><button class="btnX">Delete</button></div>
-        <div class="info" style="margin-bottom:18px"><i class="ti ti-info-circle" style="font-size:16px;color:#155DFC"></i><div>Everyone in this group automatically gets the roles below — that's the point of a group.</div></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles granted (1)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
-        <table><colgroup><col style="width:30%"><col style="width:70%"></colgroup><tbody><tr data-go="role-detail"><td><span class="lname">dataplane-admin</span></td><td style="color:var(--slate-500)">edit rules, view Security Edge nodes</td></tr></tbody></table>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px"><div style="font-size:15px;font-weight:600">Members (4)</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
-        <table><colgroup><col style="width:70%"><col style="width:30%"></colgroup><tbody><tr data-go="user-access"><td><span class="lname">Maria Hernandez</span></td><td style="text-align:right;color:var(--slate-500)">8d ago</td></tr><tr><td><span class="lname">Wen Li</span></td><td style="text-align:right;color:var(--slate-500)">3d ago</td></tr></tbody></table>
+        <div class="phead"><div><h1>Platform engineering</h1></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-gract class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="usum">
+          <div class="ugrid">
+            <div class="attr"><div class="lab">Name</div><div class="val">Platform engineering <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
+            <div class="attr"><div class="lab">Resource ID</div><div class="val mono" style="font-size:13px">arn:wlrm:iam::acme:group/platform-engineering <i class="ti ti-copy act" aria-label="Copy"></i></div></div>
+            <div class="attr"><div class="lab">Created At</div><div class="val">11 Jan 2026 · 09:24</div></div>
+            <div class="attr"><div class="lab">Updated At</div><div class="val">2 days ago</div></div>
+          </div>
+        </div>
+        <div class="tabs"><span class="tab on" data-gtab="users">Users (2)</span><span class="tab" data-gtab="roles">Roles (1)</span></div>
+        <div data-gpanel="users">
+          <div style="display:flex;justify-content:flex-end;margin:0 0 10px"><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
+          <table><colgroup><col style="width:30%"><col style="width:34%"><col style="width:18%"><col style="width:18%"></colgroup><thead><tr><th>User</th><th>Email</th><th>Status</th><th>Last active</th></tr></thead><tbody><tr data-go="user-access"><td><span class="lname">Maria Hernandez</span></td><td>maria.hernandez@acme.com</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr><tr data-go="user-access"><td><span class="lname">Wen Li</span></td><td>wen.li@acme.com</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>3d</td></tr></tbody></table>
+        </div>
+        <div data-gpanel="roles" style="display:none">
+          <div style="display:flex;justify-content:flex-end;margin:0 0 10px"><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
+          <table><colgroup><col style="width:30%"><col style="width:70%"></colgroup><thead><tr><th>Role</th><th>Access</th></tr></thead><tbody id="grpRoles"></tbody></table>
+        </div>
       </div>
 
       <div class="screen" data-screen="roles">
@@ -737,6 +749,11 @@ root.querySelector('#memRoles').innerHTML='<table><colgroup><col style="width:28
 root.querySelector('#memGroups').innerHTML='<table><colgroup><col style="width:28%"><col style="width:30%"><col style="width:42%"></colgroup><thead><tr><th>Group</th><th>Roles</th><th>Access</th></tr></thead><tbody>'+USER_GROUPS.map(function(g){var roleTags=g.roles.map(function(r){return '<span class="tag">'+r+'</span>';}).join('');return '<tr data-go="group-detail"><td><span class="lname">'+g.name+'</span></td><td>'+roleTags+'</td><td>'+mGroupAcc(g)+'</td></tr>';}).join('')+'</tbody></table>';
 root.querySelector('#memRoles').addEventListener('click',function(e){var r=e.target.closest('tr[data-go]');if(r)show(r.dataset.go);});
 root.querySelector('#memGroups').addEventListener('click',function(e){var r=e.target.closest('tr[data-go]');if(r)show(r.dataset.go);});
+/* group detail: roles tab + tab switching + actions */
+root.querySelector('#grpRoles').innerHTML=['dataplane-admin'].map(function(r){return '<tr data-go="role-detail"><td><span class="lname">'+r+'</span></td><td>'+mAcc(ROLE_POLICY[r]||[])+'</td></tr>';}).join('');
+root.querySelector('#grpRoles').addEventListener('click',function(e){var r=e.target.closest('tr[data-go]');if(r)show(r.dataset.go);});
+root.querySelectorAll('[data-gtab]').forEach(function(t){t.addEventListener('click',function(){var v=t.dataset.gtab;t.parentNode.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x===t);});root.querySelectorAll('[data-gpanel]').forEach(function(p){p.style.display=p.dataset.gpanel===v?'block':'none';});});});
+root.querySelectorAll('[data-gract]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var am=el.closest('.actmenu');if(am)am.style.display='none';toast('Group deleted');});});
 /* Access derives from the same membership policy (single source of truth) */
 function mResolved(){var map={},order=[];function add(s){var k=s.svc+'|'+s.effect;if(!map[k]){map[k]={svc:s.svc,effect:s.effect,acts:{},resMode:'all'};order.push(k);}Object.keys(s.acts).forEach(function(a){map[k].acts[a]=1;});}USER_ROLES.forEach(function(r){(ROLE_POLICY[r]||[]).forEach(add);});USER_GROUPS.forEach(function(g){g.roles.forEach(function(r){(ROLE_POLICY[r]||[]).forEach(add);});});return order.map(function(k){return map[k];});}
 root.querySelector('#accessView').innerHTML=mExtended(mResolved());
