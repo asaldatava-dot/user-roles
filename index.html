@@ -309,7 +309,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
           </div>
           <div class="udiv"></div>
           <div class="ugrid" style="grid-template-columns:1fr 1fr">
-            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">incident-responder</span></div></div>
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
@@ -336,7 +336,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
           </div>
           <div class="udiv"></div>
           <div class="ugrid" style="grid-template-columns:1fr 1fr">
-            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">incident-responder</span></div></div>
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
@@ -364,7 +364,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
           </div>
           <div class="udiv"></div>
           <div class="ugrid" style="grid-template-columns:1fr 1fr">
-            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span></div></div>
+            <div class="attr"><div class="lab">Roles</div><div><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">dataplane-admin</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">soc-analyst</span><span class="chip" data-go="role-detail" style="font-size:12px;cursor:pointer">incident-responder</span></div></div>
             <div class="attr"><div class="lab">Groups</div><div><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>Platform engineering</span><span class="chip" data-go="group-detail" style="cursor:pointer"><i class="ti ti-users-group" style="font-size:12px;color:var(--slate-500)"></i>SOC tier 1</span></div></div>
           </div>
         </div>
@@ -758,7 +758,7 @@ var ROLE_POLICY={
  'read-only-auditor':[{svc:'rules',effect:'Allow',acts:mGroupActs('rules',['List','Read']),resMode:'all'},{svc:'apisec',effect:'Allow',acts:mGroupActs('apisec',['List','Read']),resMode:'all'}],
  'ai-governance':[{svc:'apisec',effect:'Allow',acts:mGroupActs('apisec',['List','Read','Write']),resMode:'all'}]
 };
-var USER_ROLES=['soc-analyst'],USER_GROUPS=[{name:'Platform engineering',roles:['dataplane-admin']}];
+var USER_ROLES=['soc-analyst'],USER_GROUPS=[{name:'Platform engineering',roles:['dataplane-admin']},{name:'SOC tier 1',roles:['incident-responder']}];
 function mExtended(pol){return pol.map(function(s){var c=CATALOG[s.svc];var lv=ALEVELS.map(function(L){var an=(c.acts[L]||[]).map(function(n){return s.svc+':'+n;}).filter(function(n){return s.acts[n];});if(!an.length)return '';var acts=an.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('');return '<div class="lvrow"><i class="ti ti-chevron-right lvchev" style="font-size:14px;color:#94A3B8"></i><span class="lvname">'+L+'</span><span class="lvn">'+an.length+'</span></div><div class="lvacts" style="display:none">'+acts+'</div>';}).join('');return '<div class="mcard" style="padding:12px 16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:13.5px;font-weight:600">'+c.label+'</span><span class="meff '+(s.effect==='Deny'?'d':'a')+'">'+s.effect+'</span></div>'+lv+'<div style="margin-top:8px"><span class="rscope"><i class="ti ti-world" style="font-size:13px"></i>'+(s.resMode==='all'?'All resources':'Specific resources')+'</span></div></div>';}).join('');}
 function mRoleCard(rn){var pol=ROLE_POLICY[rn]||[];var rows=pol.map(function(s){var lab=CATALOG[s.svc].label;if(s.effect==='Deny')return '<div class="mrow"><span>'+lab+'</span><span class="mlv deny">Deny · '+(mFullGroups(s.svc,s.acts).join(', ')||'actions')+'</span></div>';var L=mLevel(s.svc,s.acts);return '<div class="mrow"><span>'+lab+'</span><span class="mlv '+mLClass(L)+'">'+L+'</span></div>';}).join('');return '<div class="mcard"><div class="mch" style="cursor:default"><span class="mname"><i class="ti ti-key" style="font-size:14px;color:#62748E"></i><span>'+rn+'</span></span></div><div class="mbody">'+rows+'</div></div>';}
 function mGroupCard(g){var roleChips=g.roles.map(function(r){return '<span class="mrole">'+r+'</span>';}).join('');var combined={};g.roles.forEach(function(r){(ROLE_POLICY[r]||[]).forEach(function(s){if(s.effect!=='Allow')return;combined[s.svc]=combined[s.svc]||{};Object.keys(s.acts).forEach(function(k){combined[s.svc][k]=1;});});});var acc=Object.keys(combined).map(function(svc){var L=mLevel(svc,combined[svc]);return '<span class="msvc">'+CATALOG[svc].label+' <span class="mlv '+mLClass(L)+'">'+L+'</span></span>';}).join('');var ext=g.roles.map(function(r){return '<div class="mmini" style="margin-top:0">Role '+r+'</div>'+mExtended(ROLE_POLICY[r]||[]);}).join('');return '<div class="mcard"><div class="mch" style="cursor:default"><span class="mname"><i class="ti ti-users-group" style="font-size:15px;color:#62748E"></i><span style="font-weight:600">'+g.name+'</span></span></div><div class="mbody"><div class="mmini" style="margin-top:0">Grants role</div><div>'+roleChips+'</div><div class="mmini">Access</div><div>'+acc+'</div></div></div>';}
@@ -791,6 +791,7 @@ root.querySelector('#assignClose').addEventListener('click',closeAssign);
 root.querySelector('#arCancel').addEventListener('click',closeAssign);
 root.querySelector('#assignOv').addEventListener('click',function(e){if(e.target===this)closeAssign();});
 root.querySelector('#arAssign').addEventListener('click',function(){closeAssign();toast('Roles assigned');});
+(function(){var rC=rgRoles.length,gC=USER_GROUPS.length;root.querySelectorAll('[data-screen^="user-"] .tabs .tab').forEach(function(t){var x=t.textContent.trim();if(x==='Roles')t.textContent='Roles ('+rC+')';else if(x==='Groups')t.textContent='Groups ('+gC+')';});})();
 show('users');resetInvite();
 </script>
 </body>
