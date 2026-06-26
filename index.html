@@ -460,15 +460,13 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
             <div class="gctitle">Add users to the group <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
             <div class="chips" id="gmChips" style="display:none"></div>
             <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="gmQ" placeholder="Search users…" autocomplete="off"></div>
-            <div class="cklist" id="gmList"></div>
-            <div class="foot" id="gmCount"></div>
+            <div class="foot" id="gmCount" style="margin-bottom:8px"></div><div class="cklist" id="gmList"></div>
           </div>
           <div class="fgroup" style="margin:0;display:flex;flex-direction:column">
             <div class="gctitle">Assign roles to the group</div>
             <div class="chips" id="grChips" style="display:none"></div>
             <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="grQ" placeholder="Search roles…" autocomplete="off"></div>
-            <div class="cklist" id="grList"></div>
-            <div class="foot" id="grCount"></div>
+            <div class="foot" id="grCount" style="margin-bottom:8px"></div><div class="cklist" id="grList"></div>
           </div>
         </div>
         <div class="formfoot"><button class="btnD" data-go="groups">Cancel</button><button class="btnP" id="createGroup">Create group</button></div>
@@ -521,8 +519,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
     </div>
     <div style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="arQ" placeholder="Search roles…" autocomplete="off"></div>
-      <div id="arList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div>
-      <div class="foot" id="arCount" style="margin-top:8px"></div>
+      <div class="foot" id="arCount" style="margin-bottom:8px"></div><div id="arList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div>
     </div>
     <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px">
       <button class="btnD" id="arCancel">Cancel</button>
@@ -533,21 +530,21 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 <div class="overlay" id="addGroupOv">
   <div class="dialog" style="max-width:560px">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)"><div><div style="font-size:17px;font-weight:600">Add to group</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add Maria Hernandez to a group — they inherit its roles.</div></div><i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" id="agClose" aria-label="Close"></i></div>
-    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="agQ" placeholder="Search groups…" autocomplete="off"></div><div id="agList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div><div class="foot" id="agCount" style="margin-top:8px"></div></div>
+    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="agQ" placeholder="Search groups…" autocomplete="off"></div><div class="foot" id="agCount" style="margin-bottom:8px"></div><div id="agList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div></div>
     <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px"><button class="btnD" id="agCancel">Cancel</button><button class="btnP" id="agAdd">Add to group</button></div>
   </div>
 </div>
 <div class="overlay" id="addUsersOv">
   <div class="dialog" style="max-width:560px">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)"><div><div style="font-size:17px;font-weight:600">Add users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add users to Platform engineering.</div></div><i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" id="auClose" aria-label="Close"></i></div>
-    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="auQ" placeholder="Search users…" autocomplete="off"></div><div id="auList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div><div class="foot" id="auCount" style="margin-top:8px"></div></div>
+    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="auQ" placeholder="Search users…" autocomplete="off"></div><div class="foot" id="auCount" style="margin-bottom:8px"></div><div id="auList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div></div>
     <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px"><button class="btnD" id="auCancel">Cancel</button><button class="btnP" id="auAdd">Add users</button></div>
   </div>
 </div>
 <div class="overlay" id="attachRoleOv">
   <div class="dialog" style="max-width:580px">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)"><div><div style="font-size:17px;font-weight:600">Attach role</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Attach roles to Platform engineering — every member gets them.</div></div><i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" id="atClose" aria-label="Close"></i></div>
-    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="atQ" placeholder="Search roles…" autocomplete="off"></div><div id="atList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div><div class="foot" id="atCount" style="margin-top:8px"></div></div>
+    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="atQ" placeholder="Search roles…" autocomplete="off"></div><div class="foot" id="atCount" style="margin-bottom:8px"></div><div id="atList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div></div>
     <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px"><button class="btnD" id="atCancel">Cancel</button><button class="btnP" id="atAdd">Attach role</button></div>
   </div>
 </div>
