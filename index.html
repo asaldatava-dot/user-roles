@@ -81,7 +81,7 @@ tr[data-go]:hover .lname{color:var(--blue-600);text-decoration:underline}
 .permrow{border:1px solid var(--slate-200);border-radius:var(--radius-8);padding:12px 14px;margin-bottom:8px;max-width:680px}
 .lvl,.scopeopt{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--slate-300);border-radius:9999px;padding:5px 11px;font-size:13px;color:var(--slate-700);cursor:pointer;margin:2px 6px 2px 0}
 .lvl.on,.scopeopt.on{background:#FFF6F3;border-color:var(--w-orange-600);color:#9A2A12}
-.formfoot{display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--slate-200);padding-top:16px;margin-top:20px;max-width:680px}
+.formfoot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:flex-end;gap:9px;border-top:1px solid var(--slate-200);background:#fff;padding:14px 28px;z-index:50}
 .pickpop{position:absolute;left:0;right:0;top:46px;background:#fff;border:1px solid var(--slate-300);border-radius:var(--radius-8);box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:180px;overflow:auto;z-index:20;display:none}
 .chkcell{vertical-align:middle}.actcell{vertical-align:middle;text-align:right}
 .rowchk,#selAll{width:16px;height:16px;accent-color:var(--w-orange-600);cursor:pointer;vertical-align:middle}
@@ -223,7 +223,8 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 .toast{position:fixed;right:22px;top:64px;display:none;align-items:center;gap:8px;background:#fff;border:1px solid var(--slate-200);border-left:3px solid var(--green-600);border-radius:var(--radius-8);padding:10px 14px;font-size:13px;z-index:120;box-shadow:0 6px 18px rgba(0,0,0,.12)}
 #arList .clrow,#agList .clrow,#atList .clrow{align-items:flex-start}#arList .clrow .cbx,#agList .clrow .cbx,#atList .clrow .cbx{margin-top:1px}#arList .msvc,#atList .msvc{padding:2px 9px}
 .sortable{cursor:pointer;user-select:none}.sortable:hover{color:var(--slate-700)}.sicon{font-size:13px;vertical-align:-2px;color:var(--slate-300)}
-.gc2col{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px}@media(max-width:780px){.gc2col{grid-template-columns:1fr}}.chips{display:flex;flex-wrap:wrap;margin-bottom:8px}
+.gc2col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px;align-items:stretch}@media(max-width:780px){.gc2col{grid-template-columns:1fr}}.chips{display:flex;flex-wrap:wrap;margin-bottom:8px}
+.gctitle{font-family:'Geist',ui-sans-serif,system-ui,sans-serif;font-size:16px;font-weight:500;word-break:break-word;white-space:pre-wrap;color:inherit;margin-bottom:8px}.gc2col .cklist{height:300px;max-height:none}[data-screen="group-create"],[data-screen="role-create"]{padding-bottom:88px}
 </style>
 </head>
 <body>
@@ -450,21 +451,19 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
       <div class="screen" data-screen="group-create">
         <div class="crumb"><a data-go="groups">Settings</a> <i>›</i> <a data-go="groups">Groups</a> <i>›</i> New group</div>
         <h1 style="margin-bottom:18px">Create group</h1>
-        <div style="display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:6px">
-          <div class="fgroup" style="flex:0 0 360px;max-width:360px;margin:0"><div class="flabel">Name</div><input class="finput" id="groupName" placeholder="e.g. Platform engineering" autocomplete="off"></div>
-          <label style="display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:14px;color:var(--slate-900);padding-bottom:9px"><input type="checkbox" id="groupDefault" style="width:16px;height:16px;accent-color:var(--w-orange-600);cursor:pointer"> Default group for this organization</label>
-        </div>
+        <div class="fgroup" style="max-width:380px"><div class="flabel">Name</div><input class="finput" id="groupName" placeholder="e.g. Platform engineering" autocomplete="off"></div>
+        <label style="display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:14px;color:var(--slate-900);margin-bottom:2px"><input type="checkbox" id="groupDefault" style="width:16px;height:16px;accent-color:var(--w-orange-600);cursor:pointer"> Default group for this organization</label>
         <div class="idprev" id="groupIdPrev" style="display:none">Identifier <span class="mono" id="groupSlug" style="background:#F1F5F9;color:#334155;padding:2px 6px;border-radius:4px;font-size:12px"></span> <span style="color:var(--slate-400)">· auto · fixed after create</span><div class="mono" id="groupArn" style="font-size:12px;color:var(--slate-400);margin-top:5px"></div></div>
         <div class="gc2col">
-          <div class="fgroup" style="margin:0">
-            <div class="flabel">Add users to the group <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
+          <div class="fgroup" style="margin:0;display:flex;flex-direction:column">
+            <div class="gctitle">Add users to the group <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
             <div class="chips" id="gmChips" style="display:none"></div>
             <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="gmQ" placeholder="Search users…" autocomplete="off"></div>
             <div class="cklist" id="gmList"></div>
             <div class="foot" id="gmCount"></div>
           </div>
-          <div class="fgroup" style="margin:0">
-            <div class="flabel">Assign roles to the group</div>
+          <div class="fgroup" style="margin:0;display:flex;flex-direction:column">
+            <div class="gctitle">Assign roles to the group</div>
             <div class="chips" id="grChips" style="display:none"></div>
             <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="grQ" placeholder="Search roles…" autocomplete="off"></div>
             <div class="cklist" id="grList"></div>
