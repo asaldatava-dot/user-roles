@@ -452,9 +452,11 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
       <div class="screen" data-screen="group-create">
         <div class="crumb"><a data-go="groups">Settings</a> <i>›</i> <a data-go="groups">Groups</a> <i>›</i> New group</div>
         <h1 style="margin-bottom:18px">Create group</h1>
-        <div class="fgroup" style="max-width:380px"><div class="flabel">Name</div><input class="finput" id="groupName" placeholder="e.g. Platform engineering" autocomplete="off"></div>
-        <label style="display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:14px;color:var(--slate-900);margin-bottom:2px"><input type="checkbox" id="groupDefault" style="width:16px;height:16px;accent-color:var(--w-orange-600);cursor:pointer"> Default group for this organization</label>
-        <div class="idprev" id="groupIdPrev" style="display:none">Identifier <span class="mono" id="groupSlug" style="background:#F1F5F9;color:#334155;padding:2px 6px;border-radius:4px;font-size:12px"></span> <span style="color:var(--slate-400)">· auto · fixed after create</span><div class="mono" id="groupArn" style="font-size:12px;color:var(--slate-400);margin-top:5px"></div></div>
+        <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap">
+          <div class="fgroup" style="flex:0 0 380px;max-width:380px;margin:0"><div class="flabel">Name</div><input class="finput" id="groupName" placeholder="e.g. Platform engineering" autocomplete="off"></div>
+          <div id="groupIdPrev" style="display:none;font-size:13px;color:var(--slate-400);margin-bottom:9px"><span class="mono" id="groupArn"></span></div>
+        </div>
+        <label style="display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:14px;color:var(--slate-900);margin:8px 0 2px"><input type="checkbox" id="groupDefault" style="width:16px;height:16px;accent-color:var(--w-orange-600);cursor:pointer"> Default group for this organization</label>
         <div class="gc2col">
           <div class="fgroup" style="margin:0;display:flex;flex-direction:column">
             <div class="gctitle">Add users to the group <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
@@ -639,7 +641,7 @@ function slugify(s){return s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').rep
 function syncCreate(input,prev,slugEl,arnEl,btn,ns){
   var ok=input.value.trim().length>=2,sl=slugify(input.value);
   prev.style.display=ok?'block':'none';
-  if(ok){slugEl.textContent=sl;arnEl.textContent='arn:wlrm:iam::acme:'+ns+'/'+sl;}
+  if(ok){if(slugEl)slugEl.textContent=sl;arnEl.textContent='arn:wlrm:iam::acme:'+ns+'/'+sl;}
   btn.disabled=!ok;btn.style.opacity=ok?'1':'.5';btn.style.cursor=ok?'pointer':'not-allowed';
 }
 function wirePicker(qEl,popEl,chipsEl,items,mono){
