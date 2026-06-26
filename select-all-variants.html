@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Select all / Clear all — placement variants</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<style>
+:root{--w-orange-600:#FF441C;--slate-900:#0F172B;--slate-700:#334155;--slate-500:#62748E;--slate-400:#94A3B8;--slate-300:#CAD5E2;--slate-200:#E2E8F0;--slate-100:#F1F5F9;--slate-50:#F8FAFC;--blue-600:#155DFC;--blue-800:#193CB8;--radius-8:8px}
+*{box-sizing:border-box}
+body{margin:0;background:#EEF2F6;font-family:'Geist',ui-sans-serif,system-ui,sans-serif;color:#0F172B;padding:28px}
+h1{font-size:22px;font-weight:600;margin:0 0 4px}
+.note{font-size:13px;color:var(--slate-500);margin:0 0 26px;max-width:760px}
+h2{font-size:14px;font-weight:600;margin:0 0 2px}
+.sub{font-size:12.5px;color:var(--slate-500);margin:0 0 12px}
+.cols{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+.col{flex:1;min-width:330px;max-width:420px}
+.gctitle{font-size:16px;font-weight:400;margin-bottom:8px}
+.cklist{border:1px solid var(--slate-200);border-radius:var(--radius-8);overflow:hidden}
+.clrow{display:flex;align-items:center;gap:10px;padding:9px 12px;border-top:1px solid var(--slate-100);font-size:13.5px}
+.clrow:first-child{border-top:none}
+.cbx{display:inline-flex;width:16px;height:16px;border:1.5px solid var(--slate-300);border-radius:4px;align-items:center;justify-content:center;flex:none}
+.cbx.on{background:var(--w-orange-600);border-color:var(--w-orange-600);color:#fff}
+.cbx.some{background:var(--w-orange-600);border-color:var(--w-orange-600);color:#fff}
+.pill{display:inline-flex;align-items:center;font-size:11px;background:var(--slate-100);color:var(--slate-700);padding:2px 8px;border-radius:9999px;margin-left:auto}
+.name{font-weight:500}
+.cllink{font-size:12px;color:var(--blue-600);text-decoration:underline;text-decoration-color:transparent;cursor:pointer}
+.cllink:hover{color:var(--blue-800);text-decoration-color:currentColor}
+.muted{font-size:12px;color:var(--slate-500)}
+.sep{color:var(--slate-300)}
+/* A: master checkbox header inside the list */
+.hdrrow{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--slate-50);border-bottom:1px solid var(--slate-200);font-size:13px}
+/* B: links above list */
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+/* C: contextual bar */
+.selbar{display:flex;align-items:center;gap:14px;padding:8px 12px;background:#FFF4F1;border:1px solid #FFD2C6;border-radius:var(--radius-8);margin-bottom:8px;font-size:13px}
+.ghost{font-size:12px;font-weight:500;color:var(--slate-700);background:#fff;border:1px solid var(--slate-300);border-radius:6px;padding:3px 9px;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>“Select all / Clear all” — where to put it</h1>
+<p class="note">Three placements seen in other products. Same list, 4 of 5 selected. Uses our tokens (Geist, blue-600 links). Pick one and I’ll apply it to the create-group pickers and the dialogs.</p>
+
+<div class="cols">
+
+  <!-- A -->
+  <div class="col">
+    <h2>A — Master checkbox in the list header</h2>
+    <p class="sub">Vercel / Linear / Gmail tables. A select-all checkbox lives in a header row at the top of the list; count on the right.</p>
+    <div class="gctitle">Assign roles to the group</div>
+    <div class="cklist">
+      <div class="hdrrow"><span class="cbx some"><i class="ti ti-minus" style="font-size:10px"></i></span><span style="font-weight:500">Select all</span><span class="muted" style="margin-left:auto">4 of 5 selected</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">dataplane-admin</span><span class="pill">Default</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">soc-analyst</span><span class="pill">Managed</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">incident-responder</span><span class="pill">Default</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">read-only-auditor</span><span class="pill">Managed</span></div>
+      <div class="clrow"><span class="cbx"></span><span class="name">ai-governance</span><span class="pill">Default</span></div>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="col">
+    <h2>B — Text actions above the list</h2>
+    <p class="sub">GitHub / Notion side panels. Count on the left, “Select all · Clear all” links on the right, above the list. (Current placement.)</p>
+    <div class="gctitle">Assign roles to the group</div>
+    <div class="toolbar"><span class="muted">4 selected</span><span><span class="cllink">Select all</span> <span class="sep">·</span> <span class="cllink">Clear all</span></span></div>
+    <div class="cklist">
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">dataplane-admin</span><span class="pill">Default</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">soc-analyst</span><span class="pill">Managed</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">incident-responder</span><span class="pill">Default</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">read-only-auditor</span><span class="pill">Managed</span></div>
+      <div class="clrow"><span class="cbx"></span><span class="name">ai-governance</span><span class="pill">Default</span></div>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="col">
+    <h2>C — Contextual selection bar</h2>
+    <p class="sub">Databricks / Notion. A bar appears above the list only when something is selected: count + Clear; “Select all” shown until everything is picked.</p>
+    <div class="gctitle">Assign roles to the group</div>
+    <div class="selbar"><span style="font-weight:500">4 selected</span><span class="cllink">Select all 5</span><button class="ghost" style="margin-left:auto">Clear</button></div>
+    <div class="cklist">
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">dataplane-admin</span><span class="pill">Default</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">soc-analyst</span><span class="pill">Managed</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">incident-responder</span><span class="pill">Default</span></div>
+      <div class="clrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><span class="name">read-only-auditor</span><span class="pill">Managed</span></div>
+      <div class="clrow"><span class="cbx"></span><span class="name">ai-governance</span><span class="pill">Default</span></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
