@@ -221,7 +221,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 .qmenu div{font-size:13px;padding:8px 11px;border-radius:6px;cursor:pointer;color:var(--slate-700)}.qmenu div:hover{background:var(--slate-50)}
 .qmenu .qh{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:6px 11px 4px;cursor:default}
 .toast{position:fixed;right:22px;top:64px;display:none;align-items:center;gap:8px;background:#fff;border:1px solid var(--slate-200);border-left:3px solid var(--green-600);border-radius:var(--radius-8);padding:10px 14px;font-size:13px;z-index:120;box-shadow:0 6px 18px rgba(0,0,0,.12)}
-#arList .clrow{align-items:flex-start}#arList .clrow .cbx{margin-top:1px}#arList .msvc{padding:2px 9px}
+#arList .clrow,#agList .clrow,#atList .clrow{align-items:flex-start}#arList .clrow .cbx,#agList .clrow .cbx,#atList .clrow .cbx{margin-top:1px}#arList .msvc,#atList .msvc{padding:2px 9px}
 .sortable{cursor:pointer;user-select:none}.sortable:hover{color:var(--slate-700)}.sicon{font-size:13px;vertical-align:-2px;color:var(--slate-300)}
 </style>
 </head>
@@ -369,7 +369,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
           </div>
         </div>
         <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab" data-go="user-roles">Roles</span><span class="tab on">Groups</span></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Groups</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Groups</div><button class="btnD" id="addToGroupBtn"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add to group</button></div>
         <div id="memGroups"></div>
       </div>
 
@@ -399,11 +399,11 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
         </div>
         <div class="tabs"><span class="tab on" data-gtab="users">Users (2)</span><span class="tab" data-gtab="roles">Roles (1)</span></div>
         <div data-gpanel="users">
-          <div style="display:flex;justify-content:flex-end;margin:0 0 10px"><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
+          <div style="display:flex;justify-content:flex-end;margin:0 0 10px"><button class="btnD" id="grpAddUsersBtn"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
           <table><colgroup><col style="width:30%"><col style="width:34%"><col style="width:18%"><col style="width:18%"></colgroup><thead><tr><th>User</th><th>Email</th><th>Status</th><th>Last active</th></tr></thead><tbody><tr data-go="user-access"><td><span class="lname">Maria Hernandez</span></td><td>maria.hernandez@acme.com</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr><tr data-go="user-access"><td><span class="lname">Wen Li</span></td><td>wen.li@acme.com</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>3d</td></tr></tbody></table>
         </div>
         <div data-gpanel="roles" style="display:none">
-          <div style="display:flex;justify-content:flex-end;margin:0 0 10px"><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
+          <div style="display:flex;justify-content:flex-end;margin:0 0 10px"><button class="btnD" id="grpAttachRoleBtn"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
           <table><colgroup><col style="width:30%"><col style="width:70%"></colgroup><thead><tr><th>Role</th><th>Access</th></tr></thead><tbody id="grpRoles"></tbody></table>
         </div>
       </div>
@@ -522,6 +522,27 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
       <button class="btnD" id="arCancel">Cancel</button>
       <button class="btnP" id="arAssign">Assign roles</button>
     </div>
+  </div>
+</div>
+<div class="overlay" id="addGroupOv">
+  <div class="dialog" style="max-width:560px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)"><div><div style="font-size:17px;font-weight:600">Add to group</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add Maria Hernandez to a group — they inherit its roles.</div></div><i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" id="agClose" aria-label="Close"></i></div>
+    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="agQ" placeholder="Search groups…" autocomplete="off"></div><div id="agList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div><div class="foot" id="agCount" style="margin-top:8px"></div></div>
+    <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px"><button class="btnD" id="agCancel">Cancel</button><button class="btnP" id="agAdd">Add to group</button></div>
+  </div>
+</div>
+<div class="overlay" id="addUsersOv">
+  <div class="dialog" style="max-width:560px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)"><div><div style="font-size:17px;font-weight:600">Add users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add users to Platform engineering.</div></div><i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" id="auClose" aria-label="Close"></i></div>
+    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="auQ" placeholder="Search users…" autocomplete="off"></div><div id="auList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div><div class="foot" id="auCount" style="margin-top:8px"></div></div>
+    <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px"><button class="btnD" id="auCancel">Cancel</button><button class="btnP" id="auAdd">Add users</button></div>
+  </div>
+</div>
+<div class="overlay" id="attachRoleOv">
+  <div class="dialog" style="max-width:580px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)"><div><div style="font-size:17px;font-weight:600">Attach role</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Attach roles to Platform engineering — every member gets them.</div></div><i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" id="atClose" aria-label="Close"></i></div>
+    <div style="padding:16px 20px"><div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="atQ" placeholder="Search roles…" autocomplete="off"></div><div id="atList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div><div class="foot" id="atCount" style="margin-top:8px"></div></div>
+    <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px"><button class="btnD" id="atCancel">Cancel</button><button class="btnP" id="atAdd">Attach role</button></div>
   </div>
 </div>
 <div class="toast"><i class="ti ti-circle-check" style="font-size:16px;color:var(--green-600)"></i><span>Done</span></div>
@@ -706,6 +727,7 @@ function makeCheckList(o){var chosen={};
   return {reset:function(){chosen={};o.search.value='';render();}};}
 var ROLES_FULL=[{n:'dataplane-admin',t:'Default'},{n:'soc-analyst',t:'Managed'},{n:'incident-responder',t:'Default'},{n:'read-only-auditor',t:'Managed'},{n:'ai-governance',t:'Default'}];
 var USERS_FULL=[{n:'Max TT',e:'max@tretyakov-ma.ru',s:'Active'},{n:'Test Guy',e:'test@tretyakov-ma.ru',s:'Active'},{n:'Andrey Morskov',e:'amorskov@wallarm.com',s:'Active'},{n:'Maria Hernandez',e:'maria.hernandez@acme.com',s:'Active'},{n:'Alex Zahn',e:'alex.zahn@acme.com',s:'Active'},{n:'Wen Li',e:'wen.li@acme.com',s:'Active'}];
+var GROUPS_FULL=[{name:'Platform engineering',roles:['dataplane-admin']},{name:'SOC tier 1',roles:['incident-responder']},{name:'Compliance',roles:['read-only-auditor']},{name:'AI safety',roles:['ai-governance']}];
 var grPick=makeCheckList({search:root.querySelector('#grQ'),list:root.querySelector('#grList'),count:root.querySelector('#grCount'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
 var gmPick=makeCheckList({search:root.querySelector('#gmQ'),list:root.querySelector('#gmList'),count:root.querySelector('#gmCount'),items:USERS_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.e;},row:function(it){return '<span style="flex:1"><span>'+it.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+it.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+it.s+'</span>';}});
 groupName.addEventListener('input',groupSync);
@@ -792,6 +814,13 @@ root.querySelector('#arCancel').addEventListener('click',closeAssign);
 root.querySelector('#assignOv').addEventListener('click',function(e){if(e.target===this)closeAssign();});
 root.querySelector('#arAssign').addEventListener('click',function(){closeAssign();toast('Roles assigned');});
 (function(){var rC=rgRoles.length,gC=USER_GROUPS.length;root.querySelectorAll('[data-screen^="user-"] .tabs .tab').forEach(function(t){var x=t.textContent.trim();if(x==='Roles')t.textContent='Roles ('+rC+')';else if(x==='Groups')t.textContent='Groups ('+gC+')';});})();
+var agPick=makeCheckList({search:root.querySelector('#agQ'),list:root.querySelector('#agList'),count:root.querySelector('#agCount'),items:GROUPS_FULL,key:function(g){return g.name;},text:function(g){return g.name;},row:function(g){return '<div style="flex:1;min-width:0"><div style="font-weight:500">'+g.name+'</div><div style="margin-top:4px">'+(g.roles.length?g.roles.map(function(r){return '<span class="tag">'+r+'</span>';}).join(''):'<span style="color:var(--slate-400);font-size:12px">No roles</span>')+'</div></div>';}});
+var auPick=makeCheckList({search:root.querySelector('#auQ'),list:root.querySelector('#auList'),count:root.querySelector('#auCount'),items:USERS_FULL,key:function(u){return u.n;},text:function(u){return u.n+' '+u.e;},row:function(u){return '<span style="flex:1;min-width:0"><span style="font-weight:500">'+u.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+u.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+u.s+'</span>';}});
+var atPick=makeCheckList({search:root.querySelector('#atQ'),list:root.querySelector('#atList'),count:root.querySelector('#atCount'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n;},row:function(it){return '<div style="flex:1;min-width:0"><div style="font-weight:500">'+it.n+'</div><div style="margin-top:4px">'+mAcc(ROLE_POLICY[it.n]||[])+'</div></div>';}});
+function wireDlg(btnId,ovId,pick,closeId,cancelId,addId,msg){var b=root.querySelector('#'+btnId);var ov=root.querySelector('#'+ovId);if(!ov)return;if(b)b.addEventListener('click',function(){pick.reset();ov.style.display='flex';});root.querySelector('#'+closeId).addEventListener('click',function(){ov.style.display='none';});root.querySelector('#'+cancelId).addEventListener('click',function(){ov.style.display='none';});ov.addEventListener('click',function(e){if(e.target===ov)ov.style.display='none';});root.querySelector('#'+addId).addEventListener('click',function(){ov.style.display='none';toast(msg);});}
+wireDlg('addToGroupBtn','addGroupOv',agPick,'agClose','agCancel','agAdd','Added to group');
+wireDlg('grpAddUsersBtn','addUsersOv',auPick,'auClose','auCancel','auAdd','Users added');
+wireDlg('grpAttachRoleBtn','attachRoleOv',atPick,'atClose','atCancel','atAdd','Role attached');
 show('users');resetInvite();
 </script>
 </body>
