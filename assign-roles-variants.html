@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assign roles — dialog variants</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<style>
+:root{--w-orange-600:#FF441C;--slate-900:#0F172B;--slate-700:#334155;--slate-500:#62748E;--slate-400:#94A3B8;--slate-300:#CAD5E2;--slate-200:#E2E8F0;--slate-100:#F1F5F9;--slate-50:#F8FAFC;--red-600:#E7000B;--blue-600:#155DFC;--radius-8:8px}
+*{box-sizing:border-box}
+body{margin:0;background:#EEF2F6;font-family:'Geist',ui-sans-serif,system-ui,sans-serif;color:#0F172B;padding:28px}
+.mono{font-family:'Geist Mono',ui-monospace,monospace}
+h1{font-size:22px;font-weight:600;margin:0 0 4px}
+.note{font-size:13px;color:var(--slate-500);margin:0 0 26px;max-width:760px}
+h2{font-size:14px;font-weight:600;margin:0 0 3px}
+.sub{font-size:12.5px;color:var(--slate-500);margin:0 0 12px}
+.cols{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+.col{flex:1;min-width:360px;max-width:560px}
+/* dialog frame */
+.dlg{background:#fff;border:1px solid var(--slate-200);border-radius:12px;box-shadow:0 8px 28px rgba(15,23,43,.12);overflow:hidden}
+.dhead{display:flex;align-items:flex-start;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--slate-200)}
+.dtitle{font-size:16px;font-weight:600}
+.dsub{font-size:12.5px;color:var(--slate-500);margin-top:2px}
+.dbody{padding:15px 18px}
+.dfoot{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--slate-200);background:var(--slate-50)}
+.btnD{font-family:inherit;font-size:13px;font-weight:500;color:var(--slate-900);background:#fff;border:1px solid var(--slate-300);border-radius:8px;padding:7px 13px;cursor:pointer}
+.btnP{font-family:inherit;font-size:13px;font-weight:500;color:#fff;background:var(--w-orange-600);border:none;border-radius:8px;padding:8px 14px;cursor:pointer}
+.search{display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;color:var(--slate-400);font-size:13px;margin-bottom:10px}
+.foot{font-size:12.5px;color:var(--slate-500);margin-top:9px}
+/* chips */
+.msvc{display:inline-flex;align-items:center;gap:7px;background:#F8FAFC;border:1px solid var(--slate-200);border-radius:8px;padding:2px 9px;font-size:13px;margin:0 6px 4px 0}
+.cnt{font-size:12px;font-weight:500;color:var(--slate-400)}
+.effdeny{font-size:12px;font-weight:500;color:var(--red-600)}
+.pill{display:inline-flex;align-items:center;gap:5px;background:var(--slate-100);color:var(--slate-700);font-size:11px;padding:2px 8px;border-radius:9999px}
+.cbx{display:inline-flex;width:16px;height:16px;border:1.5px solid var(--slate-300);border-radius:4px;align-items:center;justify-content:center;flex:none}
+.cbx.on{background:var(--w-orange-600);border-color:var(--w-orange-600);color:#fff}
+.rname{font-weight:500;font-size:14px}
+/* v1 table */
+table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--slate-200);border-radius:12px;overflow:hidden;background:#fff;table-layout:fixed}
+th{background:var(--slate-50);font-size:12px;font-weight:500;color:var(--slate-500);text-align:left;height:32px;padding:0 12px;border-bottom:1px solid var(--slate-200)}
+td{padding:8px 12px;border-top:1px solid var(--slate-100);font-size:14px;vertical-align:middle}
+tbody tr:first-child td{border-top:none}
+.chkc{width:40px}
+/* v2 cards */
+.hscroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px}
+.rcard{flex:0 0 230px;border:1px solid var(--slate-200);border-radius:10px;padding:12px;cursor:pointer;background:#fff}
+.rcard.on{border-color:var(--w-orange-600);box-shadow:0 0 0 1px var(--w-orange-600) inset}
+.rcard .rh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+/* v3 list */
+.list{border:1px solid var(--slate-200);border-radius:var(--radius-8);max-height:330px;overflow:auto}
+.lrow{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-top:1px solid var(--slate-100);cursor:pointer}
+.lrow:first-child{border-top:none}.lrow:hover{background:var(--slate-50)}
+.lrow .cbx{margin-top:1px}
+</style>
+</head>
+<body>
+<h1>Assign roles — dialog variants</h1>
+<p class="note">Three ways to show the role list (and what each role includes) inside the “Assign roles” dialog on the user’s Roles tab. Pick one — the app currently uses Variant 3.</p>
+
+<div class="cols">
+
+  <!-- Variant 1: table -->
+  <div class="col">
+    <h2>Variant 1 — Table (like the Roles page)</h2>
+    <p class="sub">Familiar, scannable, sortable. A bit heavy inside a dialog.</p>
+    <div class="dlg">
+      <div class="dhead"><div><div class="dtitle">Assign roles</div><div class="dsub">Pick roles to add to Maria Hernandez.</div></div><i class="ti ti-x" style="color:var(--slate-500)"></i></div>
+      <div class="dbody" style="padding:14px 18px">
+        <div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search roles…</div>
+        <table><colgroup><col class="chkc"><col style="width:42%"><col style="width:50%"></colgroup>
+          <thead><tr><th></th><th>Role</th><th>Access</th></tr></thead>
+          <tbody>
+            <tr><td><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span></td><td><span class="rname">dataplane-admin</span></td><td><span class="msvc">Rules <span class="cnt">7</span></span><span class="msvc">Infrastructure <span class="cnt">4</span></span></td></tr>
+            <tr><td><span class="cbx"></span></td><td><span class="rname">soc-analyst</span></td><td><span class="msvc">API Security <span class="cnt">4</span></span><span class="msvc">Rules <span class="effdeny">Deny · 3</span></span></td></tr>
+            <tr><td><span class="cbx"></span></td><td><span class="rname">incident-responder</span></td><td><span class="msvc">API Security <span class="cnt">4</span></span><span class="msvc">Infrastructure <span class="cnt">4</span></span></td></tr>
+            <tr><td><span class="cbx"></span></td><td><span class="rname">read-only-auditor</span></td><td><span class="msvc">Rules <span class="cnt">4</span></span><span class="msvc">API Security <span class="cnt">4</span></span></td></tr>
+          </tbody></table>
+        <div class="foot">1 selected</div>
+      </div>
+      <div class="dfoot"><button class="btnD">Cancel</button><button class="btnP">Assign roles</button></div>
+    </div>
+  </div>
+
+  <!-- Variant 2: horizontal cards -->
+  <div class="col">
+    <h2>Variant 2 — Horizontal cards</h2>
+    <p class="sub">Richest “what’s included” view. Takes space; needs horizontal scroll with many roles.</p>
+    <div class="dlg">
+      <div class="dhead"><div><div class="dtitle">Assign roles</div><div class="dsub">Pick roles to add to Maria Hernandez.</div></div><i class="ti ti-x" style="color:var(--slate-500)"></i></div>
+      <div class="dbody">
+        <div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search roles…</div>
+        <div class="hscroll">
+          <div class="rcard on"><div class="rh"><span class="rname">dataplane-admin</span><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span></div><div><span class="msvc">Rules <span class="cnt">7</span></span><span class="msvc">Infrastructure <span class="cnt">4</span></span></div></div>
+          <div class="rcard"><div class="rh"><span class="rname">soc-analyst</span><span class="cbx"></span></div><div><span class="msvc">API Security <span class="cnt">4</span></span><span class="msvc">Rules <span class="effdeny">Deny · 3</span></span></div></div>
+          <div class="rcard"><div class="rh"><span class="rname">incident-responder</span><span class="cbx"></span></div><div><span class="msvc">API Security <span class="cnt">4</span></span><span class="msvc">Infrastructure <span class="cnt">4</span></span></div></div>
+        </div>
+        <div class="foot">1 selected</div>
+      </div>
+      <div class="dfoot"><button class="btnD">Cancel</button><button class="btnP">Assign roles</button></div>
+    </div>
+  </div>
+
+  <!-- Variant 3: searchable list (current) -->
+  <div class="col">
+    <h2>Variant 3 — Searchable list with inline access <span style="font-weight:400;color:var(--w-orange-600)">(current)</span></h2>
+    <p class="sub">Scales with search, compact, shows what’s included, reuses our checklist component.</p>
+    <div class="dlg">
+      <div class="dhead"><div><div class="dtitle">Assign roles</div><div class="dsub">Pick roles to add to Maria Hernandez.</div></div><i class="ti ti-x" style="color:var(--slate-500)"></i></div>
+      <div class="dbody">
+        <div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search roles…</div>
+        <div class="list">
+          <div class="lrow"><span class="cbx on"><i class="ti ti-check" style="font-size:10px"></i></span><div style="flex:1;min-width:0"><div class="rname">dataplane-admin</div><div style="margin-top:4px"><span class="msvc">Rules <span class="cnt">7</span></span><span class="msvc">Infrastructure <span class="cnt">4</span></span></div></div></div>
+          <div class="lrow"><span class="cbx"></span><div style="flex:1;min-width:0"><div class="rname">soc-analyst</div><div style="margin-top:4px"><span class="msvc">API Security <span class="cnt">4</span></span><span class="msvc">Rules <span class="effdeny">Deny · 3</span></span></div></div></div>
+          <div class="lrow"><span class="cbx"></span><div style="flex:1;min-width:0"><div class="rname">incident-responder</div><div style="margin-top:4px"><span class="msvc">API Security <span class="cnt">4</span></span><span class="msvc">Infrastructure <span class="cnt">4</span></span></div></div></div>
+          <div class="lrow"><span class="cbx"></span><div style="flex:1;min-width:0"><div class="rname">read-only-auditor</div><div style="margin-top:4px"><span class="msvc">Rules <span class="cnt">4</span></span><span class="msvc">API Security <span class="cnt">4</span></span></div></div></div>
+          <div class="lrow"><span class="cbx"></span><div style="flex:1;min-width:0"><div class="rname">ai-governance</div><div style="margin-top:4px"><span class="msvc">API Security <span class="cnt">7</span></span></div></div></div>
+        </div>
+        <div class="foot">1 selected</div>
+      </div>
+      <div class="dfoot"><button class="btnD">Cancel</button><button class="btnP">Assign roles</button></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
