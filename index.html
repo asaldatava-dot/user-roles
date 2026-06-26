@@ -221,6 +221,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 .qmenu div{font-size:13px;padding:8px 11px;border-radius:6px;cursor:pointer;color:var(--slate-700)}.qmenu div:hover{background:var(--slate-50)}
 .qmenu .qh{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--slate-400);padding:6px 11px 4px;cursor:default}
 .toast{position:fixed;right:22px;top:64px;display:none;align-items:center;gap:8px;background:#fff;border:1px solid var(--slate-200);border-left:3px solid var(--green-600);border-radius:var(--radius-8);padding:10px 14px;font-size:13px;z-index:120;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+#arList .clrow{align-items:flex-start}#arList .clrow .cbx{margin-top:1px}#arList .msvc{padding:2px 9px}
 .sortable{cursor:pointer;user-select:none}.sortable:hover{color:var(--slate-700)}.sicon{font-size:13px;vertical-align:-2px;color:var(--slate-300)}
 </style>
 </head>
@@ -340,7 +341,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
           </div>
         </div>
         <div class="tabs"><span class="tab" data-go="user-access">Access</span><span class="tab on">Roles</span><span class="tab" data-go="user-groups">Groups</span></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles</div><button class="btnD"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px"><div style="font-size:15px;font-weight:600">Roles</div><button class="btnD" id="assignRoleBtn"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Assign role</button></div>
         <div id="memRoles"></div>
       </div>
 
@@ -503,6 +504,23 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
     <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px">
       <button class="btnD" data-action="closeInvite">Cancel</button>
       <button class="btnP" data-action="send">Send invite</button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="assignOv">
+  <div class="dialog" style="max-width:580px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200)">
+      <div><div style="font-size:17px;font-weight:600">Assign roles</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Pick roles to add to Maria Hernandez.</div></div>
+      <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" id="assignClose" aria-label="Close"></i>
+    </div>
+    <div style="padding:16px 20px">
+      <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="arQ" placeholder="Search roles…" autocomplete="off"></div>
+      <div id="arList" style="max-height:330px;overflow:auto;border:1px solid var(--slate-200);border-radius:var(--radius-8)"></div>
+      <div class="foot" id="arCount" style="margin-top:8px"></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px">
+      <button class="btnD" id="arCancel">Cancel</button>
+      <button class="btnP" id="arAssign">Assign roles</button>
     </div>
   </div>
 </div>
@@ -735,7 +753,10 @@ function mFullGroups(svc,acts){return ALEVELS.filter(function(L){var an=CATALOG[
 function mLClass(L){return L==='Edit'?'e':L==='View'?'v':L==='Admin'?'a':'c';}
 var ROLE_POLICY={
  'dataplane-admin':[{svc:'rules',effect:'Allow',acts:mGroupActs('rules',['List','Read','Write']),resMode:'all'},{svc:'infra',effect:'Allow',acts:mGroupActs('infra',['List','Read']),resMode:'all'}],
- 'soc-analyst':[{svc:'apisec',effect:'Allow',acts:mGroupActs('apisec',['List','Read']),resMode:'all'},{svc:'rules',effect:'Deny',acts:mGroupActs('rules',['Write']),resMode:'all'}]
+ 'soc-analyst':[{svc:'apisec',effect:'Allow',acts:mGroupActs('apisec',['List','Read']),resMode:'all'},{svc:'rules',effect:'Deny',acts:mGroupActs('rules',['Write']),resMode:'all'}],
+ 'incident-responder':[{svc:'apisec',effect:'Allow',acts:mGroupActs('apisec',['List','Read']),resMode:'all'},{svc:'infra',effect:'Allow',acts:mGroupActs('infra',['List','Read']),resMode:'all'}],
+ 'read-only-auditor':[{svc:'rules',effect:'Allow',acts:mGroupActs('rules',['List','Read']),resMode:'all'},{svc:'apisec',effect:'Allow',acts:mGroupActs('apisec',['List','Read']),resMode:'all'}],
+ 'ai-governance':[{svc:'apisec',effect:'Allow',acts:mGroupActs('apisec',['List','Read','Write']),resMode:'all'}]
 };
 var USER_ROLES=['soc-analyst'],USER_GROUPS=[{name:'Platform engineering',roles:['dataplane-admin']}];
 function mExtended(pol){return pol.map(function(s){var c=CATALOG[s.svc];var lv=ALEVELS.map(function(L){var an=(c.acts[L]||[]).map(function(n){return s.svc+':'+n;}).filter(function(n){return s.acts[n];});if(!an.length)return '';var acts=an.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('');return '<div class="lvrow"><i class="ti ti-chevron-right lvchev" style="font-size:14px;color:#94A3B8"></i><span class="lvname">'+L+'</span><span class="lvn">'+an.length+'</span></div><div class="lvacts" style="display:none">'+acts+'</div>';}).join('');return '<div class="mcard" style="padding:12px 16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:13.5px;font-weight:600">'+c.label+'</span><span class="meff '+(s.effect==='Deny'?'d':'a')+'">'+s.effect+'</span></div>'+lv+'<div style="margin-top:8px"><span class="rscope"><i class="ti ti-world" style="font-size:13px"></i>'+(s.resMode==='all'?'All resources':'Specific resources')+'</span></div></div>';}).join('');}
@@ -763,6 +784,13 @@ root.querySelector('#accessView').innerHTML=mExtended(mResolved());
 root.querySelector('#accessView').addEventListener('click',function(e){var r=e.target.closest('.lvrow');if(!r)return;var a=r.nextElementSibling;if(!a||!a.classList.contains('lvacts'))return;var op=a.style.display!=='none';a.style.display=op?'none':'block';r.classList.toggle('open',!op);});
 
 (function(){var rb=root.querySelector('#rolesBody');if(!rb)return;root.querySelectorAll('[data-screen="roles"] th.sortable').forEach(function(th){th.addEventListener('click',function(){var col=th.dataset.sort==='users'?1:2;var asc=!th.classList.contains('asc');root.querySelectorAll('[data-screen="roles"] th.sortable').forEach(function(x){x.classList.remove('asc','desc');var i=x.querySelector('.sicon');if(i)i.className='ti ti-arrows-sort sicon';});th.classList.add(asc?'asc':'desc');var i=th.querySelector('.sicon');if(i)i.className='ti '+(asc?'ti-arrow-up':'ti-arrow-down')+' sicon';var rows=Array.prototype.slice.call(rb.querySelectorAll('tr'));rows.sort(function(a,b){var av=+a.children[col].textContent,bv=+b.children[col].textContent;return asc?av-bv:bv-av;});rows.forEach(function(r){rb.appendChild(r);});});});})();
+var arPick=makeCheckList({search:root.querySelector('#arQ'),list:root.querySelector('#arList'),count:root.querySelector('#arCount'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n;},row:function(it){return '<div style="flex:1;min-width:0"><div style="font-weight:500">'+it.n+'</div><div style="margin-top:4px">'+mAcc(ROLE_POLICY[it.n]||[])+'</div></div>';}});
+function closeAssign(){root.querySelector('#assignOv').style.display='none';}
+var arBtn=root.querySelector('#assignRoleBtn');if(arBtn)arBtn.addEventListener('click',function(){arPick.reset();root.querySelector('#assignOv').style.display='flex';});
+root.querySelector('#assignClose').addEventListener('click',closeAssign);
+root.querySelector('#arCancel').addEventListener('click',closeAssign);
+root.querySelector('#assignOv').addEventListener('click',function(e){if(e.target===this)closeAssign();});
+root.querySelector('#arAssign').addEventListener('click',function(){closeAssign();toast('Roles assigned');});
 show('users');resetInvite();
 </script>
 </body>
