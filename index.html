@@ -456,13 +456,13 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="group-create">
         <div class="crumb"><a data-go="groups">Settings</a> <i>›</i> <a data-go="groups">Groups</a> <i>›</i> New group</div>
-        <h1 style="margin-bottom:18px">Create group</h1>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px"><h1 style="margin:0">Create group</h1><div class="seg2" id="gcModeSeg"><span class="on" data-gcmode="cols">Columns</span><span data-gcmode="stacked">Stacked</span></div></div>
         <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap">
           <div class="fgroup" style="flex:0 0 380px;max-width:380px;margin:0"><div class="flabel">Name</div><input class="finput" id="groupName" placeholder="e.g. Platform engineering" autocomplete="off"></div>
           <div id="groupIdPrev" style="display:none;font-size:13px;color:var(--slate-400);margin-bottom:9px"><span class="mono" id="groupArn"></span></div>
         </div>
         <label style="display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:14px;color:var(--slate-900);margin:8px 0 2px"><input type="checkbox" id="groupDefault" style="width:16px;height:16px;accent-color:var(--w-orange-600);cursor:pointer"> Default group for this organization</label>
-        <div class="gc2col">
+        <div class="gc2col" id="gcCols">
           <div class="fgroup" style="margin:0;display:flex;flex-direction:column">
             <div class="gctitle">Add users to the group <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
             <div class="chips" id="gmChips" style="display:none"></div>
@@ -475,6 +475,16 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
             <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="grQ" placeholder="Search roles…" autocomplete="off"></div>
             <div class="foot" id="grCount" style="margin-bottom:8px"></div><div class="cklist" id="grList"></div>
           </div>
+        </div>
+        <div id="gcStacked" style="display:none">
+          <div class="gctitle">Assign roles to the group</div>
+          <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:8px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="grQ2" placeholder="Search roles…" autocomplete="off"></div>
+          <div class="cklist" id="grList2" style="max-height:240px"></div>
+          <div class="foot" id="grCount2" style="display:none"></div>
+          <div class="gctitle" style="margin-top:20px">Add users to the group <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
+          <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:8px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="gmQ2" placeholder="Search users…" autocomplete="off"></div>
+          <div class="cklist" id="gmList2" style="max-height:calc(100vh - 470px);min-height:160px"></div>
+          <div class="foot" id="gmCount2" style="display:none"></div>
         </div>
         <div class="formfoot"><button class="btnD" data-go="groups">Cancel</button><button class="btnP" id="createGroup">Create group</button></div>
       </div>
@@ -742,6 +752,9 @@ var USERS_FULL=[{n:'Max TT',e:'max@tretyakov-ma.ru',s:'Active'},{n:'Test Guy',e:
 var GROUPS_FULL=[{name:'Platform engineering',roles:['dataplane-admin']},{name:'SOC tier 1',roles:['incident-responder']},{name:'Compliance',roles:['read-only-auditor']},{name:'AI safety',roles:['ai-governance']}];
 var grPick=makeCheckList({search:root.querySelector('#grQ'),list:root.querySelector('#grList'),count:root.querySelector('#grCount'),chips:root.querySelector('#grChips'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
 var gmPick=makeCheckList({search:root.querySelector('#gmQ'),list:root.querySelector('#gmList'),count:root.querySelector('#gmCount'),chips:root.querySelector('#gmChips'),items:USERS_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.e;},row:function(it){return '<span style="flex:1"><span>'+it.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+it.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+it.s+'</span>';}});
+var grPick2=makeCheckList({search:root.querySelector('#grQ2'),list:root.querySelector('#grList2'),count:root.querySelector('#grCount2'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
+var gmPick2=makeCheckList({search:root.querySelector('#gmQ2'),list:root.querySelector('#gmList2'),count:root.querySelector('#gmCount2'),items:USERS_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.e;},row:function(it){return '<span style="flex:1"><span>'+it.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+it.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+it.s+'</span>';}});
+root.querySelectorAll('#gcModeSeg span').forEach(function(t){t.addEventListener('click',function(){var m=t.dataset.gcmode;t.parentNode.querySelectorAll('span').forEach(function(x){x.classList.toggle('on',x===t);});root.querySelector('#gcCols').style.display=m==='cols'?'grid':'none';root.querySelector('#gcStacked').style.display=m==='stacked'?'block':'none';});});
 groupName.addEventListener('input',groupSync);
 createGroup.addEventListener('click',function(){if(createGroup.disabled)return;toast('Group created');groupName.value='';grPick.reset();gmPick.reset();groupSync();show('groups');});
 groupSync();
