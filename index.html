@@ -284,24 +284,24 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="users">
         <div class="crumb">Settings <i>›</i> Users</div>
-        <div class="phead"><div><h1>Users</h1></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
-        <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="selwrap" style="position:relative"><div class="sel" id="statusSel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="statusMenu"><div data-filter="all">All statuses</div><div data-filter="active">Active</div><div data-filter="invited">Invited</div></div></div></div>
+        <div class="phead"><div><h1>Users</h1></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Create user</button></div>
+        <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="selwrap" style="position:relative"><div class="sel" id="statusSel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="statusMenu"><div data-filter="all">All statuses</div><div data-filter="enabled">Enabled</div><div data-filter="disabled">Disabled</div></div></div></div>
         <div class="bulkbar" id="bulkbar" style="display:none"><span class="cnt" id="bulkcnt">0 selected</span><span class="bbdiv"></span><button class="bbbtn danger" id="bulkDelete"><i class="ti ti-trash" style="font-size:15px"></i> Delete</button><button class="bbx" id="bulkClear" aria-label="Clear selection"><i class="ti ti-x" style="font-size:16px"></i></button></div>
         <table><colgroup><col style="width:4%"><col style="width:15%"><col style="width:20%"><col style="width:12%"><col style="width:10%"><col style="width:19%"><col style="width:12%"><col style="width:8%"></colgroup>
           <thead><tr><th class="chkcell"><input type="checkbox" id="selAll" aria-label="Select all"></th><th>User</th><th>Email</th><th>Identity provider</th><th>Status</th><th>Groups</th><th>Roles</th><th>Last active</th></tr></thead>
           <tbody>
-            <tr data-go="user-access" data-status="active" data-name="Maria Hernandez"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Maria Hernandez</span></td><td><span style="display:inline-flex;align-items:center;gap:6px">maria.hernandez@acme.com <span class="vtag" aria-label="Verified"><i class="ti ti-check" style="font-size:12px"></i></span></span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td><span class="gcell"><span class="gtag">Platform engineering</span><span class="gtag">SOC tier 1</span><span class="gtag">Incident response</span><span class="gtag">Cloud infra</span><span class="gtag">Compliance</span><span class="gmore" tabindex="0" role="button" aria-label="Show more groups" style="display:none"><span class="gmcount">+0</span><span class="gpop"></span></span></span></td><td><span class="tag">soc-analyst</span></td><td>8d</td></tr>
-<tr data-status="active" data-name="Alex Zahn"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Alex Zahn</span></td><td><span style="display:inline-flex;align-items:center;gap:6px">alex.zahn@acme.com <span class="vtag" aria-label="Verified"><i class="ti ti-check" style="font-size:12px"></i></span></span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td>2d</td></tr>
-<tr data-status="active" data-name="ci-deploy-bot" data-type="sa"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">ci-deploy-bot</span></td><td>svc-ci-deploy@acme.test</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">ci-deploy</span></td><td>1h</td></tr>
-<tr data-status="invited" data-name="Sofia Rossi"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Sofia Rossi</span></td><td>sofia.rossi@acme.com</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td>—</td></tr>
-<tr data-status="invited" data-name="Priya Shah" class="pending-new" style="display:none"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Priya Shah</span></td><td>priya.shah@acme.com</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#FFF8EC;color:#854F0B"><i class="ti ti-clock" style="font-size:12px"></i>Invited</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td>—</td></tr>
+            <tr data-go="user-access" data-status="enabled" data-name="Maria Hernandez"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Maria Hernandez</span></td><td><span style="display:inline-flex;align-items:center;gap:6px">maria.hernandez@acme.com <span class="vtag" aria-label="Verified"><i class="ti ti-check" style="font-size:12px"></i></span></span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></td><td><span class="gcell"><span class="gtag">Platform engineering</span><span class="gtag">SOC tier 1</span><span class="gtag">Incident response</span><span class="gtag">Cloud infra</span><span class="gtag">Compliance</span><span class="gmore" tabindex="0" role="button" aria-label="Show more groups" style="display:none"><span class="gmcount">+0</span><span class="gpop"></span></span></span></td><td><span class="tag">soc-analyst</span></td><td>8d</td></tr>
+<tr data-status="enabled" data-name="Alex Zahn"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Alex Zahn</span></td><td><span style="display:inline-flex;align-items:center;gap:6px">alex.zahn@acme.com <span class="vtag" aria-label="Verified"><i class="ti ti-check" style="font-size:12px"></i></span></span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td>2d</td></tr>
+<tr data-status="enabled" data-name="ci-deploy-bot" data-type="sa"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">ci-deploy-bot</span></td><td>svc-ci-deploy@acme.test</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">ci-deploy</span></td><td>1h</td></tr>
+<tr data-status="disabled" data-name="Sofia Rossi"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Sofia Rossi</span></td><td>sofia.rossi@acme.com</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:var(--slate-100);color:var(--slate-500)">Disabled</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td>—</td></tr>
+<tr data-status="enabled" data-name="Priya Shah" class="pending-new" style="display:none"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Priya Shah</span></td><td>priya.shah@acme.com</td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td>—</td></tr>
           </tbody></table>
         <div class="foot">Showing 4 of 12 users</div>
       </div>
 
       <div class="screen" data-screen="user-access">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
           <div class="ugrid">
             <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
@@ -328,7 +328,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="user-roles">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
           <div class="ugrid">
             <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
@@ -356,7 +356,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="user-groups">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
           <div class="ugrid">
             <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
@@ -409,7 +409,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
         <div class="tabs"><span class="tab on" data-gtab="users">Users (2)</span><span class="tab" data-gtab="roles">Roles (1)</span></div>
         <div data-gpanel="users">
           <div style="display:flex;justify-content:flex-end;margin:0 0 10px"><button class="btnD" id="grpAddUsersBtn"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Add users</button></div>
-          <table><colgroup><col style="width:30%"><col style="width:34%"><col style="width:18%"><col style="width:18%"></colgroup><thead><tr><th>User</th><th>Email</th><th>Status</th><th>Last active</th></tr></thead><tbody><tr data-go="user-access"><td><span class="lname">Maria Hernandez</span></td><td>maria.hernandez@acme.com</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>8d</td></tr><tr data-go="user-access"><td><span class="lname">Wen Li</span></td><td>wen.li@acme.com</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td>3d</td></tr></tbody></table>
+          <table><colgroup><col style="width:30%"><col style="width:34%"><col style="width:18%"><col style="width:18%"></colgroup><thead><tr><th>User</th><th>Email</th><th>Status</th><th>Last active</th></tr></thead><tbody><tr data-go="user-access"><td><span class="lname">Maria Hernandez</span></td><td>maria.hernandez@acme.com</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></td><td>8d</td></tr><tr data-go="user-access"><td><span class="lname">Wen Li</span></td><td>wen.li@acme.com</td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Enabled</span></td><td>3d</td></tr></tbody></table>
         </div>
         <div data-gpanel="roles" style="display:none">
           <div style="display:flex;justify-content:flex-end;margin:0 0 10px"><button class="btnD" id="grpAttachRoleBtn"><i class="ti ti-plus" style="font-size:13px;vertical-align:-1px"></i> Attach role</button></div>
@@ -500,11 +500,11 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 <div class="overlay">
   <div class="dialog">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200);background:#fff;border-radius:8px 8px 0 0">
-      <div><div style="font-size:17px;font-weight:600">Invite users</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Grant access by role or group — at least one is required.</div></div>
+      <div><div style="font-size:17px;font-weight:600">Create user</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add a user directly — they'll get a verification email.</div></div>
       <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" data-action="closeInvite" aria-label="Close"></i>
     </div>
     <div class="dbody">
-      <div style="font-size:14px;font-weight:600;margin-bottom:7px">Email addresses</div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:7px">Email</div>
       <div style="border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:7px;margin-bottom:18px"><span class="chip">priya.shah@acme.com <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span></div>
       <div style="font-size:14px;font-weight:600;margin-bottom:3px">What access should they have? <span style="color:var(--red-600)">·</span> <span style="font-weight:400;color:var(--slate-400)">required</span></div>
       <div style="font-size:12px;color:var(--slate-400);margin-bottom:10px">Start from a role. Add groups under Custom for teams.</div>
@@ -525,7 +525,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
     </div>
     <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px">
       <button class="btnD" data-action="closeInvite">Cancel</button>
-      <button class="btnP" data-action="send">Send invite</button>
+      <button class="btnP" data-action="send">Create user</button>
     </div>
   </div>
 </div>
@@ -587,13 +587,12 @@ function applyUserFilter(f){
   FILTER=f;var n=0;
   root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){
     var vis=true;
-    if(tr.getAttribute('data-revoked'))vis=false;
-    else if(tr.classList.contains('pending-new')&&!priyaSent)vis=false;
+    if(tr.classList.contains('pending-new')&&!priyaSent)vis=false;
     else if(f!=='all'&&tr.dataset.status!==f)vis=false;
     tr.style.display=vis?'':'none';if(vis)n++;
   });
-  var sel=root.querySelector('[data-screen="users"] .sel');if(sel)sel.childNodes[0].nodeValue=(f==='invited'?'Invited ':'All statuses ');
-  var foot=root.querySelector('[data-screen="users"] .foot');if(foot)foot.textContent='Showing '+n+(f==='invited'?' invited':' of 12 users');
+  var sel=root.querySelector('[data-screen="users"] .sel');if(sel)sel.childNodes[0].nodeValue=(f==='enabled'?'Enabled ':f==='disabled'?'Disabled ':'All statuses ');
+  var foot=root.querySelector('[data-screen="users"] .foot');if(foot)foot.textContent='Showing '+n+' of 12 users';
   root.querySelectorAll('[data-screen="users"] .rowchk').forEach(function(c){c.checked=false;});
   var sa=root.querySelector('#selAll');if(sa){sa.checked=false;sa.indeterminate=false;}
   if(typeof updateSel==='function')updateSel();
@@ -637,7 +636,7 @@ window.addEventListener('load',fitAllGroups);
 root.querySelectorAll('[data-action]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var a=el.dataset.action;
   if(a==='invite'){root.querySelector('.overlay').style.display='flex';resetInvite();}
   else if(a==='closeInvite'){root.querySelector('.overlay').style.display='none';resetInvite();}
-  else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';resetInvite();priyaSent=true;show('users');applyUserFilter('invited');toast('Invite sent');}
+  else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';resetInvite();priyaSent=true;show('users');applyUserFilter('all');toast('User created · verification email sent');}
   else if(a==='deactivate')toast('User deactivated');
   else if(a==='sendverify')toast('Verification email sent');else if(a==='linkidp')toast('Linked to identity provider');else if(a==='changepw')toast('Password reset email sent');
   else if(a==='delete'){openConfirm('Delete this user?','They will lose all access. This can\'t be undone.',function(){toast('User deleted');show('users');});}
@@ -749,7 +748,7 @@ function makeCheckList(o){var chosen={};
   o.search.addEventListener('input',render);render();
   return {reset:function(){chosen={};o.search.value='';render();}};}
 var ROLES_FULL=[{n:'dataplane-admin',t:'Default'},{n:'soc-analyst',t:'Managed'},{n:'incident-responder',t:'Default'},{n:'read-only-auditor',t:'Managed'},{n:'ai-governance',t:'Default'}];
-var USERS_FULL=[{n:'Max TT',e:'max@tretyakov-ma.ru',s:'Active'},{n:'Test Guy',e:'test@tretyakov-ma.ru',s:'Active'},{n:'Andrey Morskov',e:'amorskov@wallarm.com',s:'Active'},{n:'Maria Hernandez',e:'maria.hernandez@acme.com',s:'Active'},{n:'Alex Zahn',e:'alex.zahn@acme.com',s:'Active'},{n:'Wen Li',e:'wen.li@acme.com',s:'Active'}];
+var USERS_FULL=[{n:'Max TT',e:'max@tretyakov-ma.ru',s:'Enabled'},{n:'Test Guy',e:'test@tretyakov-ma.ru',s:'Enabled'},{n:'Andrey Morskov',e:'amorskov@wallarm.com',s:'Enabled'},{n:'Maria Hernandez',e:'maria.hernandez@acme.com',s:'Enabled'},{n:'Alex Zahn',e:'alex.zahn@acme.com',s:'Enabled'},{n:'Wen Li',e:'wen.li@acme.com',s:'Enabled'}];
 var GROUPS_FULL=[{name:'Platform engineering',roles:['dataplane-admin']},{name:'SOC tier 1',roles:['incident-responder']},{name:'Compliance',roles:['read-only-auditor']},{name:'AI safety',roles:['ai-governance']}];
 var grPick=makeCheckList({search:root.querySelector('#grQ'),list:root.querySelector('#grList'),count:root.querySelector('#grCount'),chips:root.querySelector('#grChips'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
 var gmPick=makeCheckList({search:root.querySelector('#gmQ'),list:root.querySelector('#gmList'),count:root.querySelector('#gmCount'),chips:root.querySelector('#gmChips'),items:USERS_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.e;},row:function(it){return '<span style="flex:1"><span>'+it.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+it.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+it.s+'</span>';}});
