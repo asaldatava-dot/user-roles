@@ -91,8 +91,12 @@ tr[data-go]:hover .lname{color:var(--blue-600);text-decoration:underline}
 .rowmenu div{font-size:13px;padding:8px 11px;border-radius:6px;cursor:pointer;color:var(--slate-700);display:flex;align-items:center;gap:9px}
 .rowmenu div:hover{background:var(--slate-50)}
 .rowmenu div.danger{color:var(--red-600)}
-.bulkbar{display:flex;align-items:center;gap:14px;background:#FFF6F3;border:1px solid #FFD2C6;border-radius:var(--radius-8);padding:9px 14px;margin-bottom:12px}
-.bulkbar .cnt{font-size:13px;font-weight:500;color:#9A2A12}
+.bulkbar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);align-items:center;gap:12px;background:var(--slate-800);border-radius:16px;box-shadow:0 12px 28px -6px rgba(0,0,0,.35);padding:8px 8px 8px 14px;z-index:120;animation:bulkup .2s ease}
+.bulkbar .cnt{font-size:13px;font-weight:500;color:#fff;white-space:nowrap}
+.bbdiv{width:1px;height:20px;background:rgba(255,255,255,.18)}
+.bbbtn{display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:13px;font-weight:500;color:#fff;background:rgba(255,255,255,.12);border:none;border-radius:8px;padding:6px 12px;cursor:pointer}.bbbtn:hover{background:rgba(255,255,255,.2)}.bbbtn.danger{color:#FFC9C9}
+.bbx{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:none;color:rgba(255,255,255,.65);cursor:pointer;padding:5px;border-radius:6px}.bbx:hover{color:#fff;background:rgba(255,255,255,.12)}
+@keyframes bulkup{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 .confirm-overlay{position:fixed;inset:0;background:rgba(15,23,43,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:140}
 .confirm-dialog{background:#fff;border-radius:var(--radius-8);width:100%;max-width:420px;padding:20px 22px}
 .svcrow{border-top:1px solid var(--slate-200)}.svcrow:first-child{border-top:none}
@@ -281,7 +285,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
         <div class="crumb">Settings <i>›</i> Users</div>
         <div class="phead"><div><h1>Users</h1></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
         <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="selwrap" style="position:relative"><div class="sel" id="statusSel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="statusMenu"><div data-filter="all">All statuses</div><div data-filter="active">Active</div><div data-filter="invited">Invited</div></div></div></div>
-        <div class="bulkbar" id="bulkbar" style="display:none"><span class="cnt" id="bulkcnt">0 selected</span><button class="btnX" id="bulkDelete" style="font-size:13px;padding:6px 12px"><i class="ti ti-trash" style="font-size:14px;vertical-align:-2px"></i> Delete</button></div>
+        <div class="bulkbar" id="bulkbar" style="display:none"><span class="cnt" id="bulkcnt">0 selected</span><span class="bbdiv"></span><button class="bbbtn danger" id="bulkDelete"><i class="ti ti-trash" style="font-size:15px"></i> Delete</button><button class="bbx" id="bulkClear" aria-label="Clear selection"><i class="ti ti-x" style="font-size:16px"></i></button></div>
         <table><colgroup><col style="width:4%"><col style="width:15%"><col style="width:20%"><col style="width:9%"><col style="width:10%"><col style="width:22%"><col style="width:12%"><col style="width:8%"></colgroup>
           <thead><tr><th class="chkcell"><input type="checkbox" id="selAll" aria-label="Select all"></th><th>User</th><th>Email</th><th>Auth</th><th>Status</th><th>Groups</th><th>Roles</th><th>Last active</th></tr></thead>
           <tbody>
@@ -832,6 +836,7 @@ function wireDlg(btnId,ovId,pick,closeId,cancelId,addId,msg){var b=root.querySel
 wireDlg('addToGroupBtn','addGroupOv',agPick,'agClose','agCancel','agAdd','Added to group');
 wireDlg('grpAddUsersBtn','addUsersOv',auPick,'auClose','auCancel','auAdd','Users added');
 wireDlg('grpAttachRoleBtn','attachRoleOv',atPick,'atClose','atCancel','atAdd','Role attached');
+var bclr=root.querySelector('#bulkClear');if(bclr)bclr.addEventListener('click',function(e){e.stopPropagation();root.querySelectorAll('[data-screen="users"] .rowchk').forEach(function(c){c.checked=false;});updateSel();});
 show('users');resetInvite();
 </script>
 </body>
