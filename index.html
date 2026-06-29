@@ -231,6 +231,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 .gctitle{font-family:'Geist',ui-sans-serif,system-ui,sans-serif;font-size:16px;font-weight:400;word-break:break-word;white-space:pre-wrap;color:inherit;margin-bottom:8px}.gc2col .cklist{height:300px;max-height:none}[data-screen="group-create"],[data-screen="role-create"]{padding-bottom:88px}
 .cllink{font-size:12px;color:var(--blue-600);cursor:pointer;text-decoration:underline;text-decoration-color:transparent;transition:color .12s}.cllink:hover{color:var(--blue-800);text-decoration-color:currentColor}
 .clhdr{position:sticky;top:0;background:var(--slate-50);border-bottom:1px solid var(--slate-200);display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:13px;cursor:pointer;z-index:1}.cbx.some{background:var(--w-orange-600);border-color:var(--w-orange-600);color:#fff}
+.amdiv{height:1px;background:var(--slate-200);margin:5px 0}
 </style>
 </head>
 <body>
@@ -286,8 +287,8 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
         <div class="phead"><div><h1>Users</h1></div><button class="btnP" data-action="invite"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px"></i> Invite users</button></div>
         <div class="toolbar"><div class="search"><i class="ti ti-search" style="font-size:15px"></i>Search name or email</div><div class="selwrap" style="position:relative"><div class="sel" id="statusSel">All statuses <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></div><div class="selmenu" id="statusMenu"><div data-filter="all">All statuses</div><div data-filter="active">Active</div><div data-filter="invited">Invited</div></div></div></div>
         <div class="bulkbar" id="bulkbar" style="display:none"><span class="cnt" id="bulkcnt">0 selected</span><span class="bbdiv"></span><button class="bbbtn danger" id="bulkDelete"><i class="ti ti-trash" style="font-size:15px"></i> Delete</button><button class="bbx" id="bulkClear" aria-label="Clear selection"><i class="ti ti-x" style="font-size:16px"></i></button></div>
-        <table><colgroup><col style="width:4%"><col style="width:15%"><col style="width:20%"><col style="width:9%"><col style="width:10%"><col style="width:22%"><col style="width:12%"><col style="width:8%"></colgroup>
-          <thead><tr><th class="chkcell"><input type="checkbox" id="selAll" aria-label="Select all"></th><th>User</th><th>Email</th><th>Auth</th><th>Status</th><th>Groups</th><th>Roles</th><th>Last active</th></tr></thead>
+        <table><colgroup><col style="width:4%"><col style="width:15%"><col style="width:20%"><col style="width:12%"><col style="width:10%"><col style="width:19%"><col style="width:12%"><col style="width:8%"></colgroup>
+          <thead><tr><th class="chkcell"><input type="checkbox" id="selAll" aria-label="Select all"></th><th>User</th><th>Email</th><th>Identity provider</th><th>Status</th><th>Groups</th><th>Roles</th><th>Last active</th></tr></thead>
           <tbody>
             <tr data-go="user-access" data-status="active" data-name="Maria Hernandez"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Maria Hernandez</span></td><td><span style="display:inline-flex;align-items:center;gap:6px">maria.hernandez@acme.com <span class="vtag" aria-label="Verified"><i class="ti ti-check" style="font-size:12px"></i></span></span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td><span class="gcell"><span class="gtag">Platform engineering</span><span class="gtag">SOC tier 1</span><span class="gtag">Incident response</span><span class="gtag">Cloud infra</span><span class="gtag">Compliance</span><span class="gmore" tabindex="0" role="button" aria-label="Show more groups" style="display:none"><span class="gmcount">+0</span><span class="gpop"></span></span></span></td><td><span class="tag">soc-analyst</span></td><td>8d</td></tr>
 <tr data-status="active" data-name="Alex Zahn"><td class="chkcell"><input type="checkbox" class="rowchk"></td><td><span class="lname">Alex Zahn</span></td><td><span style="display:inline-flex;align-items:center;gap:6px">alex.zahn@acme.com <span class="vtag" aria-label="Verified"><i class="ti ti-check" style="font-size:12px"></i></span></span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></td><td><span style="color:var(--slate-300)">—</span></td><td><span class="tag">soc-analyst</span></td><td>2d</td></tr>
@@ -300,7 +301,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="user-access">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
           <div class="ugrid">
             <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
@@ -327,7 +328,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="user-roles">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
           <div class="ugrid">
             <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
@@ -355,7 +356,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 
       <div class="screen" data-screen="user-groups">
         <div class="crumb"><a data-go="users">Settings</a> <i>›</i> <a data-go="users">Users</a> <i>›</i> Maria Hernandez</div>
-        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="unlink">Unlink from identity provider</div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
+        <div class="phead"><div style="display:flex;align-items:center;gap:11px"><h1>Maria Hernandez</h1><span class="pill" style="background:#E8F7EE;color:#00A63E">Active</span></div><div class="actwrap" style="position:relative"><button class="btnD actbtn">Actions <i class="ti ti-chevron-down" style="font-size:14px;color:var(--slate-500)"></i></button><div class="actmenu"><div data-action="deactivate">Deactivate</div><div data-action="sendverify">Send verification email</div><div data-action="linkidp">Link to identity provider</div><div data-action="changepw">Change password</div><div class="amdiv"></div><div data-action="delete" class="danger"><i class="ti ti-trash" style="font-size:15px"></i>Delete</div></div></div></div>
         <div class="usum">
           <div class="ugrid">
             <div class="attr"><div class="lab">First name</div><div class="val">Maria <i class="ti ti-pencil act" aria-label="Edit"></i></div></div>
@@ -638,7 +639,7 @@ root.querySelectorAll('[data-action]').forEach(function(el){el.addEventListener(
   else if(a==='closeInvite'){root.querySelector('.overlay').style.display='none';resetInvite();}
   else if(a==='send'){if(el.disabled)return;root.querySelector('.overlay').style.display='none';resetInvite();priyaSent=true;show('users');applyUserFilter('invited');toast('Invite sent');}
   else if(a==='deactivate')toast('User deactivated');
-  else if(a==='unlink')toast('Unlinked from identity provider');
+  else if(a==='sendverify')toast('Verification email sent');else if(a==='linkidp')toast('Linked to identity provider');else if(a==='changepw')toast('Password reset email sent');
   else if(a==='delete'){openConfirm('Delete this user?','They will lose all access. This can\'t be undone.',function(){toast('User deleted');show('users');});}
   else if(a==='revoke'){var tr=el.closest('tr');if(tr)tr.setAttribute('data-revoked','1');applyUserFilter(FILTER);toast('Invite revoked');}
   var am=el.closest('.actmenu');if(am)am.style.display='none';
@@ -705,7 +706,7 @@ function makePolicyEditor(wrap){
     return '<div class="polcard">'+head+a+rs+'</div>';
   }
   function toJSON(){var s2=st.filter(function(s){return s.svc;}).map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});var resources=s.resMode==='all'?['*']:c.res.filter(function(t){return s.any[t];}).map(function(t){return 'arn:wlrm:'+c.ns+':*:acme:'+t+'/*';});return {Effect:s.effect,Action:actions,Resource:resources.length?resources:['*']};});return JSON.stringify({Version:'2026-01-01',Permissions:s2},null,2);}
-  function render(){if(view==='json'){vis.style.display='none';js.style.display='block';js.textContent=toJSON();return;}vis.style.display='block';js.style.display='none';vis.innerHTML=st.map(cardHtml).join('')+(st.some(function(s){return s.svc;})?'<button class="setbtn addperm" style="margin-top:4px"><i class="ti ti-plus" style="font-size:14px"></i> Add another service</button>':'');}
+  function render(){if(view==='json'){vis.style.display='none';js.style.display='block';js.textContent=toJSON();return;}vis.style.display='block';js.style.display='none';vis.innerHTML=st.map(cardHtml).join('')+(st.some(function(s){return s.svc;})?'<button class="setbtn addperm" style="margin-top:4px"><i class="ti ti-plus" style="font-size:14px"></i> Add permission</button>':'');}
   wrap.addEventListener('click',function(e){var t=e.target;
     var seg=t.closest('.polseg span[data-view]');if(seg){view=seg.dataset.view;wrap.querySelectorAll('.polseg span').forEach(function(x){x.classList.toggle('on',x.dataset.view===view);});render();return;}
     var add=t.closest('.addperm');if(add){st.push({svc:null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''});render();return;}
@@ -850,6 +851,7 @@ wireDlg('addToGroupBtn','addGroupOv',agPick,'agClose','agCancel','agAdd','Added 
 wireDlg('grpAddUsersBtn','addUsersOv',auPick,'auClose','auCancel','auAdd','Users added');
 wireDlg('grpAttachRoleBtn','attachRoleOv',atPick,'atClose','atCancel','atAdd','Role attached');
 var bclr=root.querySelector('#bulkClear');if(bclr)bclr.addEventListener('click',function(e){e.stopPropagation();root.querySelectorAll('[data-screen="users"] .rowchk').forEach(function(c){c.checked=false;});updateSel();});
+var IDP={'Maria Hernandez':'SSO','Alex Zahn':'Okta','ci-deploy-bot':'\u2014','Sofia Rossi':'Password','Priya Shah':'Password'};root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){var c=tr.children[3];if(c){var v=IDP[tr.dataset.name]||'\u2014';c.innerHTML=(v==='\u2014')?'<span style="color:var(--slate-300)">\u2014</span>':'<span style="color:var(--slate-700)">'+v+'</span>';}});
 show('users');resetInvite();
 </script>
 </body>
