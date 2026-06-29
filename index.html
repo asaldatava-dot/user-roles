@@ -676,7 +676,7 @@ var ALEVELS=['List','Read','Write','Permissions management','Tagging'];
 function clone(x){return JSON.parse(JSON.stringify(x));}
 function svcNames(svc){var a=[];ALEVELS.forEach(function(L){(CATALOG[svc].acts[L]||[]).forEach(function(n){a.push(svc+':'+n);});});return a;}
 function makePolicyEditor(wrap){
-  var st=[],view='visual';
+  var st=[{svc:null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''}],view='visual';
   wrap.innerHTML='<div class="poltop"><div style="font-size:14px;font-weight:600">Permissions</div><div class="seg2 polseg"><span data-view="visual" class="on">Visual</span><span data-view="json">JSON</span></div></div><div class="polvisual"></div><pre class="poljson" style="display:none"></pre>';
   var vis=wrap.querySelector('.polvisual'),js=wrap.querySelector('.poljson');
   function cardHtml(s,i){
@@ -695,11 +695,11 @@ function makePolicyEditor(wrap){
     return '<div class="polcard">'+head+a+rs+'</div>';
   }
   function toJSON(){var s2=st.filter(function(s){return s.svc;}).map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});var resources=s.resMode==='all'?['*']:c.res.filter(function(t){return s.any[t];}).map(function(t){return 'arn:wlrm:'+c.ns+':*:acme:'+t+'/*';});return {Effect:s.effect,Action:actions,Resource:resources.length?resources:['*']};});return JSON.stringify({Version:'2026-01-01',Permissions:s2},null,2);}
-  function render(){if(view==='json'){vis.style.display='none';js.style.display='block';js.textContent=toJSON();return;}vis.style.display='block';js.style.display='none';vis.innerHTML=st.map(cardHtml).join('')+'<button class="setbtn addperm" style="margin-top:4px"><i class="ti ti-plus" style="font-size:14px"></i> '+(st.length?'Add another service':'Add service')+'</button>';}
+  function render(){if(view==='json'){vis.style.display='none';js.style.display='block';js.textContent=toJSON();return;}vis.style.display='block';js.style.display='none';vis.innerHTML=st.map(cardHtml).join('')+(st.some(function(s){return s.svc;})?'<button class="setbtn addperm" style="margin-top:4px"><i class="ti ti-plus" style="font-size:14px"></i> Add another service</button>':'');}
   wrap.addEventListener('click',function(e){var t=e.target;
     var seg=t.closest('.polseg span[data-view]');if(seg){view=seg.dataset.view;wrap.querySelectorAll('.polseg span').forEach(function(x){x.classList.toggle('on',x.dataset.view===view);});render();return;}
     var add=t.closest('.addperm');if(add){st.push({svc:null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''});render();return;}
-    var rm=t.closest('[data-rm]');if(rm){st.splice(+rm.dataset.rm,1);render();return;}
+    var rm=t.closest('[data-rm]');if(rm){st.splice(+rm.dataset.rm,1);if(!st.length)st.push({svc:null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''});render();return;}
     var eff=t.closest('.eff');if(eff){st[+eff.dataset.i].effect=eff.dataset.eff;render();return;}
     var al=t.closest('.allact');if(al){var s=st[+al.dataset.i],ns=svcNames(s.svc),on=ns.every(function(n){return s.acts[n];});ns.forEach(function(n){if(on)delete s.acts[n];else s.acts[n]=1;});render();return;}
     var gc=t.closest('.grpcbx');if(gc){var s=st[+gc.dataset.i],ns=(CATALOG[s.svc].acts[gc.dataset.grp]||[]).map(function(n){return s.svc+':'+n;}),on=ns.every(function(n){return s.acts[n];});ns.forEach(function(n){if(on)delete s.acts[n];else s.acts[n]=1;});render();return;}
@@ -711,7 +711,7 @@ function makePolicyEditor(wrap){
   wrap.addEventListener('change',function(e){var sel=e.target.closest('.polsvc');if(sel){st[+sel.dataset.i]={svc:sel.value||null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''};render();}});
   wrap.addEventListener('input',function(e){var q=e.target.closest('.polq');if(q){var i=+q.dataset.i;st[i].q=q.value;render();var ni=wrap.querySelector('.polq[data-i="'+i+'"]');if(ni){ni.focus();ni.setSelectionRange(ni.value.length,ni.value.length);}}});
   render();
-  return {get:function(){return clone(st);},set:function(s){st=clone(s||[]);render();},reset:function(){st=[];render();}};
+  return {get:function(){return clone(st);},set:function(s){st=clone(s||[]);render();},reset:function(){st=[{svc:null,effect:'Allow',acts:{},resMode:'all',any:{},open:{},q:''}];render();}};
 }
 function renderPolicyRead(container,stmts,withVia){if(!container)return;container.innerHTML=stmts.map(function(s){var c=CATALOG[s.svc];var actions=Object.keys(s.acts).filter(function(k){return s.acts[k];});return '<div class="polcard"><div class="polcardh"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:14px;font-weight:600">'+c.label+'</span><span class="idtag">'+c.ns+'</span><span class="canlvl '+(s.effect==='Deny'?'deny':'edit')+'">'+s.effect+'</span></div><span class="cnt">'+actions.length+' action'+(actions.length===1?'':'s')+'</span></div><div style="padding:11px 14px">'+actions.map(function(n){return '<span class="vchip">'+n.split(':')[1]+'</span>';}).join('')+(withVia&&s.via?'<div style="font-size:12px;color:#94A3B8;margin-top:7px">via '+s.via+'</div>':'<div style="font-size:12px;color:#94A3B8;margin-top:7px">on '+(s.resMode==='all'?'all resources':'specific resources')+'</div>')+'</div></div>';}).join('')||'<div style="color:#94A3B8;padding:12px;font-size:13px">No permissions.</div>';}
 var polCreate=makePolicyEditor(root.querySelector('#polCreate'));
