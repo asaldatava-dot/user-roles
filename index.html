@@ -443,25 +443,21 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
       <div><div style="font-size:17px;font-weight:600">Create user</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add a user directly — they'll get a verification email.</div></div>
       <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" data-action="closeInvite" aria-label="Close"></i>
     </div>
-    <div class="dbody">
+    <div class="dbody" style="max-height:64vh;overflow:auto">
       <div style="font-size:14px;font-weight:600;margin-bottom:7px">Email</div>
-      <div style="border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:7px;margin-bottom:18px"><span class="chip">priya.shah@acme.com <i class="ti ti-x" style="font-size:12px;color:var(--slate-400)"></i></span></div>
-      <div style="font-size:14px;font-weight:600;margin-bottom:3px">What access should they have? <span style="color:var(--red-600)">·</span> <span style="font-weight:400;color:var(--slate-400)">required</span></div>
-      <div style="font-size:12px;color:var(--slate-400);margin-bottom:10px">Start from a role. Add groups under Custom for teams.</div>
-      <div class="acc-presets">
-        <div class="card on" data-preset="soc"><div class="rad"></div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:14px;font-weight:500">SOC analyst</div><span class="ttag"><i class="ti ti-key" style="font-size:11px"></i>Role</span></div><div style="font-size:12px;color:var(--slate-500);margin-top:3px">Read attacks, incidents &amp; sensitive data</div></div></div>
-        <div class="card" data-preset="plat"><div class="rad"></div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:14px;font-weight:500">Platform engineer</div><span class="ttag"><i class="ti ti-key" style="font-size:11px"></i>Role</span></div><div style="font-size:12px;color:var(--slate-500);margin-top:3px">Manage rules &amp; integrations, read API discovery</div></div></div>
-        <div class="card" data-preset="aud"><div class="rad"></div><div style="flex:1"><div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:14px;font-weight:500">Auditor</div><span class="ttag"><i class="ti ti-key" style="font-size:11px"></i>Role</span></div><div style="font-size:12px;color:var(--slate-500);margin-top:3px">Read-only across the organization</div></div></div>
-        <div class="card" data-preset="custom" style="border-style:dashed"><div class="rad"></div><div style="flex:1"><div style="font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px"><i class="ti ti-adjustments" style="font-size:15px;color:var(--slate-500)"></i>Custom access</div><div style="font-size:12px;color:var(--slate-500);margin-top:2px">Search and pick specific groups or roles</div></div></div>
-      </div>
-      <div class="acc-search" style="display:none">
-        <div class="acc-back" style="font-size:13px;color:var(--blue-600);cursor:pointer;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px"><i class="ti ti-chevron-left" style="font-size:14px"></i>Use a preset</div>
-        <div class="acc-toks" style="display:flex;flex-wrap:wrap;margin-bottom:8px"></div>
-        <div class="acc-field-wrap" style="position:relative">
-          <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" placeholder="Search groups or roles…" autocomplete="off"></div>
-          <div class="acc-pop" style="display:none;position:absolute;left:0;right:0;top:46px;background:#fff;border:1px solid var(--slate-300);border-radius:var(--radius-8);box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:180px;overflow:auto;z-index:20"></div>
-        </div>
-      </div>
+      <input class="finput" id="cuEmail" placeholder="name@acme.com" autocomplete="off" style="margin-bottom:20px">
+      <div style="font-size:14px;font-weight:600;margin-bottom:3px">Add to groups <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
+      <div style="font-size:12px;color:var(--slate-400);margin-bottom:8px">Most users join a group — they inherit its roles automatically.</div>
+      <div class="srch2"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="cuGQ" placeholder="Search groups…" autocomplete="off"></div>
+      <div class="cklist" id="cuGList" style="max-height:188px"></div>
+      <div class="foot" id="cuGCount"></div>
+      <div id="cuInherited" style="display:none;margin-top:10px"><div style="font-size:12px;color:var(--slate-500);margin-bottom:5px">Roles inherited from groups</div><div id="cuInheritedRoles"></div></div>
+      <div class="udiv" style="margin:16px 0"></div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:3px">Assign roles directly <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
+      <div style="font-size:12px;color:var(--slate-400);margin-bottom:8px">If the user isn't in a group, or needs extra access.</div>
+      <div class="srch2"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="cuRQ" placeholder="Search roles…" autocomplete="off"></div>
+      <div class="cklist" id="cuRList" style="max-height:188px"></div>
+      <div class="foot" id="cuRCount"></div>
     </div>
     <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px">
       <button class="btnD" data-action="closeInvite">Cancel</button>
@@ -546,25 +542,6 @@ function show(id){
   root.querySelector('.content').scrollTop=0;closeMenu();
 }
 function toast(m){var t=root.querySelector('.toast');t.querySelector('span').textContent=m;t.style.display='flex';clearTimeout(t._t);t._t=setTimeout(function(){t.style.display='none';},2600);}
-var presets=root.querySelector('.acc-presets'),searchA=root.querySelector('.acc-search'),accQ=root.querySelector('.acc-q'),accPop=root.querySelector('.acc-pop'),accToks=root.querySelector('.acc-toks'),fieldWrap=root.querySelector('.acc-field-wrap'),chosen={};
-function updateSend(){var s=root.querySelector('[data-action="send"]');var ok;if(searchA.style.display!=='none'){ok=Object.keys(chosen).length>0;}else{ok=!!root.querySelector('.acc-presets .card.on');}s.disabled=!ok;s.style.opacity=ok?'1':'.5';s.style.cursor=ok?'pointer':'not-allowed';}
-function renderToks(){accToks.innerHTML=Object.keys(chosen).map(function(k){var o=chosen[k];var sub=o.kind==='group'?'<span style="color:#94A3B8"> · '+o.r.split(',')[0].trim()+'</span>':'';return '<span class="chip">'+(o.kind==='group'?'<i class="ti ti-users-group" style="font-size:13px;color:#62748E"></i>':'')+'<span class="'+(o.kind==='role'?'mono':'')+'">'+o.l+'</span>'+sub+' <i class="ti ti-x" data-rm="'+k+'" style="font-size:12px;color:#94A3B8;cursor:pointer"></i></span>';}).join('');accToks.querySelectorAll('[data-rm]').forEach(function(x){x.addEventListener('click',function(){delete chosen[x.dataset.rm];renderToks();renderPop();updateSend();});});}
-function renderPop(){var s=(accQ.value||'').toLowerCase(),h='',gs=GROUPS.filter(function(g){return (g.l+' '+g.r).toLowerCase().indexOf(s)>-1&&!chosen['g:'+g.l];}),rs=ROLES.filter(function(r){return r.toLowerCase().indexOf(s)>-1&&!chosen['r:'+r];});
-  if(gs.length){h+='<div class="gh">Groups · roles included</div>';gs.forEach(function(g){h+='<div class="opt" data-k="g:'+g.l+'" data-l="'+g.l+'" data-kind="group" data-r="'+g.r+'"><div><div style="font-size:14px;display:flex;align-items:center;gap:6px"><i class="ti ti-users-group" style="font-size:14px;color:#62748E"></i>'+g.l+'</div><div style="font-size:12px;color:#94A3B8;margin-top:1px">grants '+g.r+'</div></div><span style="font-size:12px;color:#155DFC">Add</span></div>';});}
-  if(rs.length){h+='<div class="gh">Roles · assign directly</div>';rs.forEach(function(r){h+='<div class="opt" data-k="r:'+r+'" data-l="'+r+'" data-kind="role"><div style="font-weight:500">'+r+'</div><span style="font-size:12px;color:#155DFC">Add</span></div>';});}
-  if(!gs.length&&!rs.length)h='<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>';
-  accPop.innerHTML=h;accPop.querySelectorAll('.opt').forEach(function(el){el.addEventListener('mousedown',function(e){e.preventDefault();chosen[el.dataset.k]={l:el.dataset.l,kind:el.dataset.kind,r:el.dataset.r};accQ.value='';renderToks();renderPop();updateSend();accQ.focus();});});}
-function modePresets(){searchA.style.display='none';presets.style.display='block';accPop.style.display='none';}
-function modeSearch(){presets.style.display='none';searchA.style.display='block';renderPop();accPop.style.display='block';accQ.focus();}
-function resetInvite(){chosen={};renderToks();accQ.value='';modePresets();root.querySelectorAll('.acc-presets .card').forEach(function(x){x.classList.remove('on');});var d=root.querySelector('.acc-presets .card[data-preset="soc"]');if(d)d.classList.add('on');updateSend();}
-root.querySelectorAll('.acc-presets .card').forEach(function(c){c.addEventListener('click',function(){
-  if(c.dataset.preset==='custom'){root.querySelectorAll('.acc-presets .card').forEach(function(x){x.classList.remove('on');});modeSearch();updateSend();}
-  else{root.querySelectorAll('.acc-presets .card').forEach(function(x){x.classList.remove('on');});c.classList.add('on');updateSend();}
-});});
-root.querySelector('.acc-back').addEventListener('click',function(){chosen={};renderToks();accQ.value='';modePresets();root.querySelectorAll('.acc-presets .card').forEach(function(x){x.classList.remove('on');});var d=root.querySelector('.acc-presets .card[data-preset="soc"]');if(d)d.classList.add('on');updateSend();});
-accQ.addEventListener('focus',function(){accPop.style.display='block';renderPop();});
-accQ.addEventListener('input',function(){accPop.style.display='block';renderPop();});
-accQ.addEventListener('keydown',function(e){if(e.key==='Escape')accPop.style.display='none';});
 root.querySelectorAll('[data-go]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();show(el.dataset.go);});});
 root.querySelectorAll('.gmore').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var open=el.classList.contains('open');root.querySelectorAll('.gmore.open').forEach(function(x){x.classList.remove('open');});if(!open)el.classList.add('open');});});
 document.addEventListener('click',function(){root.querySelectorAll('.gmore.open').forEach(function(x){x.classList.remove('open');});});
@@ -587,7 +564,6 @@ root.querySelectorAll('.actbtn').forEach(function(b){b.addEventListener('click',
 var statusSel=root.querySelector('#statusSel'),statusMenu=root.querySelector('#statusMenu');
 statusSel.addEventListener('click',function(e){e.stopPropagation();statusMenu.style.display=statusMenu.style.display==='block'?'none':'block';});
 statusMenu.querySelectorAll('[data-filter]').forEach(function(it){it.addEventListener('click',function(e){e.stopPropagation();applyUserFilter(it.dataset.filter);statusMenu.style.display='none';});});
-document.addEventListener('mousedown',function(e){if(fieldWrap&&!fieldWrap.contains(e.target))accPop.style.display='none';});
 document.addEventListener('click',function(){closeMenu();});
 
 /* ---- create forms ---- */
@@ -681,7 +657,7 @@ var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#
 function groupSync(){syncCreate(groupName,root.querySelector('#groupIdPrev'),root.querySelector('#groupSlug'),root.querySelector('#groupArn'),createGroup,'group');}
 function makeCheckList(o){var chosen={};
   function renderChips(){if(!o.chips)return;var ks=Object.keys(chosen);o.chips.style.display=ks.length?'flex':'none';o.chips.innerHTML=ks.map(function(k){return '<span class="chip">'+k+' <i class="ti ti-x" data-rmk="'+k+'" style="font-size:12px;color:#94A3B8;cursor:pointer"></i></span>';}).join('');}
-  function render(){var q=(o.search.value||'').toLowerCase();var rows=o.items.filter(function(it){return o.text(it).toLowerCase().indexOf(q)>-1;});var ks=Object.keys(chosen).length,total=o.items.length;var ms=ks===0?'':(ks>=total?'on':'some');var hdr='<div class="clhdr" data-master><span class="cbx '+ms+'">'+(ms==='on'?'<i class="ti ti-check" style="font-size:10px"></i>':(ms==='some'?'<i class="ti ti-minus" style="font-size:10px"></i>':''))+'</span><span style="font-weight:500">'+(ms==='on'?'Unselect all':'Select all')+'</span><span style="margin-left:auto;color:var(--slate-500);font-size:12px">'+ks+' selected</span></div>';o.list.innerHTML=hdr+(rows.length?rows.map(function(it){var id=o.key(it);return '<label class="clrow" data-k="'+id+'"><span class="cbx '+(chosen[id]?'on':'')+'">'+(chosen[id]?'<i class="ti ti-check" style="font-size:10px"></i>':'')+'</span>'+o.row(it)+'</label>';}).join(''):'<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>');if(o.count)o.count.style.display='none';renderChips();}
+  function render(){var q=(o.search.value||'').toLowerCase();var rows=o.items.filter(function(it){return o.text(it).toLowerCase().indexOf(q)>-1;});var ks=Object.keys(chosen).length,total=o.items.length;var ms=ks===0?'':(ks>=total?'on':'some');var hdr='<div class="clhdr" data-master><span class="cbx '+ms+'">'+(ms==='on'?'<i class="ti ti-check" style="font-size:10px"></i>':(ms==='some'?'<i class="ti ti-minus" style="font-size:10px"></i>':''))+'</span><span style="font-weight:500">'+(ms==='on'?'Unselect all':'Select all')+'</span><span style="margin-left:auto;color:var(--slate-500);font-size:12px">'+ks+' selected</span></div>';o.list.innerHTML=hdr+(rows.length?rows.map(function(it){var id=o.key(it);return '<label class="clrow" data-k="'+id+'"><span class="cbx '+(chosen[id]?'on':'')+'">'+(chosen[id]?'<i class="ti ti-check" style="font-size:10px"></i>':'')+'</span>'+o.row(it)+'</label>';}).join(''):'<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>');if(o.count)o.count.style.display='none';renderChips();if(o.onChange)o.onChange(Object.keys(chosen));}
   o.list.addEventListener('click',function(e){var m=e.target.closest('[data-master]');if(m){var total=o.items.length,ks=Object.keys(chosen).length;if(ks>=total){Object.keys(chosen).forEach(function(k){delete chosen[k];});}else{o.items.forEach(function(it){chosen[o.key(it)]=1;});}render();return;}var r=e.target.closest('.clrow');if(!r)return;var id=r.dataset.k;if(chosen[id])delete chosen[id];else chosen[id]=1;render();});
   if(o.chips)o.chips.addEventListener('click',function(e){var x=e.target.closest('[data-rmk]');if(!x)return;e.stopPropagation();delete chosen[x.dataset.rmk];render();});
   o.search.addEventListener('input',render);render();
@@ -805,6 +781,12 @@ wireDlg('grpAddUsersBtn','addUsersOv',auPick,'auClose','auCancel','auAdd','Users
 wireDlg('grpAttachRoleBtn','attachRoleOv',atPick,'atClose','atCancel','atAdd','Role attached');
 var bclr=root.querySelector('#bulkClear');if(bclr)bclr.addEventListener('click',function(e){e.stopPropagation();root.querySelectorAll('[data-screen="users"] .rowchk').forEach(function(c){c.checked=false;});updateSel();});
 var IDP={'Maria Hernandez':'SSO','Alex Zahn':'Okta','ci-deploy-bot':'\u2014','Sofia Rossi':'Password','Priya Shah':'Password'};root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){var c=tr.children[3];if(c){var v=IDP[tr.dataset.name]||'\u2014';c.innerHTML=(v==='\u2014')?'<span style="color:var(--slate-300)">\u2014</span>':'<span style="color:var(--slate-700)">'+v+'</span>';}});
+function cuInherit(sel){var roles={};sel.forEach(function(nm){for(var i=0;i<GROUPS_FULL.length;i++){if(GROUPS_FULL[i].name===nm)GROUPS_FULL[i].roles.forEach(function(r){roles[r]=1;});}});var ks=Object.keys(roles);var box=root.querySelector('#cuInherited');if(box)box.style.display=ks.length?'block':'none';var rr=root.querySelector('#cuInheritedRoles');if(rr)rr.innerHTML=ks.map(function(r){return '<span class="tag">'+r+'</span>';}).join('');}
+var cuGroups=makeCheckList({search:root.querySelector('#cuGQ'),list:root.querySelector('#cuGList'),count:root.querySelector('#cuGCount'),items:GROUPS_FULL,key:function(g){return g.name;},text:function(g){return g.name;},onChange:cuInherit,row:function(g){return '<div style="flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:12px"><div style="min-width:0"><div style="font-weight:500">'+g.name+'</div><div style="margin-top:4px">'+(g.roles.length?g.roles.map(function(r){return '<span class="tag">'+r+'</span>';}).join(''):'<span style="color:var(--slate-400);font-size:12px">No roles</span>')+'</div></div><span style="color:var(--slate-400);font-size:12px;white-space:nowrap"><i class="ti ti-users" style="font-size:13px;vertical-align:-2px"></i> '+g.members+' members</span></div>';}});
+var cuRoles=makeCheckList({search:root.querySelector('#cuRQ'),list:root.querySelector('#cuRList'),count:root.querySelector('#cuRCount'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
+function updateSend(){var s=root.querySelector('[data-action="send"]');if(!s)return;var em=root.querySelector('#cuEmail');var ok=!!(em&&em.value.trim());s.disabled=!ok;s.style.opacity=ok?'1':'.5';s.style.cursor=ok?'pointer':'not-allowed';}
+function resetInvite(){var em=root.querySelector('#cuEmail');if(em)em.value='';cuGroups.reset();cuRoles.reset();updateSend();}
+var cuEmailEl=root.querySelector('#cuEmail');if(cuEmailEl)cuEmailEl.addEventListener('input',updateSend);
 show('users');resetInvite();
 </script>
 </body>
