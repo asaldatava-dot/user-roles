@@ -441,10 +441,14 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 <div class="overlay">
   <div class="dialog" style="max-width:600px">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200);background:#fff;border-radius:8px 8px 0 0">
-      <div><div style="font-size:17px;font-weight:600">Create user</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add a user directly — they'll get a verification email.</div></div>
+      <div><div style="font-size:17px;font-weight:600">Create user</div></div>
       <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" data-action="closeInvite" aria-label="Close"></i>
     </div>
     <div class="dbody">
+      <div style="font-size:14px;font-weight:500;margin-bottom:6px">First name</div>
+      <input class="finput" id="cuFirst" autocomplete="off" style="margin-bottom:18px">
+      <div style="font-size:14px;font-weight:500;margin-bottom:6px">Last name</div>
+      <input class="finput" id="cuLast" autocomplete="off" style="margin-bottom:18px">
       <div style="font-size:14px;font-weight:500;margin-bottom:7px">Email</div>
       <input class="finput" id="cuEmail" placeholder="name@acme.com" autocomplete="off" style="margin-bottom:20px">
       <div style="font-size:14px;font-weight:500;margin-bottom:3px">Add to groups <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
