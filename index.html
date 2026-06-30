@@ -71,7 +71,7 @@ tr[data-go]:hover .lname{color:var(--blue-600);text-decoration:underline}
 .info{display:flex;gap:9px;background:#F0F7FF;border:1px solid #BFD9F7;border-radius:var(--radius-8);padding:11px 13px;font-size:13px;color:#0C447C;line-height:1.5}
 .crow{display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
 .fgroup{margin-bottom:18px;max-width:560px}
-.flabel{font-size:14px;font-weight:600;margin-bottom:6px}
+.flabel{font-size:14px;font-weight:500;margin-bottom:6px}
 .fhint{font-size:12px;color:var(--slate-400);margin-bottom:8px}
 .finput,.fsel,.ftext{width:100%;font-family:inherit;font-size:14px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;color:var(--slate-900);background:#fff;outline:none}
 .finput:focus,.fsel:focus,.ftext:focus{border-color:var(--slate-400)}
@@ -235,6 +235,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 .gccard{background:#fff;border:1px solid var(--slate-200);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.05);padding:16px 18px}.srch2{display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:8px}#gmTable table{border:none;border-radius:0;overflow:visible}#gmTable thead th{position:sticky;top:0;z-index:1}
 #auList table{border:none;border-radius:0;overflow:visible}#auList thead th{position:sticky;top:0;z-index:1}
 #gcStacked{margin-top:28px;max-width:760px}#gcStacked .gctitle{margin-bottom:10px}
+.combo{position:relative}.comboinput{display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:8px;padding:9px 11px;box-shadow:0 1px 2px rgba(15,23,43,.04)}.comboinput:focus-within{border-color:var(--slate-400)}.comboinput input{border:none;outline:none;font-family:inherit;font-size:14px;flex:1;background:transparent;color:var(--slate-900)}.combopop{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid var(--slate-200);border-radius:8px;box-shadow:0 12px 30px -8px rgba(15,23,43,.25);max-height:264px;overflow:auto;z-index:30}.coopt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-top:1px solid var(--slate-100);cursor:pointer;font-size:14px}.coopt:first-child{border-top:none}.coopt:hover{background:var(--slate-50)}.coopt .nm{font-weight:500}.meta{color:var(--slate-400);font-size:12px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -438,26 +439,30 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 </div>
 
 <div class="overlay">
-  <div class="dialog">
+  <div class="dialog" style="max-width:600px">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--slate-200);background:#fff;border-radius:8px 8px 0 0">
       <div><div style="font-size:17px;font-weight:600">Create user</div><div style="font-size:13px;color:var(--slate-500);margin-top:2px">Add a user directly — they'll get a verification email.</div></div>
       <i class="ti ti-x" style="font-size:18px;color:var(--slate-500);cursor:pointer" data-action="closeInvite" aria-label="Close"></i>
     </div>
     <div class="dbody" style="max-height:64vh;overflow:auto">
-      <div style="font-size:14px;font-weight:600;margin-bottom:7px">Email</div>
+      <div style="font-size:14px;font-weight:500;margin-bottom:7px">Email</div>
       <input class="finput" id="cuEmail" placeholder="name@acme.com" autocomplete="off" style="margin-bottom:20px">
-      <div style="font-size:14px;font-weight:600;margin-bottom:3px">Add to groups <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
+      <div style="font-size:14px;font-weight:500;margin-bottom:3px">Add to groups <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
       <div style="font-size:12px;color:var(--slate-400);margin-bottom:8px">Most users join a group — they inherit its roles automatically.</div>
-      <div class="srch2"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="cuGQ" placeholder="Search groups…" autocomplete="off"></div>
-      <div class="cklist" id="cuGList" style="max-height:188px"></div>
-      <div class="foot" id="cuGCount"></div>
+      <div class="combo" id="cuGCombo">
+        <div class="toks" id="cuGToks" style="display:none;flex-wrap:wrap;margin-bottom:6px"></div>
+        <div class="comboinput"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input id="cuGQ" placeholder="Search groups…" autocomplete="off"></div>
+        <div class="combopop" id="cuGPop" style="display:none"></div>
+      </div>
       <div id="cuInherited" style="display:none;margin-top:10px"><div style="font-size:12px;color:var(--slate-500);margin-bottom:5px">Roles inherited from groups</div><div id="cuInheritedRoles"></div></div>
       <div class="udiv" style="margin:16px 0"></div>
-      <div style="font-size:14px;font-weight:600;margin-bottom:3px">Assign roles directly <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
+      <div style="font-size:14px;font-weight:500;margin-bottom:3px">Assign roles directly <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div>
       <div style="font-size:12px;color:var(--slate-400);margin-bottom:8px">If the user isn't in a group, or needs extra access.</div>
-      <div class="srch2"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="cuRQ" placeholder="Search roles…" autocomplete="off"></div>
-      <div class="cklist" id="cuRList" style="max-height:188px"></div>
-      <div class="foot" id="cuRCount"></div>
+      <div class="combo" id="cuRCombo">
+        <div class="toks" id="cuRToks" style="display:none;flex-wrap:wrap;margin-bottom:6px"></div>
+        <div class="comboinput"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input id="cuRQ" placeholder="Search roles…" autocomplete="off"></div>
+        <div class="combopop" id="cuRPop" style="display:none"></div>
+      </div>
     </div>
     <div style="display:flex;justify-content:flex-end;gap:9px;padding:13px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);border-radius:0 0 8px 8px">
       <button class="btnD" data-action="closeInvite">Cancel</button>
@@ -655,6 +660,16 @@ root.querySelectorAll('[data-ract]').forEach(function(el){el.addEventListener('c
 /* group create */
 var groupName=root.querySelector('#groupName'),createGroup=root.querySelector('#createGroup');
 function groupSync(){syncCreate(groupName,root.querySelector('#groupIdPrev'),root.querySelector('#groupSlug'),root.querySelector('#groupArn'),createGroup,'group');}
+function makeCombo(o){var chosen={};
+  function toks(){var ks=Object.keys(chosen);o.toks.style.display=ks.length?'flex':'none';o.toks.innerHTML=ks.map(function(k){return '<span class="chip">'+(o.icon?'<i class="ti '+o.icon+'" style="font-size:13px;color:var(--slate-500)"></i>':'')+k+' <i class="ti ti-x" data-rm="'+k+'" style="font-size:12px;color:var(--slate-400);cursor:pointer"></i></span>';}).join('');}
+  function pop(){var q=(o.input.value||'').toLowerCase();var rows=o.items.filter(function(it){return o.text(it).toLowerCase().indexOf(q)>-1;});o.pop.innerHTML=rows.length?rows.map(function(it){var id=o.key(it);var on=chosen[id];return '<div class="coopt" data-k="'+id+'"><span class="cbx '+(on?'on':'')+'">'+(on?'<i class="ti ti-check" style="font-size:10px"></i>':'')+'</span>'+o.row(it)+'</div>';}).join(''):'<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>';}
+  o.input.addEventListener('focus',function(){o.pop.style.display='block';pop();});
+  o.input.addEventListener('input',function(){o.pop.style.display='block';pop();});
+  o.input.addEventListener('keydown',function(e){if(e.key==='Escape')o.pop.style.display='none';});
+  o.pop.addEventListener('mousedown',function(e){var r=e.target.closest('.coopt');if(!r)return;e.preventDefault();var id=r.dataset.k;if(chosen[id])delete chosen[id];else chosen[id]=1;toks();pop();if(o.onChange)o.onChange(Object.keys(chosen));o.input.focus();});
+  o.toks.addEventListener('click',function(e){var x=e.target.closest('[data-rm]');if(!x)return;delete chosen[x.dataset.rm];toks();pop();if(o.onChange)o.onChange(Object.keys(chosen));});
+  document.addEventListener('mousedown',function(e){if(!o.combo.contains(e.target))o.pop.style.display='none';});
+  return {reset:function(){chosen={};o.input.value='';toks();o.pop.style.display='none';if(o.onChange)o.onChange([]);}};}
 function makeCheckList(o){var chosen={};
   function renderChips(){if(!o.chips)return;var ks=Object.keys(chosen);o.chips.style.display=ks.length?'flex':'none';o.chips.innerHTML=ks.map(function(k){return '<span class="chip">'+k+' <i class="ti ti-x" data-rmk="'+k+'" style="font-size:12px;color:#94A3B8;cursor:pointer"></i></span>';}).join('');}
   function render(){var q=(o.search.value||'').toLowerCase();var rows=o.items.filter(function(it){return o.text(it).toLowerCase().indexOf(q)>-1;});var ks=Object.keys(chosen).length,total=o.items.length;var ms=ks===0?'':(ks>=total?'on':'some');var hdr='<div class="clhdr" data-master><span class="cbx '+ms+'">'+(ms==='on'?'<i class="ti ti-check" style="font-size:10px"></i>':(ms==='some'?'<i class="ti ti-minus" style="font-size:10px"></i>':''))+'</span><span style="font-weight:500">'+(ms==='on'?'Unselect all':'Select all')+'</span><span style="margin-left:auto;color:var(--slate-500);font-size:12px">'+ks+' selected</span></div>';o.list.innerHTML=hdr+(rows.length?rows.map(function(it){var id=o.key(it);return '<label class="clrow" data-k="'+id+'"><span class="cbx '+(chosen[id]?'on':'')+'">'+(chosen[id]?'<i class="ti ti-check" style="font-size:10px"></i>':'')+'</span>'+o.row(it)+'</label>';}).join(''):'<div style="padding:12px;font-size:13px;color:#94A3B8">No matches</div>');if(o.count)o.count.style.display='none';renderChips();if(o.onChange)o.onChange(Object.keys(chosen));}
@@ -662,9 +677,9 @@ function makeCheckList(o){var chosen={};
   if(o.chips)o.chips.addEventListener('click',function(e){var x=e.target.closest('[data-rmk]');if(!x)return;e.stopPropagation();delete chosen[x.dataset.rmk];render();});
   o.search.addEventListener('input',render);render();
   return {reset:function(){chosen={};o.search.value='';render();}};}
-var ROLES_FULL=[{n:'dataplane-admin',t:'Default'},{n:'soc-analyst',t:'Managed'},{n:'incident-responder',t:'Default'},{n:'read-only-auditor',t:'Managed'},{n:'ai-governance',t:'Default'}];
+var ROLES_FULL=[{n:'dataplane-admin',t:'Default'},{n:'soc-analyst',t:'Managed'},{n:'incident-responder',t:'Default'},{n:'read-only-auditor',t:'Managed'},{n:'ai-governance',t:'Default'},{n:'billing-admin',t:'Managed'},{n:'api-developer',t:'Default'},{n:'security-auditor',t:'Managed'},{n:'network-admin',t:'Default'},{n:'data-engineer',t:'Default'}];
 var USERS_FULL=[{n:'Max TT',e:'max@tretyakov-ma.ru',s:'Enabled'},{n:'Test Guy',e:'test@tretyakov-ma.ru',s:'Enabled'},{n:'Andrey Morskov',e:'amorskov@wallarm.com',s:'Enabled'},{n:'Maria Hernandez',e:'maria.hernandez@acme.com',s:'Enabled'},{n:'Alex Zahn',e:'alex.zahn@acme.com',s:'Enabled'},{n:'Wen Li',e:'wen.li@acme.com',s:'Enabled'}];
-var GROUPS_FULL=[{name:'Platform engineering',roles:['dataplane-admin'],members:4},{name:'SOC tier 1',roles:['incident-responder'],members:14},{name:'Compliance',roles:['read-only-auditor'],members:7},{name:'AI safety',roles:['ai-governance'],members:3}];
+var GROUPS_FULL=[{name:'Platform engineering',roles:['dataplane-admin'],members:4},{name:'SOC tier 1',roles:['incident-responder'],members:14},{name:'Compliance',roles:['read-only-auditor'],members:7},{name:'AI safety',roles:['ai-governance'],members:3},{name:'Incident response',roles:['incident-responder'],members:9},{name:'Cloud infra',roles:['dataplane-admin'],members:6},{name:'Data platform',roles:['read-only-auditor'],members:5},{name:'Security ops',roles:['soc-analyst'],members:11},{name:'Finance',roles:['read-only-auditor'],members:4}];
 var grPick=makeCheckList({search:root.querySelector('#grQ'),list:root.querySelector('#grList'),count:root.querySelector('#grCount'),chips:root.querySelector('#grChips'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
 var gmPick=makeCheckList({search:root.querySelector('#gmQ'),list:root.querySelector('#gmList'),count:root.querySelector('#gmCount'),chips:root.querySelector('#gmChips'),items:USERS_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.e;},row:function(it){return '<span style="flex:1"><span>'+it.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+it.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+it.s+'</span>';}});
 var grPick2=makeCheckList({search:root.querySelector('#grQ2'),list:root.querySelector('#grList2'),count:root.querySelector('#grCount2'),chips:root.querySelector('#grChips2'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
@@ -782,8 +797,8 @@ wireDlg('grpAttachRoleBtn','attachRoleOv',atPick,'atClose','atCancel','atAdd','R
 var bclr=root.querySelector('#bulkClear');if(bclr)bclr.addEventListener('click',function(e){e.stopPropagation();root.querySelectorAll('[data-screen="users"] .rowchk').forEach(function(c){c.checked=false;});updateSel();});
 var IDP={'Maria Hernandez':'SSO','Alex Zahn':'Okta','ci-deploy-bot':'\u2014','Sofia Rossi':'Password','Priya Shah':'Password'};root.querySelectorAll('[data-screen="users"] tbody tr').forEach(function(tr){var c=tr.children[3];if(c){var v=IDP[tr.dataset.name]||'\u2014';c.innerHTML=(v==='\u2014')?'<span style="color:var(--slate-300)">\u2014</span>':'<span style="color:var(--slate-700)">'+v+'</span>';}});
 function cuInherit(sel){var roles={};sel.forEach(function(nm){for(var i=0;i<GROUPS_FULL.length;i++){if(GROUPS_FULL[i].name===nm)GROUPS_FULL[i].roles.forEach(function(r){roles[r]=1;});}});var ks=Object.keys(roles);var box=root.querySelector('#cuInherited');if(box)box.style.display=ks.length?'block':'none';var rr=root.querySelector('#cuInheritedRoles');if(rr)rr.innerHTML=ks.map(function(r){return '<span class="tag">'+r+'</span>';}).join('');}
-var cuGroups=makeCheckList({search:root.querySelector('#cuGQ'),list:root.querySelector('#cuGList'),count:root.querySelector('#cuGCount'),items:GROUPS_FULL,key:function(g){return g.name;},text:function(g){return g.name;},onChange:cuInherit,row:function(g){return '<div style="flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:12px"><div style="min-width:0"><div style="font-weight:500">'+g.name+'</div><div style="margin-top:4px">'+(g.roles.length?g.roles.map(function(r){return '<span class="tag">'+r+'</span>';}).join(''):'<span style="color:var(--slate-400);font-size:12px">No roles</span>')+'</div></div><span style="color:var(--slate-400);font-size:12px;white-space:nowrap"><i class="ti ti-users" style="font-size:13px;vertical-align:-2px"></i> '+g.members+' members</span></div>';}});
-var cuRoles=makeCheckList({search:root.querySelector('#cuRQ'),list:root.querySelector('#cuRList'),count:root.querySelector('#cuRCount'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
+var cuGroups=makeCombo({combo:root.querySelector('#cuGCombo'),input:root.querySelector('#cuGQ'),pop:root.querySelector('#cuGPop'),toks:root.querySelector('#cuGToks'),items:GROUPS_FULL,icon:'ti-users-group',key:function(g){return g.name;},text:function(g){return g.name;},onChange:cuInherit,row:function(g){return '<span class="nm">'+g.name+'</span> <span class="tag">'+(g.roles[0]||'')+'</span><span class="meta" style="margin-left:auto"><i class="ti ti-users" style="font-size:13px"></i> '+g.members+'</span>';}});
+var cuRoles=makeCombo({combo:root.querySelector('#cuRCombo'),input:root.querySelector('#cuRQ'),pop:root.querySelector('#cuRPop'),toks:root.querySelector('#cuRToks'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span class="nm">'+it.n+'</span><span class="pill" style="margin-left:auto">'+it.t+'</span>';}});
 function updateSend(){var s=root.querySelector('[data-action="send"]');if(!s)return;var em=root.querySelector('#cuEmail');var ok=!!(em&&em.value.trim());s.disabled=!ok;s.style.opacity=ok?'1':'.5';s.style.cursor=ok?'pointer':'not-allowed';}
 function resetInvite(){var em=root.querySelector('#cuEmail');if(em)em.value='';cuGroups.reset();cuRoles.reset();updateSend();}
 var cuEmailEl=root.querySelector('#cuEmail');if(cuEmailEl)cuEmailEl.addEventListener('input',updateSend);
