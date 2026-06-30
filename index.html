@@ -234,7 +234,7 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
 .amdiv{height:1px;background:var(--slate-200);margin:5px 0}
 .gccard{background:#fff;border:1px solid var(--slate-200);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.05);padding:16px 18px}.srch2{display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:var(--radius-8);padding:9px 11px;margin-bottom:8px}#gmTable table{border:none;border-radius:0;overflow:visible}#gmTable thead th{position:sticky;top:0;z-index:1}
 #auList table{border:none;border-radius:0;overflow:visible}#auList thead th{position:sticky;top:0;z-index:1}
-#gcStacked{margin-top:28px;max-width:760px}#gcStacked .gctitle{margin-bottom:10px}
+#gcStacked{margin-top:28px}#gcStacked .gctitle{margin-bottom:10px}
 .combo{position:relative}.comboinput{display:flex;align-items:center;gap:8px;border:1px solid var(--slate-300);border-radius:8px;padding:9px 11px;box-shadow:0 1px 2px rgba(15,23,43,.04)}.comboinput:focus-within{border-color:var(--slate-400)}.comboinput input{border:none;outline:none;font-family:inherit;font-size:14px;flex:1;background:transparent;color:var(--slate-900)}.combopop{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid var(--slate-200);border-radius:8px;box-shadow:0 12px 30px -8px rgba(15,23,43,.25);max-height:264px;overflow:auto;z-index:30}.coopt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-top:1px solid var(--slate-100);cursor:pointer;font-size:14px}.coopt:first-child{border-top:none}.coopt:hover{background:var(--slate-50)}.coopt .nm{font-family:'Geist',ui-sans-serif,system-ui,sans-serif;font-size:14px;font-weight:400;line-height:20px;color:var(--slate-900)}.meta{color:var(--slate-400);font-size:12px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .chip-lock{background:#EEF4FF;color:#1E40AF}.chip-lock .vg,.coopt .vg{color:var(--slate-400);font-size:11px;margin-left:4px}.coopt-lock{opacity:.6;cursor:default}
 .nbadge{display:inline-flex;align-items:center;justify-content:center;font-family:'Geist Mono',ui-monospace,monospace;font-weight:500;font-size:12px;line-height:1;background:var(--slate-100);color:var(--slate-700);border-radius:9999px;padding:3px 7px;min-width:20px;margin-left:8px}
@@ -420,11 +420,14 @@ td .msvc,td .tag,td .gtag,td .gmore,td .pill{height:20px;box-sizing:border-box;d
           </div>
         </div>
         <div id="gcStacked" style="display:none">
-          <div class="gctitle">Assign roles to the group</div>
-          <div class="srch2"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="grQ2" placeholder="Search roles…" autocomplete="off"></div>
-          <div class="chips" id="grChips2" style="display:none"></div>
-          <div class="cklist" id="grList2" style="max-height:240px"></div>
-          <div class="foot" id="grCount2" style="display:none"></div>
+          <div style="max-width:760px">
+            <div class="gctitle">Assign roles to the group</div>
+            <div class="combo" id="grCombo2">
+              <div class="toks" id="grToks2" style="display:none;flex-wrap:wrap;margin-bottom:6px"></div>
+              <div class="comboinput"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input id="grQ2" placeholder="Search roles…" autocomplete="off"></div>
+              <div class="combopop" id="grPop2" style="display:none"></div>
+            </div>
+          </div>
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:32px"><div class="gctitle" style="margin:0">Add users to the group <span style="font-weight:400;color:var(--slate-400)">(optional)</span></div><span class="foot" id="gmCount2" style="margin:0;white-space:nowrap"></span></div>
           <div class="srch2" style="margin-top:10px"><i class="ti ti-search" style="font-size:15px;color:var(--slate-500)"></i><input class="acc-q" id="gmQ2" placeholder="Search users…" autocomplete="off"></div>
           <div class="chips" id="gmChips2" style="display:none"></div>
@@ -688,7 +691,7 @@ var USERS_FULL=[{n:'Max TT',e:'max@tretyakov-ma.ru',s:'Enabled'},{n:'Test Guy',e
 var GROUPS_FULL=[{name:'Platform engineering',roles:['dataplane-admin'],members:4},{name:'SOC tier 1',roles:['incident-responder'],members:14},{name:'Compliance',roles:['read-only-auditor'],members:7},{name:'AI safety',roles:['ai-governance'],members:3},{name:'Incident response',roles:['incident-responder'],members:9},{name:'Cloud infra',roles:['dataplane-admin'],members:6},{name:'Data platform',roles:['read-only-auditor'],members:5},{name:'Security ops',roles:['soc-analyst'],members:11},{name:'Finance',roles:['read-only-auditor'],members:4}];
 var grPick=makeCheckList({search:root.querySelector('#grQ'),list:root.querySelector('#grList'),count:root.querySelector('#grCount'),chips:root.querySelector('#grChips'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
 var gmPick=makeCheckList({search:root.querySelector('#gmQ'),list:root.querySelector('#gmList'),count:root.querySelector('#gmCount'),chips:root.querySelector('#gmChips'),items:USERS_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.e;},row:function(it){return '<span style="flex:1"><span>'+it.n+'</span> <span style="color:#94A3B8;font-size:12.5px">'+it.e+'</span></span><span class="pill" style="background:#E8F7EE;color:#00A63E;font-size:11px">'+it.s+'</span>';}});
-var grPick2=makeCheckList({search:root.querySelector('#grQ2'),list:root.querySelector('#grList2'),count:root.querySelector('#grCount2'),chips:root.querySelector('#grChips2'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span style="flex:1;font-weight:500;font-size:13px">'+it.n+'</span><span class="pill" style="font-size:11px">'+it.t+'</span>';}});
+var grPick2=makeCombo({combo:root.querySelector('#grCombo2'),input:root.querySelector('#grQ2'),pop:root.querySelector('#grPop2'),toks:root.querySelector('#grToks2'),items:ROLES_FULL,key:function(it){return it.n;},text:function(it){return it.n+' '+it.t;},row:function(it){return '<span class="nm">'+it.n+'</span><span class="pill" style="margin-left:auto">'+it.t+'</span>';}});
 var USERS_RICH=[
 {n:'Maria Hernandez',e:'maria.hernandez@acme.com',idp:'SSO',st:'Enabled',groups:['Platform engineering','SOC tier 1'],roles:['soc-analyst'],la:'8d'},
 {n:'Alex Zahn',e:'alex.zahn@acme.com',idp:'Okta',st:'Enabled',groups:[],roles:['soc-analyst'],la:'2d'},
